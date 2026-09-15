@@ -180,8 +180,8 @@
         );
     };
 
-    // Top Category / Section Horizontal Pill Scroller for Parents
-    const MobilePillScroller = ({ onOpenParentHub }) => {
+    // Aesthetic Style Toggles Bar with Round Corners
+    const AestheticPillScroller = ({ onOpenParentHub }) => {
         const pills = [
             { label: 'Admissions 2026', icon: 'graduation-cap', href: '#admissions', highlight: true },
             { label: 'Sainik Wing', icon: 'shield', href: '#sainik-wing' },
@@ -194,10 +194,10 @@
         ];
 
         return (
-            <div className="w-full bg-slate-900/95 border-t border-b border-white/10 backdrop-blur-md px-3 py-2 overflow-x-auto no-scrollbar flex items-center gap-2 z-40">
+            <div className="w-full bg-[#071120]/95 border-t border-b border-white/10 backdrop-blur-md px-3 sm:px-6 py-2 overflow-x-auto no-scrollbar flex items-center gap-2 sm:gap-2.5 z-40 justify-start lg:justify-center shadow-lg">
                 <button 
                     onClick={onOpenParentHub}
-                    className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-400 text-slate-950 font-bold text-xs shadow hover:bg-amber-300 transition-colors"
+                    className="shrink-0 inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-bold text-xs shadow-md hover:scale-105 hover:brightness-110 transition-all"
                 >
                     <Icon name="sliders-horizontal" size={13} />
                     <span>Parent Quick-Hub</span>
@@ -206,10 +206,10 @@
                     <a
                         key={i}
                         href={pill.href}
-                        className={`shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-colors ${
+                        className={`shrink-0 inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all hover:scale-105 ${
                             pill.highlight 
-                                ? 'bg-royal-600/90 text-white border border-royal-400/40 shadow-sm' 
-                                : 'bg-white/10 text-slate-200 hover:bg-white/20 hover:text-white border border-white/5'
+                                ? 'bg-royal-600 text-white border border-royal-400/40 shadow-md hover:bg-royal-500 font-bold' 
+                                : 'bg-slate-800/80 hover:bg-slate-700 text-slate-200 hover:text-white border border-white/10 hover:border-white/25 shadow-sm'
                         }`}
                     >
                         <Icon name={pill.icon} size={13} />
@@ -220,9 +220,9 @@
         );
     };
 
-    // Redesigned Navbar with Parent Badges & Quick Hub
+    // Clean Minimalist Navbar with School Logo, Name, 3-Line Toggle, and Aesthetic Toggles Bar
     const Navbar = ({ scrolled, onOpenParentHub }) => {
-        const [isMobileOpen, setIsMobileOpen] = useState(false);
+        const [isMenuOpen, setIsMenuOpen] = useState(false);
 
         const navItems = [
             { name: 'Home', href: '#hero' },
@@ -243,9 +243,9 @@
                         ? 'bg-white/95 backdrop-blur-md shadow-md py-2.5 border-b border-slate-200/80' 
                         : 'bg-gradient-to-b from-navy-950/95 via-navy-950/80 to-navy-950/40 py-3 sm:py-4'
                 }`}>
-                    <div className="max-w-7xl mx-auto px-3 sm:6 lg:px-8">
-                        <div className="flex items-center justify-between gap-2">
-                            {/* School Brand */}
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="flex items-center justify-between">
+                            {/* School Brand: Logo + Name */}
                             <a href="#hero" className="flex items-center gap-2.5 sm:gap-3.5 group shrink-0">
                                 <div className="relative p-1 bg-white rounded-xl shadow-md transition-transform duration-300 group-hover:scale-105">
                                     <img 
@@ -256,156 +256,112 @@
                                     />
                                 </div>
                                 <div className="flex flex-col">
-                                    <span className={`text-sm sm:text-base font-extrabold tracking-tight font-serif leading-tight transition-colors ${
+                                    <span className={`text-base sm:text-lg font-extrabold tracking-tight font-serif leading-tight transition-colors ${
                                         scrolled ? 'text-navy-900' : 'text-white'
                                     }`}>
                                         Shri Swaroop School
                                     </span>
-                                    <div className="flex items-center gap-1.5">
-                                        <span className={`text-[9px] sm:text-[10px] font-bold tracking-[0.2em] uppercase ${
-                                            scrolled ? 'text-amber-600' : 'text-amber-400'
-                                        }`}>
-                                            BAGGAR • EST. 2001
-                                        </span>
-                                    </div>
+                                    <span className={`text-[9px] sm:text-[10px] font-bold tracking-[0.2em] uppercase ${
+                                        scrolled ? 'text-amber-600' : 'text-amber-400'
+                                    }`}>
+                                        BAGGAR • EST. 2001
+                                    </span>
                                 </div>
                             </a>
 
-                            {/* Desktop Navigation Links */}
-                            <div className="hidden lg:flex items-center space-x-1 xl:space-x-2">
-                                {navItems.map((item) => (
-                                    <a
-                                        key={item.name}
-                                        href={item.href}
-                                        className={`px-3 py-2 text-xs xl:text-sm font-semibold rounded-lg transition-all duration-200 ${
-                                            scrolled
-                                                ? 'text-slate-700 hover:text-royal-600 hover:bg-royal-50/80'
-                                                : 'text-slate-100 hover:text-white hover:bg-white/10'
-                                        }`}
-                                    >
-                                        {item.name}
-                                    </a>
-                                ))}
-
-                                <a
-                                    href={SAINIK_URL}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="ml-2 inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold rounded-lg border border-amber-400/40 bg-gradient-to-r from-amber-500 to-amber-600 text-white shadow-sm hover:shadow-md hover:scale-105 transition-all duration-300"
-                                >
-                                    <Icon name="shield" size={14} />
-                                    <span>Sainik Portal</span>
-                                    <Icon name="external-link" size={12} />
-                                </a>
-
-                                <a
-                                    href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hello%20Shri%20Swaroop%20Public%20School,%20I%20would%20like%20to%20enquire%20about%20admissions.`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="ml-2 inline-flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-lg bg-royal-600 text-white hover:bg-royal-700 shadow-md transition-all"
-                                >
-                                    <Icon name="message-square" size={14} />
-                                    <span>Apply / Enquire</span>
-                                </a>
-                            </div>
-
-                            {/* Enhanced Mobile Header Navigation with Clear Badges */}
-                            <div className="lg:hidden flex items-center gap-1.5 sm:gap-2 shrink-0">
-                                <a
-                                    href="#admissions"
-                                    className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-amber-400 text-slate-950 text-[11px] font-bold shadow hover:bg-amber-300 transition-colors"
-                                >
-                                    <Icon name="graduation-cap" size={13} />
-                                    <span>Admissions</span>
-                                </a>
-
-                                <button
-                                    onClick={onOpenParentHub}
-                                    className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-royal-600 text-white text-[11px] font-bold shadow hover:bg-royal-700 transition-colors"
-                                >
-                                    <Icon name="layout-grid" size={13} />
-                                    <span>Explore</span>
-                                </button>
-
-                                <button
-                                    onClick={() => setIsMobileOpen(!isMobileOpen)}
-                                    aria-label="Toggle navigation drawer"
-                                    className={`p-2 rounded-lg border transition-colors ${
-                                        scrolled
-                                            ? 'border-slate-300 text-slate-800 hover:bg-slate-100'
-                                            : 'border-white/20 text-white hover:bg-white/10'
-                                    }`}
-                                >
-                                    <Icon name={isMobileOpen ? "x" : "menu"} size={18} />
-                                </button>
-                            </div>
+                            {/* 3-Line Corner Option (Toggle Menu Button) - Works on Laptop & Mobile */}
+                            <button
+                                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                                aria-label="Toggle navigation menu"
+                                className={`p-2 sm:p-2.5 rounded-xl border transition-all duration-200 flex items-center justify-center hover:scale-105 ${
+                                    scrolled
+                                        ? 'border-slate-300 text-slate-800 hover:bg-slate-100 hover:border-slate-400 shadow-sm'
+                                        : 'border-white/20 text-white hover:bg-white/10 hover:border-white/30 backdrop-blur-sm'
+                                }`}
+                            >
+                                <Icon name={isMenuOpen ? "x" : "menu"} size={22} />
+                            </button>
                         </div>
                     </div>
                 </nav>
 
-                {/* Top Category Sticky Pill Bar visible on mobile */}
-                <MobilePillScroller onOpenParentHub={onOpenParentHub} />
+                {/* Aesthetic Rounded Pill Toggles Bar */}
+                <AestheticPillScroller onOpenParentHub={onOpenParentHub} />
 
-                {/* Mobile Full Screen Drawer */}
-                {isMobileOpen && (
-                    <div className="fixed inset-0 z-50 bg-navy-950/98 backdrop-blur-2xl lg:hidden flex flex-col pt-24 pb-20 px-6 overflow-y-auto">
-                        <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
-                            <div>
-                                <h3 className="text-lg font-serif font-bold text-white">Campus Directory</h3>
-                                <p className="text-xs text-amber-400">Senior Secondary • Baggar, Rajasthan</p>
-                            </div>
-                            <button 
-                                onClick={() => setIsMobileOpen(false)}
-                                className="p-2 rounded-xl bg-white/10 text-white"
-                            >
-                                <Icon name="x" size={20} />
-                            </button>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-2 mb-6">
-                            <a 
-                                href={`tel:${WHATSAPP_NUMBER}`}
-                                className="flex items-center justify-center gap-2 py-3 rounded-xl bg-royal-600 text-white font-bold text-xs shadow"
-                            >
-                                <Icon name="phone-call" size={15} />
-                                <span>Call Helpdesk</span>
-                            </a>
-                            <a 
-                                href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hello!%20Admission%20enquiry%20for%20Shri%20Swaroop%20Public%20School.`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow"
-                            >
-                                <i className="fa-brands fa-whatsapp text-sm"></i>
-                                <span>WhatsApp Us</span>
-                            </a>
-                        </div>
-
-                        <div className="flex flex-col space-y-2 mb-6">
-                            {navItems.map((item) => (
-                                <a
-                                    key={item.name}
-                                    href={item.href}
-                                    onClick={() => setIsMobileOpen(false)}
-                                    className="flex items-center justify-between px-4 py-3 text-base font-semibold text-slate-100 hover:text-amber-400 hover:bg-white/5 rounded-xl transition-all border border-white/5"
+                {/* Slide-out Navigation Drawer - Opens on both Mobile and Laptop */}
+                {isMenuOpen && (
+                    <div className="fixed inset-0 z-50 flex justify-end bg-navy-950/80 backdrop-blur-sm">
+                        <div onClick={() => setIsMenuOpen(false)} className="fixed inset-0 cursor-pointer"></div>
+                        
+                        <div className="relative w-full max-w-md bg-navy-950 border-l border-white/10 h-full flex flex-col pt-6 pb-8 px-6 sm:px-8 overflow-y-auto z-10 shadow-2xl">
+                            <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
+                                <div className="flex items-center gap-3">
+                                    <div className="p-1.5 bg-white rounded-xl shadow">
+                                        <img 
+                                            src="/images/logo.png" 
+                                            alt="School Logo" 
+                                            className="h-9 w-9 object-contain rounded-lg"
+                                        />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-base font-serif font-bold text-white leading-tight">Shri Swaroop School</h3>
+                                        <p className="text-[10px] text-amber-400 font-bold uppercase tracking-widest mt-0.5">Senior Secondary • Baggar</p>
+                                    </div>
+                                </div>
+                                <button 
+                                    onClick={() => setIsMenuOpen(false)}
+                                    className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors"
+                                    aria-label="Close menu"
                                 >
-                                    <span>{item.name}</span>
-                                    <Icon name="chevron-right" size={16} className="text-slate-500" />
-                                </a>
-                            ))}
-                        </div>
+                                    <Icon name="x" size={20} />
+                                </button>
+                            </div>
 
-                        <div className="pt-2 flex flex-col gap-2.5">
-                            <a
-                                href={SAINIK_URL}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-lg text-sm"
-                            >
-                                <Icon name="shield" size={16} />
-                                <span>Visit Sainik Military Wing</span>
-                                <Icon name="external-link" size={14} />
-                            </a>
+                            <div className="grid grid-cols-2 gap-2.5 mb-6">
+                                <a 
+                                    href={`tel:${WHATSAPP_NUMBER}`}
+                                    className="flex items-center justify-center gap-2 py-3 rounded-xl bg-royal-600 hover:bg-royal-500 text-white font-bold text-xs shadow transition-colors"
+                                >
+                                    <Icon name="phone-call" size={15} />
+                                    <span>Call Helpdesk</span>
+                                </a>
+                                <a 
+                                    href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hello!%20Admission%20enquiry%20for%20Shri%20Swaroop%20Public%20School.`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow transition-colors"
+                                >
+                                    <i className="fa-brands fa-whatsapp text-sm"></i>
+                                    <span>WhatsApp Us</span>
+                                </a>
+                            </div>
+
+                            <div className="flex flex-col space-y-1.5 mb-6">
+                                {navItems.map((item) => (
+                                    <a
+                                        key={item.name}
+                                        href={item.href}
+                                        onClick={() => setIsMenuOpen(false)}
+                                        className="flex items-center justify-between px-4 py-3 text-sm font-semibold text-slate-100 hover:text-amber-400 hover:bg-white/5 rounded-xl transition-all border border-white/5"
+                                    >
+                                        <span>{item.name}</span>
+                                        <Icon name="chevron-right" size={16} className="text-slate-500" />
+                                    </a>
+                                ))}
+                            </div>
+
+                            <div className="pt-2 flex flex-col gap-2.5 mt-auto">
+                                <a
+                                    href={SAINIK_URL}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-lg text-sm hover:scale-[1.02] transition-all"
+                                >
+                                    <Icon name="shield" size={16} />
+                                    <span>Visit Sainik Military Wing</span>
+                                    <Icon name="external-link" size={14} />
+                                </a>
+                            </div>
                         </div>
                     </div>
                 )}
@@ -561,10 +517,88 @@
         );
     };
 
+    // Dashboard Quick Admission Enquiry Form
+    const DashboardEnquiryForm = () => {
+        const [formState, setFormState] = useState({ name: '', phone: '', grade: '' });
+        const [submitted, setSubmitted] = useState(false);
+
+        const handleSubmit = (e) => {
+            e.preventDefault();
+            if (!formState.phone) return;
+            setSubmitted(true);
+            const msg = `Hello Shri Swaroop Public School! New Admission Enquiry:%0A- Name: ${encodeURIComponent(formState.name || 'Parent/Student')}%0A- Phone: ${encodeURIComponent(formState.phone)}%0A- Class: ${encodeURIComponent(formState.grade || 'Not specified')}`;
+            setTimeout(() => {
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+            }, 600);
+        };
+
+        return (
+            <div className="p-3.5 sm:p-4 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-xl space-y-2.5">
+                <div className="flex items-center justify-between pb-1.5 border-b border-white/10">
+                    <div className="flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                        <h4 className="text-xs font-bold font-serif text-white">Admission Enquiry</h4>
+                    </div>
+                    <span className="text-[9px] font-bold uppercase tracking-wider text-amber-300 bg-amber-400/20 px-2 py-0.5 rounded-full">2026-27</span>
+                </div>
+
+                {submitted ? (
+                    <div className="py-3 text-center space-y-1.5">
+                        <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 mx-auto flex items-center justify-center">
+                            <Icon name="check" size={16} />
+                        </div>
+                        <div className="text-xs font-bold text-white">Enquiry Received!</div>
+                        <p className="text-[10px] text-slate-300">Connecting you directly with our admissions desk on WhatsApp...</p>
+                    </div>
+                ) : (
+                    <form onSubmit={handleSubmit} className="space-y-2 text-left">
+                        <input 
+                            type="text"
+                            placeholder="Student / Parent Name"
+                            value={formState.name}
+                            onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                            className="w-full px-3 py-1.5 text-xs rounded-xl bg-slate-900/80 border border-white/15 text-white placeholder-slate-400 focus:outline-none focus:border-amber-400 transition-colors"
+                        />
+                        <div className="grid grid-cols-2 gap-1.5">
+                            <input 
+                                type="tel"
+                                required
+                                placeholder="Phone No. *"
+                                value={formState.phone}
+                                onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
+                                className="w-full px-2.5 py-1.5 text-xs rounded-xl bg-slate-900/80 border border-white/15 text-white placeholder-slate-400 focus:outline-none focus:border-amber-400 transition-colors"
+                            />
+                            <select
+                                value={formState.grade}
+                                onChange={(e) => setFormState({ ...formState, grade: e.target.value })}
+                                className="w-full px-2 py-1.5 text-xs rounded-xl bg-slate-900/80 border border-white/15 text-white focus:outline-none focus:border-amber-400 transition-colors"
+                            >
+                                <option value="" className="bg-slate-900 text-slate-400">Class</option>
+                                <option value="Nursery-KG" className="bg-slate-900 text-white">Nursery - KG</option>
+                                <option value="Class 1-5" className="bg-slate-900 text-white">Class 1 to 5</option>
+                                <option value="Class 6-8" className="bg-slate-900 text-white">Class 6 to 8</option>
+                                <option value="Class 9-10" className="bg-slate-900 text-white">Class 9 & 10</option>
+                                <option value="Class 11-12" className="bg-slate-900 text-white">Class 11 & 12</option>
+                                <option value="Sainik Wing" className="bg-slate-900 text-white">Sainik Wing</option>
+                            </select>
+                        </div>
+                        <button 
+                            type="submit"
+                            className="w-full flex items-center justify-center gap-1.5 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-bold text-xs shadow-md transition-all hover:scale-[1.01]"
+                        >
+                            <span>Submit Enquiry</span>
+                            <Icon name="arrow-right" size={12} />
+                        </button>
+                    </form>
+                )}
+            </div>
+        );
+    };
+
     // Hero Section Optimized for Mobile Portrait (~390px)
     const HeroSection = () => {
         return (
-            <header id="hero" className="relative min-h-[85vh] sm:min-h-screen flex items-center justify-center overflow-hidden bg-navy-950 pt-28 sm:pt-24 pb-12 sm:pb-20">
+            <header id="hero" className="relative min-h-[85vh] sm:min-h-screen flex items-center justify-center overflow-hidden bg-navy-950 pt-40 sm:pt-44 lg:pt-48 pb-12 sm:pb-20">
                 <div className="absolute inset-0 z-0">
                     <img 
                         src="/images/schoolimage.png" 
@@ -634,33 +668,34 @@
                         </div>
                     </div>
 
-                    {/* Floating Architectural Badge Card */}
-                    <div className="hidden lg:block w-80">
-                        <div className="glass-dark p-6 rounded-3xl border border-white/20 shadow-2xl space-y-4">
-                            <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-400/30 flex items-center justify-center text-amber-400">
-                                    <Icon name="compass" size={24} />
+                    {/* Floating Architectural Badge Card with Dashboard Enquiry Form */}
+                    <div className="hidden lg:block w-80 xl:w-88">
+                        <div className="glass-dark p-5 rounded-3xl border border-white/20 shadow-2xl space-y-3.5">
+                            <div className="flex items-center justify-between pb-2 border-b border-white/10">
+                                <div className="flex items-center gap-2.5">
+                                    <div className="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-400/30 flex items-center justify-center text-amber-400">
+                                        <Icon name="compass" size={16} />
+                                    </div>
+                                    <div>
+                                        <div className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold leading-none">Location</div>
+                                        <div className="text-xs font-bold text-white mt-0.5">Baggar, Rajasthan</div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <div className="text-xs uppercase tracking-wider text-slate-400 font-semibold">Location</div>
-                                    <div className="text-sm font-bold text-white">Baggar, Rajasthan</div>
+                                <div className="text-[10px] font-bold text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded-full flex items-center gap-1">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                    <span>Open</span>
                                 </div>
                             </div>
-                            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
-                                <div className="text-xs font-semibold text-amber-400 flex items-center gap-1.5">
-                                    <Icon name="bell" size={14} />
-                                    <span>Admission Notice</span>
-                                </div>
-                                <p className="text-xs text-slate-300 leading-relaxed">
-                                    Enrollment is open for Nursery to IX & XI. Connect with our administrative desk today.
-                                </p>
-                            </div>
+
+                            {/* Replaced Admission Notice with Interactive Quick Enquiry Form */}
+                            <DashboardEnquiryForm />
+
                             <a 
                                 href="#contact" 
-                                className="flex items-center justify-between text-xs font-bold text-royal-300 hover:text-white pt-2 group"
+                                className="flex items-center justify-between text-[11px] font-bold text-royal-300 hover:text-white pt-1 group"
                             >
                                 <span>View Campus & Route</span>
-                                <Icon name="arrow-right" size={14} className="group-hover:translate-x-1 transition-transform" />
+                                <Icon name="arrow-right" size={13} className="group-hover:translate-x-1 transition-transform" />
                             </a>
                         </div>
                     </div>
@@ -970,43 +1005,40 @@
         );
     };
 
+    // Compact Shrunk Campus Life Section
     const CampusLifeSection = () => {
         const activitiesData = [
-            { title: 'Sports Excellence', desc: 'From athletics to field games, we nurture stamina, strategy, and sportsmanship.', icon: 'activity', badge: 'Physical Fitness' },
-            { title: 'Cultural Events', desc: 'Music, dance, and annual celebrations that celebrate vibrant Indian traditions and artistic talents.', icon: 'music', badge: 'Arts & Culture' },
-            { title: 'Science & Technology', desc: 'Exhibitions, science fairs, and practical explorations to ignite youthful curiosity and invention.', icon: 'cpu', badge: 'Innovation' },
-            { title: 'Art & Craft', desc: 'Expressive studios encouraging painting, visual sketches, and creative spatial design.', icon: 'palette', badge: 'Creativity' },
-            { title: 'Debate & Literature', desc: 'Developing communication fluency, oratory clarity, and expressive self-assurance.', icon: 'message-circle', badge: 'Public Speaking' },
-            { title: 'Community Service & Scouts', desc: 'Active scout units fostering empathy, civic discipline, and volunteer initiatives.', icon: 'heart', badge: 'Empathy' },
+            { title: 'Sports Excellence', desc: 'From athletics to field games, stamina, strategy, and sportsmanship.', icon: 'activity', badge: 'Fitness' },
+            { title: 'Cultural Events', desc: 'Music, dance, and annual celebrations honoring rich Indian traditions.', icon: 'music', badge: 'Arts' },
+            { title: 'Science & Tech', desc: 'Exhibitions and hands-on explorations that ignite youthful curiosity.', icon: 'cpu', badge: 'Innovation' },
+            { title: 'Art & Craft', desc: 'Expressive studios for painting, visual sketching, and creative design.', icon: 'palette', badge: 'Creativity' },
+            { title: 'Debate & Literature', desc: 'Developing communication fluency, oratory clarity, and poise.', icon: 'message-circle', badge: 'Oratory' },
+            { title: 'Scouts & Cadets', desc: 'Active scout units fostering empathy, civic discipline, and service.', icon: 'heart', badge: 'Discipline' },
         ];
 
         return (
-            <section id="campus-life" className="py-16 sm:py-24 lg:py-32 bg-slate-50/70 border-t border-slate-200">
+            <section id="campus-life" className="py-10 sm:py-14 bg-slate-50/70 border-t border-slate-200">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <SectionHeading 
                         badge="Co-Curricular Realm" 
                         title="Life at Shri Swaroop" 
-                        subtitle="A dynamic campus experience where passion, talent, and camaraderie blossom every single day."
+                        subtitle="A dynamic campus experience where passion, talent, and camaraderie blossom."
                     />
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3.5">
                         {activitiesData.map((act, idx) => (
-                            <div key={idx} className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 border border-slate-200 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between">
+                            <div key={idx} className="bg-white rounded-2xl p-3.5 sm:p-4 border border-slate-200/90 shadow-sm hover:shadow-md transition-all flex flex-col justify-between hover:-translate-y-0.5">
                                 <div>
-                                    <div className="flex items-center justify-between mb-4 sm:mb-6">
-                                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-royal-50 text-royal-600 flex items-center justify-center">
-                                            <Icon name={act.icon} size={22} />
+                                    <div className="flex items-center justify-between mb-2 sm:mb-2.5">
+                                        <div className="w-8 h-8 rounded-lg bg-royal-50 text-royal-600 flex items-center justify-center">
+                                            <Icon name={act.icon} size={16} />
                                         </div>
-                                        <span className="text-[10px] sm:text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 uppercase tracking-wider">
+                                        <span className="text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 uppercase tracking-wider">
                                             {act.badge}
                                         </span>
                                     </div>
-                                    <h3 className="text-lg sm:text-xl font-bold font-serif text-slate-900 mb-1 sm:mb-2">{act.title}</h3>
-                                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">{act.desc}</p>
-                                </div>
-                                <div className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-slate-100 flex items-center gap-2 text-[11px] sm:text-xs font-semibold text-slate-400">
-                                    <Icon name="check" size={13} className="text-emerald-500" />
-                                    <span>Active School Program</span>
+                                    <h3 className="text-xs sm:text-sm font-bold font-serif text-slate-900 mb-1 leading-snug">{act.title}</h3>
+                                    <p className="text-[11px] text-slate-500 leading-snug line-clamp-2">{act.desc}</p>
                                 </div>
                             </div>
                         ))}
@@ -1428,57 +1460,66 @@
         );
     };
 
+    // Compact Shrunk Mission, Vision & Core Values Section
     const MissionVisionSection = () => {
         const values = [
-            { title: 'Integrity', desc: 'Fostering uncompromised truthfulness and ethical clarity.', icon: 'shield-check' },
-            { title: 'Empathy', desc: 'Understanding diverse perspectives and caring for our community.', icon: 'heart' },
-            { title: 'Character', desc: 'Instilling mental fortitude, self-respect, and humility.', icon: 'award' },
-            { title: 'Leadership', desc: 'Inspiring students to take initiative and lead with purpose.', icon: 'compass' },
-            { title: 'Learning', desc: 'Cultivating a lifelong passion for curiosity and knowledge.', icon: 'book-open' },
-            { title: 'Responsibility', desc: 'Embracing accountability toward society, family, and country.', icon: 'check-circle' }
+            { title: 'Integrity', desc: 'Truthfulness and ethics.', icon: 'shield-check' },
+            { title: 'Empathy', desc: 'Caring for community.', icon: 'heart' },
+            { title: 'Character', desc: 'Fortitude & humility.', icon: 'award' },
+            { title: 'Leadership', desc: 'Initiative with purpose.', icon: 'compass' },
+            { title: 'Learning', desc: 'Passion for curiosity.', icon: 'book-open' },
+            { title: 'Responsibility', desc: 'Civic accountability.', icon: 'check-circle' }
         ];
 
         return (
-            <section id="values" className="py-16 sm:py-24 lg:py-32 bg-slate-50 border-t border-slate-200">
+            <section id="values" className="py-10 sm:py-14 bg-slate-50 border-t border-slate-200">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <SectionHeading 
                         badge="Foundational Guiding Stars" 
                         title="Mission, Vision & Core Values" 
-                        subtitle="The principles that guide every classroom lesson, administrative decision, and student interaction."
+                        subtitle="The timeless principles guiding every lesson, decision, and student interaction."
                     />
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 mb-8 sm:mb-16">
-                        <div className="p-6 sm:p-10 rounded-2xl sm:rounded-3xl bg-white border border-slate-200 shadow-sm">
-                            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-royal-100 text-royal-700 flex items-center justify-center mb-4 sm:mb-6">
-                                <Icon name="target" size={22} />
+                    {/* Compact Side-by-Side Mission & Vision Cards */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-5 mb-5 sm:mb-7">
+                        <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex items-start gap-3.5">
+                            <div className="w-9 h-9 rounded-xl bg-royal-100 text-royal-700 flex items-center justify-center shrink-0 mt-0.5">
+                                <Icon name="target" size={18} />
                             </div>
-                            <span className="text-xs font-bold text-royal-600 uppercase tracking-widest">Our Mission</span>
-                            <h3 className="text-xl sm:text-2xl font-bold font-serif text-slate-900 mt-1 mb-2 sm:mb-4">Transformative Education</h3>
-                            <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
-                                To provide a transformative education that fosters intellectual curiosity, critical thinking, and a lifelong passion for learning.
-                            </p>
+                            <div>
+                                <span className="text-[10px] font-bold text-royal-600 uppercase tracking-widest">Our Mission</span>
+                                <h3 className="text-sm sm:text-base font-bold font-serif text-slate-900 mt-0.5 mb-1">Transformative Education</h3>
+                                <p className="text-xs text-slate-600 leading-relaxed">
+                                    To provide a transformative education that fosters intellectual curiosity, critical thinking, and lifelong passion for learning.
+                                </p>
+                            </div>
                         </div>
 
-                        <div className="p-6 sm:p-10 rounded-2xl sm:rounded-3xl bg-white border border-slate-200 shadow-sm">
-                            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center mb-4 sm:mb-6">
-                                <Icon name="eye" size={22} />
+                        <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/90 shadow-sm flex items-start gap-3.5">
+                            <div className="w-9 h-9 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
+                                <Icon name="eye" size={18} />
                             </div>
-                            <span className="text-xs font-bold text-amber-600 uppercase tracking-widest">Our Vision</span>
-                            <h3 className="text-xl sm:text-2xl font-bold font-serif text-slate-900 mt-1 mb-2 sm:mb-4">Recognized Excellence</h3>
-                            <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
-                                To be a recognized leader in education, honored for academic excellence and the development of compassionate, responsible citizens.
-                            </p>
+                            <div>
+                                <span className="text-[10px] font-bold text-amber-600 uppercase tracking-widest">Our Vision</span>
+                                <h3 className="text-sm sm:text-base font-bold font-serif text-slate-900 mt-0.5 mb-1">Recognized Excellence</h3>
+                                <p className="text-xs text-slate-600 leading-relaxed">
+                                    To be a recognized leader in education, honored for academic excellence and developing compassionate, responsible citizens.
+                                </p>
+                            </div>
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
+                    {/* Compact Core Values Chips */}
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3">
                         {values.map((v, i) => (
-                            <div key={i} className="p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-white border border-slate-200/80">
-                                <div className="text-royal-600 mb-2">
-                                    <Icon name={v.icon} size={20} />
+                            <div key={i} className="p-2.5 sm:p-3 rounded-xl bg-white border border-slate-200/80 flex items-center gap-2 hover:border-royal-300 transition-colors shadow-xs">
+                                <div className="text-royal-600 shrink-0">
+                                    <Icon name={v.icon} size={16} />
                                 </div>
-                                <h4 className="text-sm sm:text-base font-bold font-serif text-slate-900">{v.title}</h4>
-                                <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5 leading-relaxed">{v.desc}</p>
+                                <div className="min-w-0">
+                                    <h4 className="text-xs font-bold font-serif text-slate-900 leading-none">{v.title}</h4>
+                                    <p className="text-[10px] text-slate-500 truncate mt-0.5">{v.desc}</p>
+                                </div>
                             </div>
                         ))}
                     </div>
