@@ -720,13 +720,13 @@
         const GalleryPage = () => {
             const [category, setCategory] = useState('All');
             const images = [
-                { url: 'images/poster.jpeg', cat: 'results' },
-                { url: 'images/scout child.jpeg', cat: 'Students' },
-                { url: 'images/tringa event.jpeg', cat: 'Events' },
-                { url: 'images/poster 2 .jpeg', cat: 'results' },
-                { url: 'images/school poster.jpeg', cat: 'results' },
-                { url: 'images/physical activity.jpeg', cat: 'Students' },
-                { url: 'images/event.jpeg', cat: 'Events' },
+                { url: '/images/poster.jpeg', cat: 'results' },
+                { url: '/images/scoutchild.jpeg', cat: 'Students' },
+                { url: '/images/tringaevent.jpeg', cat: 'Events' },
+                { url: '/images/poster2 .jpeg', cat: 'results' },
+                { url: '/images/schoolposter.jpeg', cat: 'results' },
+                { url: '/images/physicalactivity.jpeg', cat: 'Students' },
+                { url: '/images/event.jpeg', cat: 'Events' },
             ];
 
             const filtered = category === 'All' ? images : images.filter(img => img.cat === category);
