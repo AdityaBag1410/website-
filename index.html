@@ -231,6 +231,13 @@
         const [stage, setStage] = useState('closed');
 
         useEffect(() => {
+            // Phone View (< 640px): Skip gate intro immediately on mobile phones
+            if (typeof window !== 'undefined' && window.innerWidth < 640) {
+                setStage('hidden');
+                if (onComplete) onComplete();
+                return;
+            }
+
             const origOverflow = document.body.style.overflow;
             document.body.style.overflow = 'hidden';
 
@@ -272,7 +279,7 @@
 
         return (
             <div 
-                className={`fixed inset-0 w-full h-full z-[100] flex flex-col justify-between bg-black overflow-hidden select-none transition-opacity duration-600 ${
+                className={`hidden sm:flex fixed inset-0 w-full h-full z-[100] flex-col justify-between bg-black overflow-hidden select-none transition-opacity duration-600 ${
                     isFading ? 'opacity-0 pointer-events-none' : 'opacity-100'
                 }`}
                 style={{ transition: 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1)' }}
@@ -1382,7 +1389,7 @@
                     {/* Desktop Workstation Setup: Matte Silver Computer Screen + Black RGB Keyboard */}
                     <div className="max-w-5xl mx-auto mt-4 sm:mt-8 w-full overflow-hidden">
                         {/* Monitor Frame in Premium Matte Silver Finish */}
-                        <div className="bg-gradient-to-b from-[black] via-[black] to-[black] rounded-[24px] sm:rounded-[36px] p-2.5 sm:p-4 md:p-5 border-4 border-[#b5c0d0] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.65)] relative">
+                        <div className="bg-gradient-to-b from-[#e8ecf2] via-[#dde3ed] to-[#cbd3df] rounded-[24px] sm:rounded-[36px] p-2.5 sm:p-4 md:p-5 border-4 sm:border-8 border-[#b5c0d0] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.65)] relative">
                             {/* Top Center HD Webcam & LED */}
                             <div className="absolute top-2 sm:top-2.5 left-1/2 -translate-x-1/2 flex items-center gap-2">
                                 <div className="w-2.5 h-2.5 rounded-full bg-[#9aa7bc] border border-[#7a889e] flex items-center justify-center">
@@ -1447,7 +1454,7 @@
 
                                 {/* SCREEN 1: Institutional Pillars on Beige Screen Canvas */}
                                 {activeScreen === 'pillars' && (
-                                    <div className="p-4 sm:p-7 md:p-9 flex flex-col lg:flex-row gap-6 lg:gap-8 items-stretch bg-gradient-to-br from-[#faf6ee] via-[#f7f3ea] to-[#f2ecdd]">
+                                    <div className="p-3 sm:p-7 md:p-9 flex flex-col lg:flex-row gap-4 lg:gap-8 items-stretch bg-gradient-to-br from-[#faf6ee] via-[#f7f3ea] to-[#f2ecdd] max-h-[500px] lg:max-h-none overflow-y-auto">
                                         {/* Left Column: Advantage Menu Tabs */}
                                         <div className="lg:w-72 shrink-0 flex lg:flex-col gap-2 overflow-x-auto no-scrollbar pb-2 lg:pb-0">
                                             <div className="hidden lg:flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-slate-500 px-3 py-1">
@@ -2469,7 +2476,7 @@
                             </div>
 
                             {/* Pinned Posters & Student Photos Grid */}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 pt-4">
+                            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-8 pt-4">
                                 {filteredImages.map((img, idx) => {
                                     const pin = pinColors[idx % pinColors.length];
                                     const tilt = rotations[idx % rotations.length];
@@ -2478,11 +2485,11 @@
                                         <div 
                                             key={idx}
                                             onClick={() => openLightbox(idx)}
-                                            className={`group relative bg-[#fdfbf7] p-2.5 sm:p-3 pb-3.5 sm:pb-4 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer ${tilt} hover:rotate-0 hover:scale-105 hover:z-20 border border-amber-900/15`}
+                                            className={`group relative bg-[#fdfbf7] p-2 sm:p-3 pb-3 sm:pb-4 rounded-lg sm:rounded-xl shadow-md sm:shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer ${tilt} hover:rotate-0 hover:scale-105 hover:z-20 border border-amber-900/20 flex flex-col justify-between`}
                                         >
                                             {/* Realistic 3D Push Pin at Top Center */}
-                                            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-30 pointer-events-none drop-shadow-md">
-                                                <svg width="24" height="28" viewBox="0 0 24 28" fill="none">
+                                            <div className="absolute -top-3 sm:-top-3.5 left-1/2 -translate-x-1/2 z-30 pointer-events-none drop-shadow-md">
+                                                <svg width="20" height="24" viewBox="0 0 24 28" fill="none" className="sm:w-[24px] sm:h-[28px]">
                                                     {/* Pin Needle */}
                                                     <line x1="12" y1="14" x2="12" y2="26" stroke="#52525b" strokeWidth="2.5" strokeLinecap="round" />
                                                     {/* Shadow */}
@@ -2498,11 +2505,11 @@
                                             </div>
 
                                             {/* Translucent Corner Tape Effects */}
-                                            <div className="absolute top-1 left-1 w-6 h-2.5 bg-amber-200/50 -rotate-45 pointer-events-none border-t border-b border-amber-300/40"></div>
-                                            <div className="absolute top-1 right-1 w-6 h-2.5 bg-amber-200/50 rotate-45 pointer-events-none border-t border-b border-amber-300/40"></div>
+                                            <div className="absolute top-1 left-1 w-5 sm:w-6 h-2 sm:h-2.5 bg-amber-200/50 -rotate-45 pointer-events-none border-t border-b border-amber-300/40"></div>
+                                            <div className="absolute top-1 right-1 w-5 sm:w-6 h-2 sm:h-2.5 bg-amber-200/50 rotate-45 pointer-events-none border-t border-b border-amber-300/40"></div>
 
                                             {/* Poster Image Frame */}
-                                            <div className="relative rounded-lg overflow-hidden h-44 sm:h-52 bg-slate-900 shadow-inner">
+                                            <div className="relative rounded-md sm:rounded-lg overflow-hidden h-32 sm:h-52 bg-slate-900 shadow-inner">
                                                 <img 
                                                     src={img.url} 
                                                     alt={img.title} 
@@ -2511,21 +2518,21 @@
                                                     onError={(e) => { e.target.src = '/images/schoolimage.png'; }}
                                                 />
                                                 {/* Category Stamp Badge */}
-                                                <div className="absolute top-2 right-2 px-2 py-0.5 rounded bg-black/75 backdrop-blur-sm text-[9px] font-mono font-bold text-amber-300 uppercase tracking-widest border border-amber-400/40">
+                                                <div className="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded bg-black/75 backdrop-blur-sm text-[8px] sm:text-[9px] font-mono font-bold text-amber-300 uppercase tracking-widest border border-amber-400/40">
                                                     {img.stamp}
                                                 </div>
                                             </div>
 
                                             {/* Bottom Paper Caption & Push Pin Details */}
-                                            <div className="mt-2.5 px-1 flex flex-col justify-between">
-                                                <div className="text-xs sm:text-sm font-bold font-serif text-slate-900 line-clamp-1 group-hover:text-royal-700 transition-colors">
+                                            <div className="mt-2 px-0.5 flex flex-col justify-between">
+                                                <div className="text-[11px] sm:text-sm font-bold font-serif text-slate-900 line-clamp-1 group-hover:text-royal-700 transition-colors">
                                                     {img.title}
                                                 </div>
-                                                <div className="mt-1 flex items-center justify-between text-[10px] text-slate-500 font-sans">
+                                                <div className="mt-0.5 flex items-center justify-between text-[9px] sm:text-[10px] text-slate-500 font-sans">
                                                     <span className="font-semibold text-amber-800 uppercase tracking-wider">{img.category}</span>
-                                                    <span className="text-royal-600 font-bold group-hover:underline flex items-center gap-1">
-                                                        <span>View Poster</span>
-                                                        <i className="fa-solid fa-expand text-[9px]"></i>
+                                                    <span className="text-royal-600 font-bold group-hover:underline flex items-center gap-0.5">
+                                                        <span>View</span>
+                                                        <i className="fa-solid fa-expand text-[8px]"></i>
                                                     </span>
                                                 </div>
                                             </div>
