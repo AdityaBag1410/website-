@@ -2347,7 +2347,8 @@
         const [activeImageIndex, setActiveImageIndex] = useState(null);
         const [isExpanded, setIsExpanded] = useState(false);
 
-        const galleryImages = useMemo(() => [
+        // Default Gallery Photo Archives
+        const defaultImages = useMemo(() => [
             { url: '/images/poster.jpeg', category: 'Results', title: 'Outstanding Board Results', stamp: 'MERIT LIST 2025' },
             { url: '/images/scoutchild.jpeg', category: 'Students', title: 'Scouts & Cadets Drill', stamp: 'LEADERSHIP CORPS' },
             { url: '/images/tringaevent.jpeg', category: 'Events', title: 'Tiranga National Celebration', stamp: 'PATRIOTIC DAY' },
@@ -2355,49 +2356,124 @@
             { url: '/images/schoolposter.jpeg', category: 'Results', title: 'School Achievements Showcase', stamp: 'EXCELLENCE AWARDS' },
             { url: '/images/physicalactivity.jpeg', category: 'Students', title: 'Athletics & Physical Training', stamp: 'SPORTS DRILLS' },
             { url: '/images/event.jpeg', category: 'Events', title: 'Cultural & Academic Function', stamp: 'ANNUAL FEST' },
-            { url: '/images/schoolimage.png', category: 'Campus', title: 'Shri Swaroop School ', stamp: 'CAMPUS VISTA' },
-            // Additional Archive Moments for "See More Photos"
-            { url: '/images/tringaevent.jpeg', category: 'Events', title: 'National Independence Day Assembly', stamp: 'FLAG HOISTING' },
-            { url: '/images/scoutchild.jpeg', category: 'Students', title: 'Senior Cadets Scouting Expedition', stamp: 'SCOUT AWARDS' },
-            { url: '/images/physicalactivity.jpeg', category: 'Students', title: 'Track & Field Sprint Champions', stamp: 'GOLD MEDAL' },
-            { url: '/images/event.jpeg', category: 'Events', title: 'Annual Talent & Drama Exhibition', stamp: 'THEATRE ARTS' },
-            { url: '/images/01poster.jpeg', category: 'Result', title: 'School Achievements Showcase', stamp: 'Poster' },
-            { url: '/images/02poster.jpeg', category: 'Result', title: 'School Achievements Showcase', stamp: 'Poster' },
-            { url: '/images/03poster.jpeg', category: 'Result', title: 'School Achievements Showcase', stamp: 'Poster' },
-            { url: '/images/04poster.jpeg', category: 'Result', title: 'School Achievements Showcase', stamp: 'Poster' },
-            { url: '/images/campus01.jpeg', category: 'Campus', title: 'Shri Swaroop School', stamp: 'CAMPUS VISTA' },
-            { url: '/images/campus02.jpeg', category: 'Campus', title: 'Shri Swaroop School', stamp: 'CAMPUS VISTA' },
-            { url: '/images/campus03.jpeg', category: 'Campus', title: 'Shri Swaroop School',  stamp: 'CAMPUS VISTA' },
-            { url: '/images/campus04.jpeg', category: 'Campus', title: 'Shri Swaroop School', stamp: 'CAMPUS VISTA' },
-            { url: '/images/campus05.jpeg', category: 'Campus', title: 'Shri Swaroop School', stamp: 'CAMPUS VISTA' },
-            { url: '/images/campus06.jpeg', category: 'Campus', title: 'Shri Swaroop School Showcase', stamp: 'CAMPUS VISTA' },
-            { url: '/images/campus07.jpeg', category: 'Campus', title: 'Shri Swaroop School Showcase', stamp: 'CAMPUS VISTA' },
-            { url: '/images/campus08.jpeg', category: 'Campus', title: 'Shri Swaroop School Showcase', stamp: 'CAMPUS VISTA' },
-            { url: '/images/campus09.jpeg', category: 'Campus', title: 'Shri Swaroop School Showcase', stamp: 'CAMPUS VISTA' },
-            { url: '/images/campus10.jpeg', category: 'Campus', title: 'Shri Swaroop School Showcase', stamp: 'CAMPUS VISTA' },
-            { url: '/images/campus11.jpeg', category: 'Campus', title: 'Shri Swaroop School Showcase', stamp: 'CAMPUS VISTA' },
-            { url: '/images/campus12.jpeg', category: 'Campus', title: 'Shri Swaroop School Showcase', stamp: 'CAMPUS VISTA' },
-            { url: '/images/campus13.jpeg', category: 'Campus', title: 'Shri Swaroop School Showcase', stamp: 'CAMPUS VISTA' },
-            { url: '/images/campus14.jpeg', category: 'Campus', title: 'Shri Swaroop School Showcase', stamp: 'CAMPUS VISTA' },
-            { url: '/images/campus15.jpeg', category: 'Campus', title: 'Shri Swaroop School Showcase', stamp: 'CAMPUS VISTA' },
-            { url: '/images/01sainik.jpeg', category: 'Campus', title: 'School sainik wing', stamp: 'CAMPUS VISTA' },
-            { url: '/images/navy01.jpeg', category: 'Campus', title: 'School sainik wing', stamp: 'CAMPUS VISTA' },
-            { url: '/images/navy02.jpeg', category: 'Campus', title: 'School sainik wing', stamp: 'CAMPUS VISTA' },
-            { url: '/images/navy03.jpeg', category: 'Campus', title: 'School sainik wing', stamp: 'CAMPUS VISTA' },
-           
-
+            { url: '/images/schoolimage.png', category: 'Campus', title: 'Shri Swaroop School Grounds', stamp: 'CAMPUS VISTA' },
+            { url: '/images/01poster.jpeg', category: 'Results', title: 'Board Merit Showcase 01', stamp: 'MERIT POSTER' },
+            { url: '/images/02poster.jpeg', category: 'Results', title: 'Board Merit Showcase 02', stamp: 'MERIT POSTER' },
+            { url: '/images/03poster.jpeg', category: 'Results', title: 'Board Merit Showcase 03', stamp: 'MERIT POSTER' },
+            { url: '/images/04poster.jpeg', category: 'Results', title: 'Board Merit Showcase 04', stamp: 'MERIT POSTER' },
+            { url: '/images/campus01.jpeg', category: 'Campus', title: 'Shri Swaroop Campus Vista', stamp: 'CAMPUS VISTA' },
+            { url: '/images/campus02.jpeg', category: 'Campus', title: 'Shri Swaroop Main Building', stamp: 'CAMPUS VISTA' },
+            { url: '/images/01sainik.jpeg', category: 'Campus', title: 'School Sainik Military Wing', stamp: 'SAINIK CORPS' },
+            { url: '/images/navy01.jpeg', category: 'Campus', title: 'Sainik Cadet Parade', stamp: 'SAINIK CORPS' },
         ], []);
 
+        // Persistent Photo List in LocalStorage
+        const [galleryImagesList, setGalleryImagesList] = useState(() => {
+            try {
+                const saved = localStorage.getItem('ssps_notice_board_photos_v2');
+                return saved ? JSON.parse(saved) : defaultImages;
+            } catch (e) {
+                return defaultImages;
+            }
+        });
+
+        // Admin Security & Modal States
+        const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+        const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
+        const [adminTab, setAdminTab] = useState('login'); // 'login' | 'forgot' | 'reset' | 'add'
+        const [enteredPassword, setEnteredPassword] = useState('');
+        const [enteredPhone, setEnteredPhone] = useState('');
+        const [newPassword, setNewPassword] = useState('');
+        const [adminMessage, setAdminMessage] = useState({ type: '', text: '' });
+
+        // Add Photo Form State
+        const [newPhotoData, setNewPhotoData] = useState({
+            url: '',
+            title: '',
+            category: 'Events',
+            stamp: 'NEW POSTER'
+        });
+
+        // Save list helper
+        const updateGalleryList = (newList) => {
+            setGalleryImagesList(newList);
+            try {
+                localStorage.setItem('ssps_notice_board_photos_v2', JSON.stringify(newList));
+            } catch (e) {}
+        };
+
+        const getAdminPassword = () => {
+            return localStorage.getItem('ssps_admin_pwd_v2') || 'admin123';
+        };
+
+        // Admin Action Handlers
+        const handleAdminLogin = (e) => {
+            e.preventDefault();
+            if (enteredPassword === getAdminPassword()) {
+                setIsAdminLoggedIn(true);
+                setIsAdminModalOpen(false);
+                setEnteredPassword('');
+                setAdminMessage({ type: '', text: '' });
+            } else {
+                setAdminMessage({ type: 'error', text: 'Incorrect Admin Password! Try default: admin123 or click Forgot Password.' });
+            }
+        };
+
+        const handleVerifyPhone = (e) => {
+            e.preventDefault();
+            const cleanPhone = enteredPhone.replace(/\D/g, '');
+            if (cleanPhone === '9257189373') {
+                setAdminTab('reset');
+                setAdminMessage({ type: 'success', text: 'Phone verified! Enter your new admin password.' });
+            } else {
+                setAdminMessage({ type: 'error', text: 'Phone number does not match registered Admin Phone (9257189373)!' });
+            }
+        };
+
+        const handleResetPassword = (e) => {
+            e.preventDefault();
+            if (!newPassword || newPassword.length < 3) {
+                setAdminMessage({ type: 'error', text: 'New password must be at least 3 characters long.' });
+                return;
+            }
+            localStorage.setItem('ssps_admin_pwd_v2', newPassword);
+            setAdminMessage({ type: 'success', text: 'Password reset successfully! Log in with your new password.' });
+            setAdminTab('login');
+            setNewPassword('');
+            setEnteredPhone('');
+        };
+
+        const handleAddPhoto = (e) => {
+            e.preventDefault();
+            if (!newPhotoData.url || !newPhotoData.title) {
+                setAdminMessage({ type: 'error', text: 'Please fill in Photo Image Link/URL and Poster Title.' });
+                return;
+            }
+            const updated = [newPhotoData, ...galleryImagesList];
+            updateGalleryList(updated);
+            setNewPhotoData({ url: '', title: '', category: 'Events', stamp: 'NEW POSTER' });
+            setIsAdminModalOpen(false);
+            setAdminMessage({ type: '', text: '' });
+        };
+
+        const handleRemovePhoto = (photoIndex, e) => {
+            e.stopPropagation();
+            if (window.confirm('Are you sure you want to remove this photo poster from the notice board?')) {
+                const updated = galleryImagesList.filter((_, i) => i !== photoIndex);
+                updateGalleryList(updated);
+            }
+        };
+
         const filteredImages = useMemo(() => {
-            let list = galleryImages;
+            let list = galleryImagesList;
             if (filter !== 'All') {
-                list = galleryImages.filter(img => img.category.toLowerCase() === filter.toLowerCase());
+                list = galleryImagesList.filter(img => img.category.toLowerCase() === filter.toLowerCase());
             }
             if (!isExpanded) {
                 return list.slice(0, 8);
             }
             return list;
-        }, [filter, galleryImages, isExpanded]);
+        }, [filter, galleryImagesList, isExpanded]);
 
         const openLightbox = (index) => setActiveImageIndex(index);
         const closeLightbox = () => setActiveImageIndex(null);
@@ -2438,12 +2514,51 @@
                         <div className="absolute bottom-2 left-2 w-7 h-7 sm:w-10 sm:h-10 border-b-4 border-l-4 border-amber-400 rounded-bl-xl pointer-events-none"></div>
                         <div className="absolute bottom-2 right-2 w-7 h-7 sm:w-10 sm:h-10 border-b-4 border-r-4 border-amber-400 rounded-br-xl pointer-events-none"></div>
 
-                        {/* Top Wooden Placard / Header */}
-                        <div className="text-center mb-6 sm:mb-8">
-                            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-[#452712] text-amber-200 border-2 border-amber-500/50 shadow-md font-serif font-black tracking-wider text-xs sm:text-base uppercase">
+                        {/* Top Wooden Placard / Header with Admin Lock Status */}
+                        <div className="text-center mb-6 sm:mb-8 flex flex-col sm:flex-row items-center justify-between gap-3 px-2">
+                            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-[#452712] text-amber-200 border-2 border-amber-500/50 shadow-md font-serif font-black tracking-wider text-xs sm:text-base uppercase mx-auto">
                                 <i className="fa-solid fa-thumbtack text-amber-400 text-xs sm:text-sm"></i>
                                 <span>CAMPUS NOTICE & MERIT BOARD • 2026-27</span>
                                 <i className="fa-solid fa-thumbtack text-amber-400 text-xs sm:text-sm"></i>
+                            </div>
+
+                            {/* Password Protected Admin Control Trigger Button */}
+                            <div className="shrink-0">
+                                {!isAdminLoggedIn ? (
+                                    <button
+                                        onClick={() => {
+                                            setAdminTab('login');
+                                            setAdminMessage({ type: '', text: '' });
+                                            setIsAdminModalOpen(true);
+                                        }}
+                                        className="px-4 py-1.5 sm:py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2 cursor-pointer border border-amber-300 hover:scale-105"
+                                    >
+                                        <i className="fa-solid fa-lock text-xs"></i>
+                                        <span>🔒 Admin Manage Board</span>
+                                    </button>
+                                ) : (
+                                    <div className="flex items-center gap-2">
+                                        <button
+                                            onClick={() => {
+                                                setAdminTab('add');
+                                                setAdminMessage({ type: '', text: '' });
+                                                setIsAdminModalOpen(true);
+                                            }}
+                                            className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider shadow-md flex items-center gap-1.5 cursor-pointer border border-emerald-400 hover:scale-105"
+                                        >
+                                            <i className="fa-solid fa-plus text-xs"></i>
+                                            <span>➕ Add Photo</span>
+                                        </button>
+                                        <button
+                                            onClick={() => setIsAdminLoggedIn(false)}
+                                            className="px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs uppercase tracking-wider shadow-md flex items-center gap-1.5 cursor-pointer border border-red-400"
+                                            title="Lock Admin Control"
+                                        >
+                                            <i className="fa-solid fa-lock-open text-xs"></i>
+                                            <span>Logout Admin</span>
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                         </div>
 
@@ -2503,6 +2618,18 @@
                                                     <ellipse cx="10" cy="3.5" rx="3" ry="1.2" fill="rgba(255,255,255,0.7)" />
                                                 </svg>
                                             </div>
+
+                                            {/* Admin Delete Action Overlay Button */}
+                                            {isAdminLoggedIn && (
+                                                <button
+                                                    onClick={(e) => handleRemovePhoto(idx, e)}
+                                                    className="absolute top-1 left-1 z-40 px-2 py-1 rounded bg-red-600 hover:bg-red-700 text-white text-[10px] font-bold shadow-md flex items-center gap-1 cursor-pointer transition-transform hover:scale-110"
+                                                    title="Remove this poster from notice board"
+                                                >
+                                                    <i className="fa-solid fa-trash-can text-[10px]"></i>
+                                                    <span>Delete</span>
+                                                </button>
+                                            )}
 
                                             {/* Translucent Corner Tape Effects */}
                                             <div className="absolute top-1 left-1 w-5 sm:w-6 h-2 sm:h-2.5 bg-amber-200/50 -rotate-45 pointer-events-none border-t border-b border-amber-300/40"></div>
@@ -2568,6 +2695,223 @@
                         </div>
                     </div>
                 </div>
+
+                {/* Password Protection & Admin Photo Control Dialog Modal */}
+                {isAdminModalOpen && (
+                    <Modal
+                        isOpen={true}
+                        onClose={() => {
+                            setIsAdminModalOpen(false);
+                            setAdminMessage({ type: '', text: '' });
+                        }}
+                        title={
+                            adminTab === 'login' ? '🔑 Admin Notice Board Access' :
+                            adminTab === 'forgot' ? '🔐 Admin Password Recovery' :
+                            adminTab === 'reset' ? '✨ Reset Admin Password' :
+                            '➕ Add New Poster to Board'
+                        }
+                        badge="ADMIN MANAGEMENT PORTAL"
+                    >
+                        {/* Alert Status Banner */}
+                        {adminMessage.text && (
+                            <div className={`p-3 rounded-xl mb-4 text-xs font-semibold flex items-center gap-2 ${
+                                adminMessage.type === 'error' ? 'bg-red-50 text-red-700 border border-red-200' : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                            }`}>
+                                <i className={`fa-solid ${adminMessage.type === 'error' ? 'fa-circle-exclamation' : 'fa-circle-check'}`}></i>
+                                <span>{adminMessage.text}</span>
+                            </div>
+                        )}
+
+                        {/* 1. LOGIN TAB */}
+                        {adminTab === 'login' && (
+                            <form onSubmit={handleAdminLogin} className="space-y-4">
+                                <p className="text-xs sm:text-sm text-slate-600">
+                                    Enter your Admin Password to unlock photo management options (Add / Delete posters).
+                                </p>
+                                <div>
+                                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+                                        Admin Password *
+                                    </label>
+                                    <input 
+                                        type="password"
+                                        required
+                                        placeholder="Enter password (default: admin123)"
+                                        value={enteredPassword}
+                                        onChange={(e) => setEnteredPassword(e.target.value)}
+                                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-royal-600"
+                                    />
+                                </div>
+                                <div className="flex items-center justify-between pt-2">
+                                    <button 
+                                        type="button"
+                                        onClick={() => {
+                                            setAdminTab('forgot');
+                                            setAdminMessage({ type: '', text: '' });
+                                        }}
+                                        className="text-xs font-bold text-royal-600 hover:underline cursor-pointer"
+                                    >
+                                        Forgot Password? Reset via Phone
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        className="px-6 py-2.5 rounded-xl bg-royal-600 hover:bg-royal-700 text-white font-bold text-xs uppercase tracking-wider shadow-md transition-all cursor-pointer"
+                                    >
+                                        Unlock Admin Mode
+                                    </button>
+                                </div>
+                            </form>
+                        )}
+
+                        {/* 2. FORGOT PASSWORD TAB */}
+                        {adminTab === 'forgot' && (
+                            <form onSubmit={handleVerifyPhone} className="space-y-4">
+                                <div className="p-3 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 space-y-1">
+                                    <div className="font-bold flex items-center gap-1.5">
+                                        <i className="fa-solid fa-shield-halved text-amber-600"></i>
+                                        <span>Security Verification Required</span>
+                                    </div>
+                                    <p>Enter the registered Admin Recovery Phone Number to authorize password reset.</p>
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+                                        Admin Recovery Phone Number *
+                                    </label>
+                                    <input 
+                                        type="tel"
+                                        required
+                                        placeholder="e.g. 9257189373"
+                                        value={enteredPhone}
+                                        onChange={(e) => setEnteredPhone(e.target.value)}
+                                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-royal-600 font-mono"
+                                    />
+                                </div>
+                                <div className="flex items-center justify-between pt-2">
+                                    <button 
+                                        type="button"
+                                        onClick={() => {
+                                            setAdminTab('login');
+                                            setAdminMessage({ type: '', text: '' });
+                                        }}
+                                        className="text-xs font-bold text-slate-500 hover:text-slate-800"
+                                    >
+                                        Back to Login
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        className="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-md transition-all cursor-pointer"
+                                    >
+                                        Verify Phone (9257189373)
+                                    </button>
+                                </div>
+                            </form>
+                        )}
+
+                        {/* 3. RESET PASSWORD TAB */}
+                        {adminTab === 'reset' && (
+                            <form onSubmit={handleResetPassword} className="space-y-4">
+                                <p className="text-xs sm:text-sm text-slate-600">
+                                    Phone verified successfully! Set your new password below.
+                                </p>
+                                <div>
+                                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+                                        New Admin Password *
+                                    </label>
+                                    <input 
+                                        type="password"
+                                        required
+                                        placeholder="Enter your new admin password"
+                                        value={newPassword}
+                                        onChange={(e) => setNewPassword(e.target.value)}
+                                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-royal-600"
+                                    />
+                                </div>
+                                <div className="flex justify-end pt-2">
+                                    <button
+                                        type="submit"
+                                        className="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider shadow-md transition-all cursor-pointer"
+                                    >
+                                        Save New Password
+                                    </button>
+                                </div>
+                            </form>
+                        )}
+
+                        {/* 4. ADD PHOTO TAB */}
+                        {adminTab === 'add' && (
+                            <form onSubmit={handleAddPhoto} className="space-y-4">
+                                <p className="text-xs sm:text-sm text-slate-600">
+                                    Add a new photo poster to the student notice board archive.
+                                </p>
+                                <div>
+                                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+                                        Photo Image Link / URL *
+                                    </label>
+                                    <input 
+                                        type="text"
+                                        required
+                                        placeholder="e.g. /images/event.jpeg or https://..."
+                                        value={newPhotoData.url}
+                                        onChange={(e) => setNewPhotoData({ ...newPhotoData, url: e.target.value })}
+                                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-royal-600"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+                                        Poster Title *
+                                    </label>
+                                    <input 
+                                        type="text"
+                                        required
+                                        placeholder="e.g. Annual Sports Day Trophy Winner 2026"
+                                        value={newPhotoData.title}
+                                        onChange={(e) => setNewPhotoData({ ...newPhotoData, title: e.target.value })}
+                                        className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-royal-600"
+                                    />
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+                                            Category
+                                        </label>
+                                        <select
+                                            value={newPhotoData.category}
+                                            onChange={(e) => setNewPhotoData({ ...newPhotoData, category: e.target.value })}
+                                            className="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs font-bold focus:outline-none focus:border-royal-600"
+                                        >
+                                            <option value="Events">Events</option>
+                                            <option value="Students">Students</option>
+                                            <option value="Results">Results</option>
+                                            <option value="Campus">Campus</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+                                            Stamp Tag
+                                        </label>
+                                        <input 
+                                            type="text"
+                                            placeholder="e.g. MERIT LIST"
+                                            value={newPhotoData.stamp}
+                                            onChange={(e) => setNewPhotoData({ ...newPhotoData, stamp: e.target.value })}
+                                            className="w-full px-3 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-xs font-mono font-bold focus:outline-none focus:border-royal-600"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="flex justify-end pt-2">
+                                    <button
+                                        type="submit"
+                                        className="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-wider shadow-md transition-all cursor-pointer"
+                                    >
+                                        📌 Pin Photo to Board
+                                    </button>
+                                </div>
+                            </form>
+                        )}
+                    </Modal>
+                )}
 
                 {/* Full-Screen Lightbox Modal for Enlarge View */}
                 {activeImageIndex !== null && (
