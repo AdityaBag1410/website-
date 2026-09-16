@@ -54,6 +54,13 @@
 <!-- Lucide Icons -->
 <script src="https://unpkg.com/lucide@latest"></script>
 <style>
+        /* Mobile & Tablet Global Overflow-X Prevention */
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
+            width: 100%;
+        }
+
         /* Custom scrollbar and aesthetics */
         ::-webkit-scrollbar {
             width: 8px;
@@ -126,6 +133,44 @@
         .animate-ticker-l2r:hover {
             animation-play-state: paused;
         }
+
+        /* Sliding Gate Animation */
+        .gate-slider-viewport {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .gate-slider-panel {
+            will-change: transform;
+            transition: transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+            transform: translate3d(0, 0, 0);
+        }
+
+        .gate-slider-panel.slide-open {
+            transform: translate3d(104%, 0, 0);
+        }
+
+        /* School Notice Board Cork Texture */
+        .cork-texture {
+            background-color: #d8b88d;
+            background-image: 
+                radial-gradient(rgba(130, 78, 28, 0.25) 15%, transparent 16%),
+                radial-gradient(rgba(95, 52, 12, 0.20) 15%, transparent 16%),
+                radial-gradient(rgba(255, 255, 255, 0.15) 15%, transparent 20%);
+            background-size: 32px 32px, 48px 48px, 20px 20px;
+            background-position: 0 0, 16px 16px, 10px 10px;
+        }
+
+        /* Coffee Smart Board Glow */
+        @keyframes coffeeBoardGlow {
+            0%, 100% { box-shadow: 0 0 25px rgba(180, 83, 9, 0.22), inset 0 0 15px rgba(120, 53, 15, 0.15); }
+            50% { box-shadow: 0 0 45px rgba(217, 119, 6, 0.35), inset 0 0 25px rgba(146, 64, 14, 0.25); }
+        }
+        .coffee-screen-glow {
+            animation: coffeeBoardGlow 4s ease-in-out infinite;
+        }
     </style>
 </head>
 <body class="bg-[#f8fafc] text-slate-800 font-sans antialiased overflow-x-hidden selection:bg-amber-100 selection:text-amber-900"><div id="root"></div>
@@ -180,9 +225,261 @@
         );
     };
 
+    // Modern Architectural Slider Gate Entrance (No Side Pillars, Black Rods, Sliding Tyres)
+    const SchoolGateIntro = ({ onComplete }) => {
+        // stages: 'closed' -> 'sliding' -> 'fading' -> 'hidden'
+        const [stage, setStage] = useState('closed');
+
+        useEffect(() => {
+            const origOverflow = document.body.style.overflow;
+            document.body.style.overflow = 'hidden';
+
+            // Stage 1: Display black rod gate for 750ms, then slide open from left to right
+            const timer1 = setTimeout(() => {
+                setStage('sliding');
+            }, 750);
+
+            // Stage 2: Gate has smoothly glided to the right, fade out intro screen (2500ms)
+            const timer2 = setTimeout(() => {
+                setStage('fading');
+            }, 2500);
+
+            // Stage 3: Clean up and unmount completely (3100ms)
+            const timer3 = setTimeout(() => {
+                setStage('hidden');
+                document.body.style.overflow = origOverflow || '';
+                if (onComplete) onComplete();
+            }, 3100);
+
+            return () => {
+                clearTimeout(timer1);
+                clearTimeout(timer2);
+                clearTimeout(timer3);
+                document.body.style.overflow = origOverflow || '';
+            };
+        }, []);
+
+        const handleSkip = () => {
+            setStage('hidden');
+            document.body.style.overflow = '';
+            if (onComplete) onComplete();
+        };
+
+        if (stage === 'hidden') return null;
+
+        const isSliding = stage === 'sliding' || stage === 'fading';
+        const isFading = stage === 'fading';
+
+        return (
+            <div 
+                className={`fixed inset-0 w-full h-full z-[100] flex flex-col justify-between bg-black overflow-hidden select-none transition-opacity duration-600 ${
+                    isFading ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                }`}
+                style={{ transition: 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1)' }}
+            >
+                {/* 1. School Campus in Bright Morning Daylight (Revealed as Gate Slides Right) */}
+                <div className="absolute inset-0 z-0 overflow-hidden">
+                    <img 
+                        src="/images/schoolimage.png" 
+                        alt="Shri Swaroop Public Senior Secondary School Campus" 
+                        className={`w-full h-full object-cover transition-all duration-[2600ms] ease-out ${
+                            isSliding ? 'scale-105 brightness-105 saturate-[1.05]' : 'scale-100 brightness-95'
+                        }`}
+                    />
+                    {/* Atmospheric Overlays */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/30 to-slate-900/40"></div>
+
+                    {/* Central Welcome Card in Elegant Frosted Glass */}
+                    <div className={`absolute inset-0 flex flex-col items-center justify-center px-4 z-10 transition-all duration-1000 ${
+                        isSliding ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-6'
+                    }`}>
+                        <div className="p-3 bg-white/95 rounded-2xl shadow-xl border border-amber-300/60 mb-3 sm:mb-4 backdrop-blur-md">
+                            <img src="/images/logo.png" alt="School Logo" className="w-14 h-14 sm:w-20 sm:h-20 object-contain" />
+                        </div>
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/40 text-amber-900 text-[11px] sm:text-xs font-bold uppercase tracking-widest mb-2 backdrop-blur-sm shadow-sm">
+                            <span className="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
+                            <span>Admissions Open 2026-27</span>
+                        </div>
+                        <h1 className="text-xl sm:text-3xl md:text-5xl font-extrabold font-serif text-slate-900 text-center drop-shadow-sm max-w-3xl leading-tight">
+                            SHRI SWAROOP PUBLIC SENIOR SECONDARY SCHOOL
+                        </h1>
+                        <p className="text-amber-800 text-xs sm:text-base font-semibold mt-1 text-center">
+                            Baggar (Jhunjhunu), Rajasthan • RBSE Affiliated
+                        </p>
+                        <div className="mt-4 px-5 py-2 rounded-full bg-gradient-to-r from-royal-600 to-royal-700 text-white font-bold text-xs uppercase tracking-wider shadow-lg">
+                            Welcome Inside Campus Grounds
+                        </div>
+                    </div>
+                </div>
+
+                {/* Top Quick Skip Button */}
+                <button
+                    onClick={handleSkip}
+                    className="absolute top-4 sm:top-6 right-4 sm:right-6 z-50 inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/85 hover:bg-white text-slate-800 border border-slate-300/80 backdrop-blur-md text-xs font-bold tracking-wider transition-all shadow-lg hover:scale-105 cursor-pointer"
+                >
+                    <span>Skip Intro</span>
+                    <i className="fa-solid fa-arrow-right text-[11px]"></i>
+                </button>
+
+                {/* Status Bar at Bottom Center */}
+                <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 text-center pointer-events-none">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-amber-400/50 text-amber-900 text-xs font-semibold shadow-lg">
+                        <span className={`w-2 h-2 rounded-full ${isSliding ? 'bg-emerald-500 animate-ping' : 'bg-amber-500 animate-pulse'}`}></span>
+                        <span>{isSliding ? 'Campus Gate Sliding Open...' : 'Welcome to Shri Swaroop Public School'}</span>
+                    </div>
+                </div>
+
+                {/* Full-Page Architectural Gate Frame */}
+                <div className="relative z-20 w-full h-full flex flex-col justify-between pointer-events-none">
+                    {/* Very Minimized Sleek Header Strip */}
+                    <div className="w-full relative shrink-0 z-30 bg-black/90 border-b border-neutral-800/80 py-1 sm:py-1.5 px-4 shadow-sm text-center backdrop-blur-md flex items-center justify-between sm:justify-center">
+                        <div className="flex items-center gap-2 sm:gap-3 mx-auto">
+                            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                            <span className="text-[10px] sm:text-xs font-semibold tracking-wider text-neutral-200 uppercase">
+                                SHRI SWAROOP PUBLIC SENIOR SECONDARY SCHOOL • BAGGAR 
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* Gate Aperture: Full Width (No Side Pillars), Left-to-Right Sliding Black Rod Gate */}
+                    <div className="flex-1 w-full flex items-stretch relative gate-slider-viewport overflow-hidden">
+                        {/* The Modern Black Rod Sliding Gate with Bottom Tyres */}
+                        <div className="w-full h-full relative overflow-hidden">
+                            <div className={`w-full h-full gate-slider-panel ${isSliding ? 'slide-open' : ''} relative`}>
+                                <svg viewBox="0 0 1200 680" preserveAspectRatio="none" className="w-full h-full drop-shadow-[15px_0_30px_rgba(0,0,0,0.6)]">
+                                    <defs>
+                                        {/* Deep Black / Charcoal Steel Gradients */}
+                                        <linearGradient id="blackFrameGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                            <stop offset="0%" stopColor="#27272a" />
+                                            <stop offset="50%" stopColor="#18181b" />
+                                            <stop offset="100%" stopColor="#09090b" />
+                                        </linearGradient>
+                                        <linearGradient id="blackRodGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" stopColor="#3f3f46" />
+                                            <stop offset="30%" stopColor="#18181b" />
+                                            <stop offset="70%" stopColor="#09090b" />
+                                            <stop offset="100%" stopColor="#27272a" />
+                                        </linearGradient>
+                                        <linearGradient id="goldAccentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stopColor="#fde68a" />
+                                            <stop offset="50%" stopColor="#d97706" />
+                                            <stop offset="100%" stopColor="#92400e" />
+                                        </linearGradient>
+                                        <radialGradient id="tyreRubberGrad" cx="50%" cy="50%" r="50%">
+                                            <stop offset="60%" stopColor="#1c1917" />
+                                            <stop offset="85%" stopColor="#0c0a09" />
+                                            <stop offset="100%" stopColor="#292524" />
+                                        </radialGradient>
+                                    </defs>
+
+                                    {/* Main Outer Perimeter Black Steel Frame */}
+                                    <rect x="10" y="25" width="1180" height="585" rx="4" fill="none" stroke="url(#blackFrameGrad)" strokeWidth="8" />
+
+                                    {/* Horizontal Black Structural Rails */}
+                                    <rect x="10" y="25" width="1180" height="18" rx="2" fill="url(#blackFrameGrad)" />
+                                    <rect x="10" y="70" width="1180" height="10" rx="1" fill="url(#blackFrameGrad)" />
+                                    <rect x="10" y="360" width="1180" height="16" rx="2" fill="url(#blackFrameGrad)" />
+                                    <rect x="10" y="590" width="1180" height="22" rx="3" fill="url(#blackFrameGrad)" stroke="#27272a" strokeWidth="1" />
+
+                                    {/* Clean Vertical Black Rods / Pickets Across Entire Gate */}
+                                    {Array.from({ length: 34 }).map((_, idx) => {
+                                        const x = 35 + idx * 34.2;
+                                        return (
+                                            <g key={`rod-${idx}`}>
+                                                {/* Spear / Arrowhead Finial Top */}
+                                                <polygon 
+                                                    points={`${x-4.5},25 ${x+4.5},25 ${x},8`} 
+                                                    fill="#27272a" 
+                                                    stroke="#18181b" 
+                                                    strokeWidth="1"
+                                                />
+                                                {/* Decorative Rod Ring Accent at Upper Section */}
+                                                {idx % 2 === 0 && (
+                                                    <circle cx={x} cy="48" r="7.5" fill="none" stroke="#52525b" strokeWidth="1.5" />
+                                                )}
+                                                {/* Main Solid Vertical Black Rod */}
+                                                <rect 
+                                                    x={x - 3} 
+                                                    y="25" 
+                                                    width="6" 
+                                                    height="570" 
+                                                    rx="1.5" 
+                                                    fill="url(#blackRodGrad)" 
+                                                    stroke="#09090b" 
+                                                    strokeWidth="0.8" 
+                                                />
+                                            </g>
+                                        );
+                                    })}
+
+                                    {/* Center Prestigious Black Medallion with Gold Trim */}
+                                    <circle cx="600" cy="360" r="90" fill="#09090b" stroke="#27272a" strokeWidth="5" />
+                                    <circle cx="600" cy="360" r="82" fill="#18181b" stroke="url(#goldAccentGrad)" strokeWidth="2.5" />
+                                    <circle cx="600" cy="360" r="72" fill="#09090b" stroke="#3f3f46" strokeWidth="1" strokeDasharray="4,3" />
+
+                                    {/* Medallion Text & Insignia */}
+                                    <text x="600" y="325" textAnchor="middle" fill="#d4d4d8" fontSize="11" fontFamily="sans-serif" fontWeight="bold" letterSpacing="3">SHRI SWAROOP</text>
+                                    <text x="600" y="372" textAnchor="middle" fill="#f59e0b" fontSize="38" fontFamily="serif" fontWeight="black" letterSpacing="1">SSPS</text>
+                                    <text x="600" y="398" textAnchor="middle" fill="#a1a1aa" fontSize="10" fontFamily="sans-serif" fontWeight="semibold" letterSpacing="3">BAGGAR • 2001</text>
+
+                                    {/* Black Leading Handle (Right Edge) */}
+                                    <rect x="1175" y="300" width="8" height="120" rx="3" fill="#3f3f46" stroke="#18181b" strokeWidth="1" />
+
+                                    {/* Small Sliding Tyres Under the Gate Bottom Rail */}
+                                    {[150, 420, 780, 1050].map((wheelX, wIdx) => (
+                                        <g key={`tyre-${wIdx}`}>
+                                            {/* Heavy Steel Wheel Mounting Fork/Chassis */}
+                                            <rect x={wheelX - 10} y="612" width="20" height="28" rx="2" fill="#27272a" stroke="#09090b" strokeWidth="1" />
+                                            <circle cx={wheelX} cy="642" r="3" fill="#71717a" />
+
+                                            {/* Outer Rubber Tyre with Tread */}
+                                            <circle 
+                                                cx={wheelX} 
+                                                cy="645" 
+                                                r="24" 
+                                                fill="url(#tyreRubberGrad)" 
+                                                stroke="#0c0a09" 
+                                                strokeWidth="2.5" 
+                                            />
+                                            {/* Tyre Tread Lines */}
+                                            <circle 
+                                                cx={wheelX} 
+                                                cy="645" 
+                                                r="20" 
+                                                fill="none" 
+                                                stroke="#3f3f46" 
+                                                strokeWidth="1.5" 
+                                                strokeDasharray="4,4" 
+                                            />
+
+                                            {/* Silver Metallic Wheel Rim */}
+                                            <circle cx={wheelX} cy="645" r="14" fill="#52525b" stroke="#71717a" strokeWidth="1.5" />
+                                            {/* Wheel Center Axle & Lug Nuts */}
+                                            <circle cx={wheelX} cy="645" r="7" fill="#d4d4d8" />
+                                            <circle cx={wheelX - 4} cy="643" r="1.5" fill="#18181b" />
+                                            <circle cx={wheelX + 4} cy="643" r="1.5" fill="#18181b" />
+                                            <circle cx={wheelX} cy="649" r="1.5" fill="#18181b" />
+                                        </g>
+                                    ))}
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Bottom Ground Dark Metallic Guide Rail Track with Chrome Rolling Line */}
+                    <div className="w-full h-4 sm:h-5 bg-gradient-to-r from-neutral-900 via-neutral-800 to-neutral-900 border-t border-neutral-700 shadow-2xl z-30 shrink-0 flex flex-col justify-center items-center">
+                        <div className="w-full h-1 bg-gradient-to-r from-slate-400 via-white to-slate-400 shadow-[0_0_8px_rgba(255,255,255,0.7)]"></div>
+                        <div className="w-full h-0.5 bg-neutral-950 mt-0.5"></div>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
     // Aesthetic Style Toggles Bar with Round Corners
-    const AestheticPillScroller = ({ onOpenParentHub }) => {
+    const AestheticPillScroller = ({ onOpenParentHub, onReplayGate }) => {
         const pills = [
+            { label: 'Gate Entry ⛩️', icon: 'door-open', onClick: onReplayGate, isAction: true },
             { label: 'Admissions 2026', icon: 'graduation-cap', href: '#admissions', highlight: true },
             { label: 'Sainik Wing', icon: 'shield', href: '#sainik-wing' },
             { label: 'Academics', icon: 'book-open', href: '#academics' },
@@ -194,34 +491,46 @@
         ];
 
         return (
-            <div className="w-full bg-[#071120]/95 border-t border-b border-white/10 backdrop-blur-md px-3 sm:px-6 py-2 overflow-x-auto no-scrollbar flex items-center gap-2 sm:gap-2.5 z-40 justify-start lg:justify-center shadow-lg">
+            <div className="w-full bg-[#050b16]/95 border-t border-b border-white/10 backdrop-blur-md px-3 sm:px-6 py-2 overflow-x-auto no-scrollbar flex items-center gap-2 sm:gap-2.5 z-40 justify-start lg:justify-center shadow-lg">
                 <button 
                     onClick={onOpenParentHub}
-                    className="shrink-0 inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-bold text-xs shadow-md hover:scale-105 hover:brightness-110 transition-all"
+                    className="shrink-0 inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-bold text-xs shadow-md hover:scale-105 hover:brightness-110 transition-all cursor-pointer"
                 >
                     <Icon name="sliders-horizontal" size={13} />
                     <span>Parent Quick-Hub</span>
                 </button>
                 {pills.map((pill, i) => (
-                    <a
-                        key={i}
-                        href={pill.href}
-                        className={`shrink-0 inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all hover:scale-105 ${
-                            pill.highlight 
-                                ? 'bg-royal-600 text-white border border-royal-400/40 shadow-md hover:bg-royal-500 font-bold' 
-                                : 'bg-slate-800/80 hover:bg-slate-700 text-slate-200 hover:text-white border border-white/10 hover:border-white/25 shadow-sm'
-                        }`}
-                    >
-                        <Icon name={pill.icon} size={13} />
-                        <span>{pill.label}</span>
-                    </a>
+                    pill.isAction ? (
+                        <button
+                            key={i}
+                            type="button"
+                            onClick={pill.onClick}
+                            className="shrink-0 inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all hover:scale-105 bg-slate-800/80 hover:bg-slate-700 text-slate-200 hover:text-white border border-white/10 hover:border-white/25 shadow-sm cursor-pointer"
+                        >
+                            <Icon name={pill.icon} size={13} />
+                            <span>{pill.label}</span>
+                        </button>
+                    ) : (
+                        <a
+                            key={i}
+                            href={pill.href}
+                            className={`shrink-0 inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all hover:scale-105 ${
+                                pill.highlight 
+                                    ? 'bg-royal-600 text-white border border-royal-400/40 shadow-md hover:bg-royal-500 font-bold' 
+                                    : 'bg-slate-800/80 hover:bg-slate-700 text-slate-200 hover:text-white border border-white/10 hover:border-white/25 shadow-sm'
+                            }`}
+                        >
+                            <Icon name={pill.icon} size={13} />
+                            <span>{pill.label}</span>
+                        </a>
+                    )
                 ))}
             </div>
         );
     };
 
     // Clean Minimalist Navbar with School Logo, Name, 3-Line Toggle, and Aesthetic Toggles Bar
-    const Navbar = ({ scrolled, onOpenParentHub }) => {
+    const Navbar = ({ scrolled, onOpenParentHub, onReplayGate }) => {
         const [isMenuOpen, setIsMenuOpen] = useState(false);
 
         const navItems = [
@@ -238,10 +547,11 @@
 
         return (
             <header className="fixed top-0 left-0 w-full z-50 transition-all duration-300">
+                {/* Changes to dark navy blue with black touch on scroll */}
                 <nav className={`transition-all duration-300 ${
                     scrolled 
-                        ? 'bg-white/95 backdrop-blur-md shadow-md py-2.5 border-b border-slate-200/80' 
-                        : 'bg-gradient-to-b from-navy-950/95 via-navy-950/80 to-navy-950/40 py-3 sm:py-4'
+                        ? 'bg-[#060c18]/95 backdrop-blur-md shadow-xl py-2.5 border-b border-white/10 text-white' 
+                        : 'bg-gradient-to-b from-navy-950/95 via-navy-950/80 to-navy-950/40 py-3 sm:py-4 text-white'
                 }`}>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex items-center justify-between">
@@ -256,14 +566,10 @@
                                     />
                                 </div>
                                 <div className="flex flex-col">
-                                    <span className={`text-base sm:text-lg font-extrabold tracking-tight font-serif leading-tight transition-colors ${
-                                        scrolled ? 'text-navy-900' : 'text-white'
-                                    }`}>
+                                    <span className="text-base sm:text-lg font-extrabold tracking-tight font-serif leading-tight text-white">
                                         Shri Swaroop School
                                     </span>
-                                    <span className={`text-[9px] sm:text-[10px] font-bold tracking-[0.2em] uppercase ${
-                                        scrolled ? 'text-amber-600' : 'text-amber-400'
-                                    }`}>
+                                    <span className="text-[9px] sm:text-[10px] font-bold tracking-[0.2em] uppercase text-amber-400">
                                         BAGGAR • EST. 2001
                                     </span>
                                 </div>
@@ -273,11 +579,7 @@
                             <button
                                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                                 aria-label="Toggle navigation menu"
-                                className={`p-2 sm:p-2.5 rounded-xl border transition-all duration-200 flex items-center justify-center hover:scale-105 ${
-                                    scrolled
-                                        ? 'border-slate-300 text-slate-800 hover:bg-slate-100 hover:border-slate-400 shadow-sm'
-                                        : 'border-white/20 text-white hover:bg-white/10 hover:border-white/30 backdrop-blur-sm'
-                                }`}
+                                className="p-2 sm:p-2.5 rounded-xl border border-white/20 text-white hover:bg-white/10 hover:border-white/30 backdrop-blur-sm transition-all duration-200 flex items-center justify-center hover:scale-105 cursor-pointer"
                             >
                                 <Icon name={isMenuOpen ? "x" : "menu"} size={22} />
                             </button>
@@ -286,7 +588,7 @@
                 </nav>
 
                 {/* Aesthetic Rounded Pill Toggles Bar */}
-                <AestheticPillScroller onOpenParentHub={onOpenParentHub} />
+                <AestheticPillScroller onOpenParentHub={onOpenParentHub} onReplayGate={onReplayGate} />
 
                 {/* Slide-out Navigation Drawer - Opens on both Mobile and Laptop */}
                 {isMenuOpen && (
@@ -869,87 +1171,653 @@
             { 
                 id: 'faculty',
                 title: 'Experienced Faculty', 
+                badge: 'ACADEMIC EXCELLENCE',
+                headline: 'Mentorship That Sparks Curiosity & Character',
                 desc: 'Our teachers are mentors who bring years of expertise and passion to the classroom.', 
                 icon: 'users',
                 color: 'from-blue-600 to-indigo-600',
-                longDesc: 'We believe that the quality of education is directly linked to the quality of our teachers. Our faculty members are subject matter experts and trained mentors who understand the emotional and cognitive needs of growing children.' 
+                accent: 'text-blue-700 bg-blue-50 border-blue-200',
+                stats: [
+                    { label: 'Faculty Mentorship', val: '1:20 Ratio' },
+                    { label: 'Certified Educators', val: '100% Trained' },
+                    { label: 'Average Experience', val: '12+ Years' }
+                ],
+                longDesc: 'We believe that the quality of education is directly linked to the quality of our teachers. Our faculty members are subject matter experts and trained mentors who understand the emotional and cognitive needs of growing children, preparing them for board excellence and competitive readiness.' 
             },
             { 
                 id: 'smart-classrooms',
                 title: 'Smart Classrooms', 
+                badge: 'DIGITAL INFRASTRUCTURE',
+                headline: 'Interactive 4K Learning That Brings Concepts To Life',
                 desc: 'Interactive digital boards and multimedia tools to make learning engaging and effective.', 
                 icon: 'book-open',
-                color: 'from-amber-500 to-orange-500',
-                longDesc: 'Our classrooms are equipped with cutting-edge interactive whiteboards and high-speed internet. This allows teachers to bring abstract concepts to life through 3D visualizations and educational simulations.' 
+                color: 'from-amber-600 to-orange-600',
+                accent: 'text-amber-800 bg-amber-50 border-amber-200',
+                stats: [
+                    { label: 'Digital Boards', val: 'All Classrooms' },
+                    { label: 'Interactive 3D Content', val: 'CBSE Aligned' },
+                    { label: 'High-Speed Wi-Fi', val: 'Campus Wide' }
+                ],
+                longDesc: 'Our classrooms are equipped with cutting-edge interactive whiteboards and high-speed internet. This allows teachers to bring abstract concepts to life through 3D visualizations, educational simulations, and multimedia resources that maximize retention.' 
             },
             { 
                 id: 'sports',
                 title: 'Sports Excellence', 
+                badge: 'ATHLETIC DEVELOPMENT',
+                headline: 'Building Champions on Grass, Courts & Tracks',
                 desc: 'Extensive grounds and professional coaching for cricket, football, and athletics.', 
                 icon: 'trophy',
-                color: 'from-emerald-500 to-teal-600',
-                longDesc: 'Physical fitness is a core pillar of our curriculum. We offer professional coaching for football, cricket, basketball, track & field events, and indoor sports.' 
+                color: 'from-emerald-600 to-teal-700',
+                accent: 'text-emerald-800 bg-emerald-50 border-emerald-200',
+                stats: [
+                    { label: 'Sports Grounds', val: 'Multisport Complex' },
+                    { label: 'Expert Coaches', val: 'State / National' },
+                    { label: 'Daily PT & Drills', val: 'Structured Training' }
+                ],
+                longDesc: 'Physical fitness is a core pillar of our curriculum. We offer professional coaching for football, cricket, basketball, volleyball, track & field events, and indoor sports, developing resilience, discipline, and sportsmanship.' 
             },
             { 
                 id: 'safe-campus',
                 title: 'Safe Environment', 
+                badge: '24/7 VIGILANCE',
+                headline: 'A Secure Sanctuary Where Children Learn Fearlessly',
                 desc: '24/7 CCTV surveillance and a secure campus ensuring complete peace of mind for parents.', 
                 icon: 'shield-check',
-                color: 'from-purple-600 to-violet-600',
-                longDesc: 'The safety of our students is paramount. The entire campus is under constant CCTV surveillance, supported by strict gate security and emergency response protocols.' 
+                color: 'from-purple-600 to-violet-700',
+                accent: 'text-purple-800 bg-purple-50 border-purple-200',
+                stats: [
+                    { label: 'CCTV Coverage', val: '100% High-Def' },
+                    { label: 'Gate Security', val: 'Biometric & Log' },
+                    { label: 'Medical First Aid', val: 'On-Campus Wing' }
+                ],
+                longDesc: 'The safety of our students is paramount. The entire campus is under constant CCTV surveillance, supported by trained gate security, fire protection systems, safe student transit buses, and verified staff protocols.' 
             },
             { 
                 id: 'holistic',
                 title: 'Holistic Growth', 
+                badge: 'ALL-ROUND DEVELOPMENT',
+                headline: 'Values, Arts, Leadership & Life Skills Under One Roof',
                 desc: 'Equal emphasis on academics, arts, music, and personality development.', 
                 icon: 'star',
-                color: 'from-rose-500 to-pink-600',
-                longDesc: 'We aim to produce well-rounded individuals. Beyond the classroom, students explore fine arts, cultural events, public speaking, and community service.' 
+                color: 'from-rose-600 to-pink-600',
+                accent: 'text-rose-800 bg-rose-50 border-rose-200',
+                stats: [
+                    { label: 'Co-Curricular Clubs', val: '15+ Active' },
+                    { label: 'Leadership & Debates', val: 'Weekly Forums' },
+                    { label: 'Cultural Ethos', val: 'Deeply Rooted' }
+                ],
+                longDesc: 'We aim to produce well-rounded individuals. Beyond textbooks, students explore fine arts, cultural festivities, stage performances, public speaking, model assemblies, and moral values that build unshakeable character.' 
             },
             { 
                 id: 'labs',
                 title: 'Modern Labs', 
+                badge: 'STEM & EXPERIENTIAL',
+                headline: 'Hands-On Discovery in Contemporary Science & IT Labs',
                 desc: 'Well-equipped Physics, Chemistry, and Computer labs for practical knowledge.', 
                 icon: 'microscope',
-                color: 'from-cyan-600 to-blue-600',
-                longDesc: 'Experiential science and computer labs equipped with contemporary apparatus and software promote inquiry-based learning and problem-solving skills.' 
+                color: 'from-cyan-600 to-blue-700',
+                accent: 'text-cyan-800 bg-cyan-50 border-cyan-200',
+                stats: [
+                    { label: 'Science Labs', val: 'Physics, Chem, Bio' },
+                    { label: 'Computer Lab', val: 'Modern Systems' },
+                    { label: 'Safety Protocols', val: 'Compliant & Guided' }
+                ],
+                longDesc: 'Experiential science and computer labs equipped with contemporary apparatus, optical microscopes, chemical safety hoods, and coding workstations promote inquiry-based learning and problem-solving skills.' 
             },
         ];
 
+        const [selectedIndex, setSelectedIndex] = useState(0);
+        const [lastPressedKey, setLastPressedKey] = useState(null);
+        const [activeScreen, setActiveScreen] = useState('pillars'); // 'pillars' | 'video'
+        const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+        const [isVideoPlaying, setIsVideoPlaying] = useState(true);
+        const [rgbIndex, setRgbIndex] = useState(0);
+
+        const activeItem = whyChooseUsData[selectedIndex] || whyChooseUsData[0];
+
+        // 13 Switchable RGB Keyboard Effects (including multi-colour combinations)
+        const rgbEffects = [
+            { id: 'rainbow', name: 'Rainbow Spectrum', gradient: 'from-rose-500 via-amber-400 via-emerald-400 via-sky-400 to-purple-500', glow: 'rgba(239, 68, 68, 0.45)', border: 'rgba(244, 63, 94, 0.7)', text: '#f43f5e', badge: 'Spectrum 360' },
+            { id: 'cyber', name: 'Cyberpunk Neon', gradient: 'from-cyan-400 via-fuchsia-500 to-pink-500', glow: 'rgba(6, 182, 212, 0.55)', border: 'rgba(6, 182, 212, 0.7)', text: '#06b6d4', badge: 'Neon Wave' },
+            { id: 'sunset', name: 'Sunset Blaze', gradient: 'from-amber-500 via-orange-500 to-rose-600', glow: 'rgba(249, 115, 22, 0.55)', border: 'rgba(249, 115, 22, 0.7)', text: '#f97316', badge: 'Solar Flare' },
+            { id: 'aurora', name: 'Emerald Aurora', gradient: 'from-emerald-400 via-teal-400 to-lime-400', glow: 'rgba(16, 185, 129, 0.55)', border: 'rgba(16, 185, 129, 0.7)', text: '#10b981', badge: 'Polar Aurora' },
+            { id: 'ocean', name: 'Deep Sapphire', gradient: 'from-blue-600 via-indigo-500 to-cyan-400', glow: 'rgba(59, 130, 246, 0.55)', border: 'rgba(59, 130, 246, 0.7)', text: '#3b82f6', badge: 'Abyssal Blue' },
+            { id: 'gold', name: 'Golden Royale', gradient: 'from-yellow-400 via-amber-300 to-amber-600', glow: 'rgba(245, 158, 11, 0.55)', border: 'rgba(245, 158, 11, 0.7)', text: '#f59e0b', badge: 'Imperial Gold' },
+            { id: 'crimson', name: 'Crimson Pulse', gradient: 'from-red-600 via-rose-500 to-purple-600', glow: 'rgba(225, 29, 72, 0.55)', border: 'rgba(225, 29, 72, 0.7)', text: '#e11d48', badge: 'Ruby Pulse' },
+            { id: 'frost', name: 'Polar Frost', gradient: 'from-sky-300 via-indigo-300 to-violet-300', glow: 'rgba(125, 211, 252, 0.55)', border: 'rgba(125, 211, 252, 0.7)', text: '#38bdf8', badge: 'Glacial Chill' },
+            // 5 Additional Dual/Tri-Colour Combined Lighting Effects
+            { id: 'fire-ice', name: 'Fire & Ice Fusion', gradient: 'from-cyan-400 via-sky-500 to-rose-600', glow: 'rgba(6, 182, 212, 0.6)', border: 'rgba(225, 29, 72, 0.75)', text: '#06b6d4', badge: 'Cyan + Ruby Duo' },
+            { id: 'synthwave', name: 'Synthwave Sunset', gradient: 'from-purple-600 via-pink-500 to-amber-400', glow: 'rgba(217, 70, 239, 0.6)', border: 'rgba(245, 158, 11, 0.75)', text: '#e879f9', badge: 'Violet + Gold Duo' },
+            { id: 'toxic-matrix', name: 'Toxic Matrix', gradient: 'from-lime-400 via-emerald-500 to-yellow-300', glow: 'rgba(132, 204, 22, 0.6)', border: 'rgba(234, 179, 8, 0.75)', text: '#a3e635', badge: 'Lime + Amber Duo' },
+            { id: 'tiranga-pride', name: 'Tiranga Tricolor', gradient: 'from-amber-500 via-slate-100 to-emerald-600', glow: 'rgba(245, 158, 11, 0.55)', border: 'rgba(16, 185, 129, 0.75)', text: '#f59e0b', badge: 'Saffron + Green Trio' },
+            { id: 'cosmic-nebula', name: 'Cosmic Nebula', gradient: 'from-indigo-600 via-fuchsia-600 to-cyan-400', glow: 'rgba(99, 102, 241, 0.6)', border: 'rgba(192, 38, 211, 0.75)', text: '#818cf8', badge: 'Indigo + Cyan Duo' }
+        ];
+
+        const currentRgb = rgbEffects[rgbIndex];
+        const cycleRgb = () => setRgbIndex(prev => (prev + 1) % rgbEffects.length);
+
+        // School Campus Video Scenes for Screen 2
+        const videoScenes = [
+            { id: 1, title: 'Morning Campus Assembly & Prayer', img: '/images/schoolimage.png', duration: '03:40', tag: 'Campus Life', desc: 'Daily synchronized prayer, discipline drills, and moral values in morning sunshine.' },
+            { id: 2, title: 'Tiranga National Celebration & Drills', img: '/images/tringaevent.jpeg', duration: '02:15', tag: 'Patriotic Day', desc: 'Cadet guard of honor, marching parade, and tricolor flag salutation.' },
+            { id: 3, title: 'Senior Cadets Scouting Expedition', img: '/images/scoutchild.jpeg', duration: '04:10', tag: 'Sainik Wing', desc: 'Field survival routines, leadership formations, and military defense grooming.' },
+            { id: 4, title: 'Annual Cultural Stage & Prize Gala', img: '/images/event.jpeg', duration: '05:30', tag: 'Annual Fest', desc: 'Vibrant stage theatricals, Rajasthani heritage music, and top scholar felicitation.' },
+            { id: 5, title: 'Athletics & Physical Training Drills', img: '/images/physicalactivity.jpeg', duration: '03:00', tag: 'Sports Arena', desc: 'High-intensity sprint training, physical stamina exercises, and obstacle courses.' },
+        ];
+        const activeVideo = videoScenes[currentVideoIndex];
+
+        const goPrev = () => {
+            if (activeScreen === 'video') {
+                setCurrentVideoIndex(prev => (prev - 1 + videoScenes.length) % videoScenes.length);
+            } else {
+                setSelectedIndex(prev => (prev - 1 + whyChooseUsData.length) % whyChooseUsData.length);
+            }
+            setLastPressedKey('prev');
+            setTimeout(() => setLastPressedKey(null), 300);
+        };
+
+        const goNext = () => {
+            if (activeScreen === 'video') {
+                setCurrentVideoIndex(prev => (prev + 1) % videoScenes.length);
+            } else {
+                setSelectedIndex(prev => (prev + 1) % whyChooseUsData.length);
+            }
+            setLastPressedKey('next');
+            setTimeout(() => setLastPressedKey(null), 300);
+        };
+
+        const handleEnter = () => {
+            setLastPressedKey('enter');
+            setTimeout(() => setLastPressedKey(null), 300);
+            if (activeScreen === 'video') {
+                setIsVideoPlaying(prev => !prev);
+            } else if (onSelectFeature) {
+                onSelectFeature(activeItem);
+            }
+        };
+
+        // Physical Keyboard Navigation Listener
+        useEffect(() => {
+            const handleKeyDown = (e) => {
+                if (['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) return;
+
+                if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    goPrev();
+                } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    goNext();
+                } else if (e.key === 'Enter') {
+                    const sectionEl = document.getElementById('features');
+                    if (sectionEl) {
+                        const rect = sectionEl.getBoundingClientRect();
+                        if (rect.top < window.innerHeight && rect.bottom > 0) {
+                            e.preventDefault();
+                            handleEnter();
+                        }
+                    }
+                }
+            };
+
+            window.addEventListener('keydown', handleKeyDown);
+            return () => window.removeEventListener('keydown', handleKeyDown);
+        }, [selectedIndex, activeItem, activeScreen, currentVideoIndex]);
+
         return (
-            <section id="features" className="py-16 sm:py-24 lg:py-32 bg-slate-50/70 border-y border-slate-200/60">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section id="features" className="py-16 sm:py-24 lg:py-32 bg-blue-950 text-white relative overflow-hidden">
+                {/* Background ambient lighting matching active RGB effect */}
+                <div 
+                    className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[750px] h-[450px] blur-[150px] rounded-full pointer-events-none transition-all duration-700 opacity-20"
+                    style={{ backgroundColor: currentRgb.text }}
+                ></div>
+
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <SectionHeading 
                         badge="The Shri Swaroop Advantage" 
                         title="Why Discerning Families Choose Us" 
-                        subtitle="Discover the cornerstones that create a disciplined, high-achievement learning ecosystem."
+                        subtitle="Explore our institutional pillars on the interactive dual-screen workstation display and black RGB keyboard below."
+                        light={true}
                     />
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
-                        {whyChooseUsData.map((item) => (
-                            <div 
-                                key={item.id}
-                                onClick={() => onSelectFeature(item)}
-                                className="group bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-200/80 hover:border-royal-400 cursor-pointer flex flex-col justify-between hover:-translate-y-1"
-                            >
-                                <div>
-                                    <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center mb-4 sm:mb-6 shadow-md`}>
-                                        <Icon name={item.icon} size={24} />
+                    {/* Desktop Workstation Setup: Matte Silver Computer Screen + Black RGB Keyboard */}
+                    <div className="max-w-5xl mx-auto mt-4 sm:mt-8 w-full overflow-hidden">
+                        {/* Monitor Frame in Premium Matte Silver Finish */}
+                        <div className="bg-gradient-to-b from-[black] via-[black] to-[black] rounded-[24px] sm:rounded-[36px] p-2.5 sm:p-4 md:p-5 border-4 border-[#b5c0d0] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.65)] relative">
+                            {/* Top Center HD Webcam & LED */}
+                            <div className="absolute top-2 sm:top-2.5 left-1/2 -translate-x-1/2 flex items-center gap-2">
+                                <div className="w-2.5 h-2.5 rounded-full bg-[#9aa7bc] border border-[#7a889e] flex items-center justify-center">
+                                    <div className="w-1 h-1 rounded-full bg-blue-500/80"></div>
+                                </div>
+                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                            </div>
+
+                            {/* Computer Display Screen with BEIGE Background */}
+                            <div className="bg-[#f6f2e8] rounded-2xl sm:rounded-[24px] overflow-hidden border border-[#d6cfbe] shadow-inner flex flex-col text-slate-900">
+                                {/* OS Window Header / Dual-Screen Browser Bar (Metallic Warm Beige) */}
+                                <div className="bg-[#ebe5d8] border-b border-[#ded7c8] px-3 sm:px-4 py-2 flex items-center justify-between flex-wrap gap-2">
+                                    {/* Mac Style Window Control Buttons */}
+                                    <div className="flex items-center gap-1.5">
+                                        <span className="w-3 h-3 rounded-full bg-red-500 inline-block shadow-sm"></span>
+                                        <span className="w-3 h-3 rounded-full bg-amber-400 inline-block shadow-sm"></span>
+                                        <span className="w-3 h-3 rounded-full bg-emerald-500 inline-block shadow-sm"></span>
                                     </div>
-                                    <h3 className="text-lg sm:text-xl font-bold font-serif text-slate-900 group-hover:text-royal-600 transition-colors">
-                                        {item.title}
-                                    </h3>
-                                    <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
-                                        {item.desc}
-                                    </p>
+
+                                    {/* Dual-Screen Navigation Switcher Buttons on PC Header */}
+                                    <div className="flex items-center gap-1 bg-[#ded7c8]/80 p-1 rounded-xl border border-[#d6cfbe]">
+                                        <button
+                                            onClick={() => setActiveScreen('pillars')}
+                                            className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                                                activeScreen === 'pillars'
+                                                    ? 'bg-white text-slate-950 shadow-xs'
+                                                    : 'text-slate-600 hover:text-slate-950 hover:bg-white/60'
+                                            }`}
+                                        >
+                                            <i className="fa-solid fa-desktop text-[11px] text-royal-600"></i>
+                                            <span>Screen 1: Pillars</span>
+                                        </button>
+
+                                        <button
+                                            onClick={() => setActiveScreen('video')}
+                                            className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                                                activeScreen === 'video'
+                                                    ? 'bg-royal-600 text-white shadow-xs'
+                                                    : 'text-slate-700 hover:text-slate-950 hover:bg-white/60'
+                                            }`}
+                                        >
+                                            <i className="fa-solid fa-circle-play text-[11px] text-amber-300"></i>
+                                            <span>Screen 2: Video Tour 🎥</span>
+                                        </button>
+                                    </div>
+
+                                    {/* Active Counter Badge / Status */}
+                                    <div className="flex items-center gap-1.5 text-[11px] text-slate-600 font-semibold font-mono">
+                                        {activeScreen === 'pillars' ? (
+                                            <>
+                                                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                                                <span>Pillar {selectedIndex + 1} of 6</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                                                <span className="text-red-700 font-bold uppercase">Video Broadcast</span>
+                                            </>
+                                        )}
+                                    </div>
                                 </div>
 
-                                <div className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-royal-600">
-                                    <span>Read Comprehensive Overview</span>
-                                    <Icon name="arrow-right" size={14} />
+                                {/* SCREEN 1: Institutional Pillars on Beige Screen Canvas */}
+                                {activeScreen === 'pillars' && (
+                                    <div className="p-4 sm:p-7 md:p-9 flex flex-col lg:flex-row gap-6 lg:gap-8 items-stretch bg-gradient-to-br from-[#faf6ee] via-[#f7f3ea] to-[#f2ecdd]">
+                                        {/* Left Column: Advantage Menu Tabs */}
+                                        <div className="lg:w-72 shrink-0 flex lg:flex-col gap-2 overflow-x-auto no-scrollbar pb-2 lg:pb-0">
+                                            <div className="hidden lg:flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-slate-500 px-3 py-1">
+                                                <span>Institutional Pillars</span>
+                                                <span className="text-amber-700">6 Features</span>
+                                            </div>
+                                            {whyChooseUsData.map((item, idx) => {
+                                                const isActive = idx === selectedIndex;
+                                                return (
+                                                    <button
+                                                        key={item.id}
+                                                        onClick={() => setSelectedIndex(idx)}
+                                                        className={`px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl text-left transition-all duration-200 whitespace-nowrap lg:whitespace-normal flex items-center gap-3 border cursor-pointer ${
+                                                            isActive
+                                                                ? `bg-slate-900 text-white shadow-md border-slate-900 font-bold scale-[1.02]`
+                                                                : 'bg-white/80 hover:bg-white text-slate-700 border-[#ded7c8] hover:border-slate-400 font-medium'
+                                                        }`}
+                                                    >
+                                                        <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-xs shrink-0 ${
+                                                            isActive ? 'bg-amber-400 text-slate-950' : 'bg-slate-100 text-slate-700'
+                                                        }`}>
+                                                            <Icon name={item.icon} size={15} />
+                                                        </div>
+                                                        <span className="text-xs sm:text-sm truncate">{item.title}</span>
+                                                        {isActive && (
+                                                            <i className="fa-solid fa-chevron-right text-xs text-amber-400 ml-auto hidden sm:inline-block"></i>
+                                                        )}
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
+
+                                        {/* Right Column: Active Message Display on Beige Screen */}
+                                        <div className="flex-1 bg-white/95 rounded-2xl p-5 sm:p-8 border border-[#e2dccd] shadow-sm flex flex-col justify-between relative overflow-hidden">
+                                            <div>
+                                                {/* Category Badge & Screen Switcher Button */}
+                                                <div className="flex items-center justify-between gap-2 mb-3 flex-wrap">
+                                                    <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider border ${activeItem.accent}`}>
+                                                        <span className="w-1.5 h-1.5 rounded-full bg-current"></span>
+                                                        <span>{activeItem.badge}</span>
+                                                    </div>
+
+                                                    {/* Button to Switch to Second Screen */}
+                                                    <button
+                                                        onClick={() => setActiveScreen('video')}
+                                                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-royal-50 hover:bg-royal-100 border border-royal-200 text-royal-700 font-bold text-xs transition-all cursor-pointer hover:scale-105"
+                                                    >
+                                                        <i className="fa-solid fa-play text-[10px] text-royal-600"></i>
+                                                        <span>Switch to Screen 2 (Watch Video)</span>
+                                                    </button>
+                                                </div>
+
+                                                {/* Screen Headline */}
+                                                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold font-serif text-slate-900 tracking-tight leading-snug">
+                                                    {activeItem.headline}
+                                                </h3>
+
+                                                {/* Message Body */}
+                                                <p className="mt-3 sm:mt-4 text-slate-700 text-xs sm:text-sm md:text-base leading-relaxed">
+                                                    {activeItem.longDesc}
+                                                </p>
+
+                                                {/* Key Metrics / Highlights Grid inside Beige Screen */}
+                                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 mt-5 sm:mt-6">
+                                                    {activeItem.stats.map((stat, sIdx) => (
+                                                        <div key={sIdx} className="bg-[#fcfaf5] border border-[#e8e2d4] rounded-xl p-3 text-center shadow-2xs">
+                                                            <div className="text-sm sm:text-base font-black text-royal-700 font-serif">
+                                                                {stat.val}
+                                                            </div>
+                                                            <div className="text-[10px] sm:text-[11px] uppercase tracking-wider text-slate-500 font-semibold mt-0.5">
+                                                                {stat.label}
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            {/* Bottom Action Footer on PC Screen */}
+                                            <div className="mt-6 pt-4 border-t border-[#ede7da] flex flex-col sm:flex-row items-center justify-between gap-3">
+                                                <div className="text-xs text-slate-600 flex items-center gap-2 font-medium">
+                                                    <i className="fa-solid fa-graduation-cap text-amber-600"></i>
+                                                    <span>Shri Swaroop Excellence Guarantee</span>
+                                                </div>
+
+                                                <button
+                                                    onClick={() => onSelectFeature(activeItem)}
+                                                    className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-royal-600 hover:bg-royal-700 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer hover:scale-102"
+                                                >
+                                                    <span>Read Comprehensive Overview</span>
+                                                    <Icon name="arrow-right" size={14} />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* SCREEN 2: School Video Player with Clear Back Button */}
+                                {activeScreen === 'video' && (
+                                    <div className="p-4 sm:p-7 md:p-8 flex flex-col gap-5 bg-gradient-to-br from-[#faf6ee] via-[#f7f3ea] to-[#f2ecdd]">
+                                        {/* Back Button Bar */}
+                                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-[#ded7c8]">
+                                            <button
+                                                onClick={() => setActiveScreen('pillars')}
+                                                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-950 hover:bg-slate-900 text-amber-300 font-bold text-xs uppercase tracking-wider shadow-md transition-all cursor-pointer hover:scale-105 border border-slate-700"
+                                            >
+                                                <i className="fa-solid fa-arrow-left"></i>
+                                                <span>⬅ Back to Screen 1 (Pillars Overview)</span>
+                                            </button>
+
+                                            <div className="flex items-center gap-2 text-xs font-mono text-slate-700">
+                                                <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse"></span>
+                                                <span className="font-bold uppercase tracking-wider text-slate-900">
+                                                    Campus Broadcast • Scene {currentVideoIndex + 1} of {videoScenes.length}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        {/* Main Video Cinema Screen */}
+                                        <div className="relative rounded-2xl overflow-hidden bg-black shadow-2xl border-2 border-slate-800 aspect-video max-h-[380px] sm:max-h-[440px] flex items-center justify-center group">
+                                            {/* Video Frame Image */}
+                                            <img
+                                                src={activeVideo.img}
+                                                alt={activeVideo.title}
+                                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-95"
+                                                onError={(e) => { e.target.src = '/images/schoolimage.png'; }}
+                                            />
+
+                                            {/* Live Scanlines Overlay */}
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 pointer-events-none"></div>
+
+                                            {/* Top Video HUD Badges */}
+                                            <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none text-white text-xs">
+                                                <div className="flex items-center gap-2 bg-black/70 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
+                                                    <span className="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+                                                    <span className="font-bold uppercase tracking-widest text-[10px] text-amber-400">{activeVideo.tag}</span>
+                                                </div>
+                                                <div className="bg-black/70 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/20 font-mono text-[11px] text-slate-200">
+                                                    {activeVideo.duration} • 1080p HD
+                                                </div>
+                                            </div>
+
+                                            {/* Center Big Play / Pause Interactive Trigger */}
+                                            <button
+                                                onClick={() => setIsVideoPlaying(!isVideoPlaying)}
+                                                className="absolute z-20 w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-royal-600/90 hover:bg-royal-500 text-white flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-white/40 cursor-pointer"
+                                                title={isVideoPlaying ? 'Pause Video' : 'Play Video'}
+                                            >
+                                                <i className={`fa-solid ${isVideoPlaying ? 'fa-pause' : 'fa-play'} text-xl sm:text-2xl ${isVideoPlaying ? '' : 'ml-1'}`}></i>
+                                            </button>
+
+                                            {/* Bottom Cinema Controls Overlay */}
+                                            <div className="absolute bottom-0 inset-x-0 p-3 sm:p-5 bg-gradient-to-t from-black via-black/80 to-transparent flex flex-col gap-2 text-white">
+                                                <div className="flex items-center justify-between">
+                                                    <div>
+                                                        <h4 className="text-sm sm:text-lg font-serif font-bold text-white leading-tight">
+                                                            {activeVideo.title}
+                                                        </h4>
+                                                        <p className="text-[11px] sm:text-xs text-slate-300 line-clamp-1 mt-0.5 font-light">
+                                                            {activeVideo.desc}
+                                                        </p>
+                                                    </div>
+
+                                                    <a
+                                                        href="images/schl video.mp4"
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all shadow-md hover:scale-105"
+                                                    >
+                                                        <i className="fa-brands fa-youtube"></i>
+                                                        <span>YouTube Shorts</span>
+                                                    </a>
+                                                </div>
+
+                                                {/* Scrub Timeline Bar */}
+                                                <div className="w-full bg-white/20 rounded-full h-1.5 overflow-hidden mt-1 cursor-pointer">
+                                                    <div 
+                                                        className="bg-amber-400 h-full rounded-full transition-all duration-500" 
+                                                        style={{ width: isVideoPlaying ? `${((currentVideoIndex + 1) / videoScenes.length) * 100}%` : '45%' }}
+                                                    ></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Scene Selector Thumbnails Bar */}
+                                        <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto no-scrollbar pb-1">
+                                            {videoScenes.map((scene, vIdx) => (
+                                                <button
+                                                    key={scene.id}
+                                                    onClick={() => {
+                                                        setCurrentVideoIndex(vIdx);
+                                                        setIsVideoPlaying(true);
+                                                    }}
+                                                    className={`shrink-0 px-3 sm:px-4 py-2 rounded-xl text-left transition-all cursor-pointer border flex items-center gap-2.5 ${
+                                                        vIdx === currentVideoIndex
+                                                            ? 'bg-slate-900 text-white border-slate-900 shadow-md font-bold scale-[1.02]'
+                                                            : 'bg-white hover:bg-slate-50 text-slate-700 border-[#ded7c8]'
+                                                    }`}
+                                                >
+                                                    <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-mono font-bold ${
+                                                        vIdx === currentVideoIndex ? 'bg-amber-400 text-slate-950' : 'bg-slate-200 text-slate-700'
+                                                    }`}>
+                                                        {vIdx + 1}
+                                                    </span>
+                                                    <div className="min-w-0">
+                                                        <div className="text-xs font-bold truncate max-w-[150px] sm:max-w-[190px]">{scene.title}</div>
+                                                        <div className="text-[10px] text-slate-400">{scene.duration}</div>
+                                                    </div>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Metallic Computer Monitor Stand in Matte Silver */}
+                        <div className="flex flex-col items-center">
+                            {/* Stand Neck */}
+                            <div className="w-16 sm:w-20 h-7 sm:h-9 bg-gradient-to-b from-[#b8c2d1] via-[#cbd3df] to-[#9aa7bc] shadow-md flex items-center justify-center border-x border-[#9aa7bc]">
+                                <div className="w-8 h-2 rounded-full bg-slate-400/50"></div>
+                            </div>
+                            {/* Stand Base Plate */}
+                            <div className="w-48 sm:w-64 h-3 sm:h-3.5 rounded-full bg-gradient-to-r from-[#9aa7bc] via-[#dde3ed] to-[#9aa7bc] border border-[#8f9cae] shadow-lg"></div>
+                        </div>
+
+                        {/* Working Physical Black Desktop Mechanical Keyboard with 13 RGB Effects */}
+                        <div className="mt-5 sm:mt-7 max-w-2xl mx-auto w-full">
+                            {/* Keyboard Outer Shell in Sleek Matte Black with Dynamic RGB Underglow */}
+                            <div 
+                                className="bg-[#090a0f] border-2 border-slate-800 rounded-2xl sm:rounded-3xl p-3 sm:p-5 flex flex-col gap-2.5 transition-all duration-500"
+                                style={{ 
+                                    boxShadow: `0 20px 45px -10px ${currentRgb.glow}, 0 0 20px 1px ${currentRgb.border}` 
+                                }}
+                            >
+                                {/* Top Helper Bar with Interactive RGB Cycle Button */}
+                                <div className="flex items-center justify-between px-2 text-[10px] sm:text-xs text-slate-400 font-mono flex-wrap gap-2">
+                                    <div className="flex items-center gap-2">
+                                        <span 
+                                            className="w-2.5 h-2.5 rounded-full animate-ping"
+                                            style={{ backgroundColor: currentRgb.text }}
+                                        ></span>
+                                        <span className="text-slate-100 font-bold uppercase tracking-wider">
+                                            BLACK MECH KEYBOARD • 13 RGB MODES
+                                        </span>
+                                    </div>
+
+                                    {/* Dedicated Hardware Button to Change RGB Effects (13 Types) */}
+                                    <button
+                                        onClick={cycleRgb}
+                                        className="px-3 py-1.5 rounded-xl bg-[#141620] hover:bg-[#1f2333] border border-slate-700 text-xs font-bold font-mono transition-all cursor-pointer flex items-center gap-2 shadow-md hover:scale-105 active:scale-95"
+                                        title="Click to cycle through 13 RGB lighting effects"
+                                    >
+                                        <span className="text-sm">💡</span>
+                                        <span className="text-slate-300">RGB MODE:</span>
+                                        <span style={{ color: currentRgb.text }} className="font-extrabold">{currentRgb.name}</span>
+                                        <span className="px-1.5 py-0.5 rounded bg-black/80 text-[10px] text-amber-300 font-mono">
+                                            {rgbIndex + 1}/13
+                                        </span>
+                                    </button>
+                                </div>
+
+                                {/* Animated RGB Glow Accent Line */}
+                                <div className={`h-1 w-full rounded-full bg-gradient-to-r ${currentRgb.gradient} opacity-90 shadow-sm`}></div>
+
+                                {/* Simulated Keyboard Key Rows with Sleek Black Keycaps */}
+                                <div className="bg-[#06070a] rounded-xl sm:rounded-2xl p-2.5 sm:p-4 border border-slate-800/90 flex flex-col gap-1.5 sm:gap-2 select-none shadow-inner">
+                                    {/* Top Row: Functional keys with subtle RGB glow */}
+                                    <div className="grid grid-cols-12 gap-1 sm:gap-1.5 text-[9px] text-slate-500 font-mono">
+                                        {['Esc', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'Del'].map((k, i) => (
+                                            <div key={i} className="bg-[#12141c] hover:bg-[#1a1d29] rounded py-1 text-center border border-slate-800 text-[8px] sm:text-[9px] text-slate-400 transition-colors">
+                                                {k}
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    {/* Alphanumeric Row Preview in Black Keycaps */}
+                                    <div className="grid grid-cols-10 gap-1 sm:gap-1.5 text-slate-400 text-[10px] hidden sm:grid">
+                                        {['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'].map((k, i) => (
+                                            <div key={i} className="bg-[#12141c] hover:bg-[#1a1d29] rounded py-1.5 text-center border border-slate-800/80 font-mono transition-colors">
+                                                {k}
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    {/* Main Interactive Control Row: Space, Enter, and Arrow Keys */}
+                                    <div className="flex items-center justify-between gap-2 sm:gap-3 pt-1">
+                                        {/* Left Side: Spacebar & Function Keys */}
+                                        <div className="flex-1 flex items-center gap-1.5 sm:gap-2">
+                                            <div className="bg-[#12141c] rounded-lg px-2.5 py-2 text-[10px] font-mono text-slate-400 border border-slate-800">
+                                                Ctrl
+                                            </div>
+                                            <div className="bg-[#12141c] rounded-lg px-2.5 py-2 text-[10px] font-mono text-slate-400 border border-slate-800">
+                                                Alt
+                                            </div>
+                                            {/* Spacebar */}
+                                            <button 
+                                                onClick={goNext}
+                                                className="flex-1 bg-[#12141c] hover:bg-[#1c202c] active:bg-[#252a3a] rounded-lg py-2 text-center text-slate-300 text-[10px] font-mono border border-slate-800 transition-all cursor-pointer shadow-sm"
+                                            >
+                                                Spacebar ({activeScreen === 'video' ? 'Next Video Scene' : 'Next Pillar'})
+                                            </button>
+                                        </div>
+
+                                        {/* Working Prominent ENTER Button with Dynamic RGB Accent */}
+                                        <button
+                                            onClick={handleEnter}
+                                            className={`px-3.5 sm:px-5 py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer shadow-md border ${
+                                                lastPressedKey === 'enter'
+                                                    ? 'scale-95 ring-2 ring-white text-slate-950 bg-amber-400'
+                                                    : 'bg-[#181b26] hover:bg-[#222736] text-white border-slate-700'
+                                            }`}
+                                            style={{ borderColor: lastPressedKey === 'enter' ? undefined : currentRgb.border }}
+                                            title="Press Enter to Open Message or Toggle Video"
+                                        >
+                                            <i className="fa-solid fa-arrow-turn-down text-[11px] rotate-90"></i>
+                                            <span>Enter Key</span>
+                                        </button>
+
+                                        {/* Working ARROW KEYS Cluster in Black Keycaps */}
+                                        <div className="flex items-center gap-1 sm:gap-1.5">
+                                            {/* Left Arrow Button */}
+                                            <button
+                                                onClick={goPrev}
+                                                className={`w-9 sm:w-11 h-8 sm:h-9 rounded-lg flex items-center justify-center text-xs font-bold transition-all cursor-pointer border shadow-sm ${
+                                                    lastPressedKey === 'prev'
+                                                        ? 'scale-95 ring-2 ring-white text-slate-950 bg-amber-400'
+                                                        : 'bg-[#12141c] hover:bg-[#1e2230] text-slate-200 border-slate-800 active:scale-95'
+                                                }`}
+                                                title="Previous (Left Arrow)"
+                                            >
+                                                <i className="fa-solid fa-arrow-left"></i>
+                                            </button>
+
+                                            {/* Up / Down Arrow Column */}
+                                            <div className="flex flex-col gap-1">
+                                                {/* Up Arrow Button */}
+                                                <button
+                                                    onClick={goPrev}
+                                                    className="w-8 sm:w-10 h-3.5 sm:h-4 rounded bg-[#12141c] hover:bg-[#1e2230] text-slate-200 flex items-center justify-center text-[9px] border border-slate-800 transition-all cursor-pointer active:scale-95"
+                                                    title="Previous (Up Arrow)"
+                                                >
+                                                    <i className="fa-solid fa-arrow-up text-[8px]"></i>
+                                                </button>
+                                                {/* Down Arrow Button */}
+                                                <button
+                                                    onClick={goNext}
+                                                    className="w-8 sm:w-10 h-3.5 sm:h-4 rounded bg-[#12141c] hover:bg-[#1e2230] text-slate-200 flex items-center justify-center text-[9px] border border-slate-800 transition-all cursor-pointer active:scale-95"
+                                                    title="Next (Down Arrow)"
+                                                >
+                                                    <i className="fa-solid fa-arrow-down text-[8px]"></i>
+                                                </button>
+                                            </div>
+
+                                            {/* Right Arrow Button */}
+                                            <button
+                                                onClick={goNext}
+                                                className={`w-9 sm:w-11 h-8 sm:h-9 rounded-lg flex items-center justify-center text-xs font-bold transition-all cursor-pointer border shadow-sm ${
+                                                    lastPressedKey === 'next'
+                                                        ? 'scale-95 ring-2 ring-white text-slate-950 bg-amber-400'
+                                                        : 'bg-[#12141c] hover:bg-[#1e2230] text-slate-200 border-slate-800 active:scale-95'
+                                                }`}
+                                                title="Next (Right Arrow)"
+                                            >
+                                                <i className="fa-solid fa-arrow-right"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        ))}
+                        </div>
                     </div>
                 </div>
             </section>
@@ -1194,53 +2062,196 @@
     };
 
     const DirectorSection = ({ onOpenDirectorModal }) => {
+        const [activePen, setActivePen] = useState('gold');
+        const [highlightMode, setHighlightMode] = useState(false);
+
         return (
-            <section id="director" className="py-16 sm:py-24 lg:py-32 bg-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="bg-slate-900 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-slate-800">
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
-                            <div className="lg:col-span-5 relative min-h-[300px] sm:min-h-[380px] lg:min-h-full">
-                                <img 
-                                    src="/images/directorimage.jpeg" 
-                                    alt="Mr. Manoj Kumar Bagoria"
-                                    className="w-full h-full object-cover object-top"
-                                    onError={(e) => { e.target.src = '/images/schoolimage.png'; }}
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent lg:hidden"></div>
+            <section id="director" className="py-16 sm:py-24 lg:py-32 bg-[#050608] relative overflow-hidden text-white">
+                {/* Background ambient subtle neon lighting */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-royal-600/10 blur-[150px] rounded-full pointer-events-none"></div>
+
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <SectionHeading 
+                        badge="Interactive Leadership Keynote" 
+                        title="From the Director's Desk" 
+                        subtitle="Explore Director Mr. Manoj Kumar Bagoria's founding vision on the campus smart board."
+                        light={true}
+                    />
+
+                    {/* The Digital Smart Board Hardware Unit (Sleek Black Titanium Theme) */}
+                    <div className="max-w-5xl mx-auto mt-6 sm:mt-10">
+                        {/* Outer Anodized Smart Board Frame (Matte Black Finish) */}
+                        <div className="bg-[#0b0d13] p-3 sm:p-5 rounded-[26px] sm:rounded-[34px] border-4 border-slate-800 shadow-[0_25px_60px_-15px_rgba(0,0,0,1)] relative">
+                            {/* Top IR Sensor Notch */}
+                            <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-4 py-0.5 rounded-full bg-[#12151d] border border-slate-700 text-[9px] text-slate-200 font-mono uppercase tracking-widest flex items-center gap-1.5 shadow-md">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                <span>SMART BOARD 4K UHD • BLACK TITANIUM OS 6.0</span>
                             </div>
 
-                            <div className="lg:col-span-7 p-6 sm:p-12 lg:p-16 flex flex-col justify-between text-white space-y-6 sm:space-y-8">
-                                <div>
-                                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-royal-500/20 text-royal-300 text-xs font-bold uppercase tracking-widest mb-3 sm:mb-4">
-                                        <Icon name="quote" size={13} />
-                                        <span>Leadership Perspective</span>
+                            {/* Digital Board Screen Canvas in Sleek Black */}
+                            <div className="bg-[#030407] rounded-xl sm:rounded-2xl overflow-hidden border border-slate-800 flex flex-col relative">
+                                {/* Digital Board Top OS Toolbar */}
+                                <div className="bg-[#0a0c12] border-b border-slate-800/90 px-3 sm:px-6 py-2.5 flex items-center justify-between flex-wrap gap-2 text-xs">
+                                    <div className="flex items-center gap-2 sm:gap-3">
+                                        <div className="flex items-center gap-1.5 text-amber-300 font-bold font-mono text-[11px] sm:text-xs">
+                                            <i className="fa-solid fa-chalkboard-user"></i>
+                                            <span>BLACK TITANIUM SMART CANVAS</span>
+                                        </div>
+                                        <span className="text-slate-700">|</span>
+                                        <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs text-emerald-400 font-semibold">
+                                            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                                            <span>LIVE DIGITAL PROJECTION</span>
+                                        </span>
                                     </div>
 
-                                    <h2 className="text-2xl sm:text-4xl font-bold font-serif text-white tracking-tight">
-                                        From the Director's Desk
-                                    </h2>
-
-                                    <blockquote className="mt-4 sm:mt-6 text-base sm:text-xl text-slate-200 font-serif italic leading-relaxed border-l-2 border-amber-400 pl-3 sm:pl-4">
-                                        "True education is about igniting a flame, not filling a vessel. We are committed to nurturing the unique spark in every child."
-                                    </blockquote>
-
-                                    <p className="mt-4 text-slate-300 text-xs sm:text-base leading-relaxed font-light">
-                                        Since our inception in 2001, our mission has remained steadfast: to provide an education that is transformative, inclusive, and deeply rooted in values. Every child is a unique universe of potential.
-                                    </p>
+                                    {/* Smart Board Interactive Highlighter Tool */}
+                                    <div className="flex items-center gap-2">
+                                        <button 
+                                            onClick={() => setHighlightMode(!highlightMode)}
+                                            className={`px-3 py-1 rounded-lg text-[10px] sm:text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
+                                                highlightMode ? 'bg-amber-400 text-slate-950 font-bold shadow-sm' : 'bg-slate-800 text-slate-200 hover:bg-slate-700'
+                                            }`}
+                                        >
+                                            <i className="fa-solid fa-highlighter text-amber-400"></i>
+                                            <span>Highlight Text</span>
+                                        </button>
+                                        <div className="hidden sm:flex items-center gap-1 bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800 text-[10px] text-slate-300">
+                                            <span>Touch: Active</span>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div className="pt-4 sm:pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                                    <div>
-                                        <div className="text-lg sm:text-xl font-bold font-serif text-white">Mr. Manoj Kumar Bagoria</div>
-                                        <div className="text-[11px] sm:text-xs uppercase tracking-widest text-amber-400 font-semibold mt-0.5">Director & Founder</div>
+                                {/* Digital Board Content Screen Area */}
+                                <div className="p-5 sm:p-8 lg:p-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center bg-gradient-to-br from-[#090b10] via-[#040507] to-[#010203]">
+                                    {/* Left: Full Image of Director (100% visible, fully contained) */}
+                                    <div className="lg:col-span-5 flex flex-col items-center">
+                                        <div className="w-full max-w-[310px] sm:max-w-[340px] bg-[#0d1017] border-2 border-amber-500/40 rounded-2xl p-3 shadow-2xl flex flex-col items-center group">
+                                            {/* Full Photo Container with object-contain to show complete image */}
+                                            <div className="w-full bg-black rounded-xl overflow-hidden flex items-center justify-center p-1 border border-slate-800">
+                                                <img 
+                                                    src="/images/directorimage.jpeg" 
+                                                    alt="Mr. Manoj Kumar Bagoria - Director & Founder"
+                                                    className="w-full h-auto max-h-[360px] sm:max-h-[420px] object-contain rounded-lg shadow-lg filter brightness-105 contrast-105 transition-transform duration-500 group-hover:scale-[1.02]"
+                                                    onError={(e) => { e.target.src = '/images/schoolimage.png'; }}
+                                                />
+                                            </div>
+
+                                            {/* Speaker Card Placard beneath photo */}
+                                            <div className="w-full mt-3 bg-[#080a0f] rounded-xl p-2.5 border border-slate-800 flex items-center justify-between">
+                                                <div>
+                                                    <div className="text-xs sm:text-sm font-bold text-white font-serif">Mr. Manoj Kumar Bagoria</div>
+                                                    <div className="text-[10px] text-amber-400 font-mono uppercase tracking-wider">Director & Founder</div>
+                                                </div>
+                                                <div className="flex items-end gap-0.5 h-4">
+                                                    {[10, 16, 8, 18, 14, 16, 9].map((h, i) => (
+                                                        <span 
+                                                            key={i} 
+                                                            className="w-1 bg-amber-400 rounded-full animate-pulse" 
+                                                            style={{ height: `${h}px`, animationDelay: `${i * 150}ms` }}
+                                                        ></span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    <button 
-                                        onClick={onOpenDirectorModal}
-                                        className="w-full sm:w-auto text-center px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold uppercase tracking-wider transition-all border border-white/15"
+                                    {/* Right: Digital Board Speech Canvas */}
+                                    <div className="lg:col-span-7 flex flex-col justify-between space-y-4 sm:space-y-6">
+                                        <div>
+                                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 text-amber-300 border border-slate-700 text-xs font-bold uppercase tracking-widest mb-3">
+                                                <i className="fa-solid fa-quote-left text-xs text-amber-400"></i>
+                                                <span>Keynote Address • Smart Board</span>
+                                            </div>
+
+                                            <h2 className="text-2xl sm:text-4xl font-bold font-serif text-white tracking-tight leading-tight">
+                                                From the Director's Desk
+                                            </h2>
+
+                                            {/* Glowing Digital Black Whiteboard Quote */}
+                                            <div className={`mt-4 sm:mt-6 p-4 rounded-xl transition-all duration-300 ${
+                                                highlightMode ? 'bg-amber-400/20 border-l-4 border-amber-400 text-amber-100 shadow-lg shadow-amber-400/10' : 'bg-slate-900/90 border-l-4 border-amber-400 text-slate-100 border border-slate-800'
+                                            }`}>
+                                                <blockquote className="text-base sm:text-xl font-serif italic leading-relaxed">
+                                                    "Together We Learn, Together We Grow, Together We Succeed."
+                                                </blockquote>
+                                            </div>
+
+                                            <p className="mt-4 text-slate-300 text-xs sm:text-sm md:text-base leading-relaxed font-light">
+                                                Education is not merely about achieving academic excellence — it is about nurturing responsible, confident, and morally strong individuals prepared to face the challenges of the future. We are committed to providing a safe, caring, and inspiring learning environment where every child discovers their unique talents.
+                                            </p>
+
+                                            {/* Smart Board Highlights */}
+                                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mt-5">
+                                                <div className="bg-[#0c0f16] border border-slate-800 rounded-xl p-2.5 text-center">
+                                                    <div className="text-xs sm:text-sm font-bold text-amber-400">25+ Years</div>
+                                                    <div className="text-[10px] text-slate-400">Educational Legacy</div>
+                                                </div>
+                                                <div className="bg-[#0c0f16] border border-slate-800 rounded-xl p-2.5 text-center">
+                                                    <div className="text-xs sm:text-sm font-bold text-amber-300">RBSE Affiliated</div>
+                                                    <div className="text-[10px] text-slate-400">Rajasthan Board</div>
+                                                </div>
+                                                <div className="col-span-2 sm:col-span-1 bg-[#0c0f16] border border-slate-800 rounded-xl p-2.5 text-center">
+                                                    <div className="text-xs sm:text-sm font-bold text-emerald-400">Holistic Ethos</div>
+                                                    <div className="text-[10px] text-slate-400">Values & Sainik Wing</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Board Action Footer */}
+                                        <div className="pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+                                            <span className="text-xs text-slate-400 flex items-center gap-1.5">
+                                                <i className="fa-solid fa-pen-nib text-amber-400"></i>
+                                                <span>Interactive Touch Presentation</span>
+                                            </span>
+
+                                            <button 
+                                                onClick={onOpenDirectorModal}
+                                                className="w-full sm:w-auto px-6 py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer hover:scale-102"
+                                            >
+                                                <span>Read Full Address</span>
+                                                <i className="fa-solid fa-arrow-right text-[11px]"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Stylus Pen Tray At Bottom of Smart Board */}
+                            <div className="mt-3 bg-[#06080c] rounded-xl px-4 py-2 border border-slate-800 flex items-center justify-between shadow-inner">
+                                <div className="text-[10px] text-slate-400 font-mono flex items-center gap-2">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                    <span>MAGNETIC STYLUS DOCK</span>
+                                </div>
+
+                                {/* Interactive Smart Stylus Pens */}
+                                <div className="flex items-center gap-2 sm:gap-3">
+                                    {/* Gold Stylus */}
+                                    <div 
+                                        onClick={() => setActivePen('gold')}
+                                        className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold cursor-pointer transition-all ${
+                                            activePen === 'gold' ? 'bg-amber-500 text-slate-950 ring-2 ring-amber-300' : 'bg-slate-800 text-amber-400 hover:bg-slate-700'
+                                        }`}
                                     >
-                                        Read Full Message
-                                    </button>
+                                        <span className="w-2 h-2 rounded-full bg-amber-400"></span>
+                                        <span>Gold Stylus</span>
+                                    </div>
+
+                                    {/* Cyan Laser Stylus */}
+                                    <div 
+                                        onClick={() => setActivePen('cyan')}
+                                        className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold cursor-pointer transition-all ${
+                                            activePen === 'cyan' ? 'bg-cyan-500 text-slate-950 ring-2 ring-cyan-300' : 'bg-slate-800 text-cyan-400 hover:bg-slate-700'
+                                        }`}
+                                    >
+                                        <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
+                                        <span>Cyan Stylus</span>
+                                    </div>
+
+                                    {/* Digital Smart Eraser */}
+                                    <div className="hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-900 text-slate-300 text-[10px] font-medium border border-slate-700">
+                                        <i className="fa-solid fa-eraser text-[10px]"></i>
+                                        <span>Smart Eraser</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1327,22 +2338,59 @@
     const GallerySection = () => {
         const [filter, setFilter] = useState('All');
         const [activeImageIndex, setActiveImageIndex] = useState(null);
+        const [isExpanded, setIsExpanded] = useState(false);
 
         const galleryImages = useMemo(() => [
-            { url: '/images/poster.jpeg', category: 'Results', title: 'Outstanding Board Results' },
-            { url: '/images/scoutchild.jpeg', category: 'Students', title: 'Scouts & Cadets Drill' },
-            { url: '/images/tringaevent.jpeg', category: 'Events', title: 'Tiranga National Celebration' },
-            { url: '/images/poster2.jpeg', category: 'Results', title: 'Merit Achievers Recognition' },
-            { url: '/images/schoolposter.jpeg', category: 'Results', title: 'School Achievements Showcase' },
-            { url: '/images/physicalactivity.jpeg', category: 'Students', title: 'Athletics & Physical Training' },
-            { url: '/images/event.jpeg', category: 'Events', title: 'Cultural & Academic Function' },
-            { url: '/images/schoolimage.png', category: 'Campus', title: 'Shri Swaroop School Grounds' },
+            { url: '/images/poster.jpeg', category: 'Results', title: 'Outstanding Board Results', stamp: 'MERIT LIST 2025' },
+            { url: '/images/scoutchild.jpeg', category: 'Students', title: 'Scouts & Cadets Drill', stamp: 'LEADERSHIP CORPS' },
+            { url: '/images/tringaevent.jpeg', category: 'Events', title: 'Tiranga National Celebration', stamp: 'PATRIOTIC DAY' },
+            { url: '/images/poster2.jpeg', category: 'Results', title: 'Merit Achievers Recognition', stamp: 'TOP SCHOLARS' },
+            { url: '/images/schoolposter.jpeg', category: 'Results', title: 'School Achievements Showcase', stamp: 'EXCELLENCE AWARDS' },
+            { url: '/images/physicalactivity.jpeg', category: 'Students', title: 'Athletics & Physical Training', stamp: 'SPORTS DRILLS' },
+            { url: '/images/event.jpeg', category: 'Events', title: 'Cultural & Academic Function', stamp: 'ANNUAL FEST' },
+            { url: '/images/schoolimage.png', category: 'Campus', title: 'Shri Swaroop School ', stamp: 'CAMPUS VISTA' },
+            // Additional Archive Moments for "See More Photos"
+            { url: '/images/tringaevent.jpeg', category: 'Events', title: 'National Independence Day Assembly', stamp: 'FLAG HOISTING' },
+            { url: '/images/scoutchild.jpeg', category: 'Students', title: 'Senior Cadets Scouting Expedition', stamp: 'SCOUT AWARDS' },
+            { url: '/images/physicalactivity.jpeg', category: 'Students', title: 'Track & Field Sprint Champions', stamp: 'GOLD MEDAL' },
+            { url: '/images/event.jpeg', category: 'Events', title: 'Annual Talent & Drama Exhibition', stamp: 'THEATRE ARTS' },
+            { url: '/images/01poster.jpeg', category: 'Result', title: 'School Achievements Showcase', stamp: 'Poster' },
+            { url: '/images/02poster.jpeg', category: 'Result', title: 'School Achievements Showcase', stamp: 'Poster' },
+            { url: '/images/03poster.jpeg', category: 'Result', title: 'School Achievements Showcase', stamp: 'Poster' },
+            { url: '/images/04poster.jpeg', category: 'Result', title: 'School Achievements Showcase', stamp: 'Poster' },
+            { url: '/images/campus01.jpeg', category: 'Campus', title: 'Shri Swaroop School', stamp: 'CAMPUS VISTA' },
+            { url: '/images/campus02.jpeg', category: 'Campus', title: 'Shri Swaroop School', stamp: 'CAMPUS VISTA' },
+            { url: '/images/campus03.jpeg', category: 'Campus', title: 'Shri Swaroop School',  stamp: 'CAMPUS VISTA' },
+            { url: '/images/campus04.jpeg', category: 'Campus', title: 'Shri Swaroop School', stamp: 'CAMPUS VISTA' },
+            { url: '/images/campus05.jpeg', category: 'Campus', title: 'Shri Swaroop School', stamp: 'CAMPUS VISTA' },
+            { url: '/images/campus06.jpeg', category: 'Campus', title: 'Shri Swaroop School Showcase', stamp: 'CAMPUS VISTA' },
+            { url: '/images/campus07.jpeg', category: 'Campus', title: 'Shri Swaroop School Showcase', stamp: 'CAMPUS VISTA' },
+            { url: '/images/campus08.jpeg', category: 'Campus', title: 'Shri Swaroop School Showcase', stamp: 'CAMPUS VISTA' },
+            { url: '/images/campus09.jpeg', category: 'Campus', title: 'Shri Swaroop School Showcase', stamp: 'CAMPUS VISTA' },
+            { url: '/images/campus10.jpeg', category: 'Campus', title: 'Shri Swaroop School Showcase', stamp: 'CAMPUS VISTA' },
+            { url: '/images/campus11.jpeg', category: 'Campus', title: 'Shri Swaroop School Showcase', stamp: 'CAMPUS VISTA' },
+            { url: '/images/campus12.jpeg', category: 'Campus', title: 'Shri Swaroop School Showcase', stamp: 'CAMPUS VISTA' },
+            { url: '/images/campus13.jpeg', category: 'Campus', title: 'Shri Swaroop School Showcase', stamp: 'CAMPUS VISTA' },
+            { url: '/images/campus14.jpeg', category: 'Campus', title: 'Shri Swaroop School Showcase', stamp: 'CAMPUS VISTA' },
+            { url: '/images/campus15.jpeg', category: 'Campus', title: 'Shri Swaroop School Showcase', stamp: 'CAMPUS VISTA' },
+            { url: '/images/01sainik.jpeg', category: 'Campus', title: 'School sainik wing', stamp: 'CAMPUS VISTA' },
+            { url: '/images/navy01.jpeg', category: 'Campus', title: 'School sainik wing', stamp: 'CAMPUS VISTA' },
+            { url: '/images/navy02.jpeg', category: 'Campus', title: 'School sainik wing', stamp: 'CAMPUS VISTA' },
+            { url: '/images/navy03.jpeg', category: 'Campus', title: 'School sainik wing', stamp: 'CAMPUS VISTA' },
+           
+
         ], []);
 
         const filteredImages = useMemo(() => {
-            if (filter === 'All') return galleryImages;
-            return galleryImages.filter(img => img.category.toLowerCase() === filter.toLowerCase());
-        }, [filter, galleryImages]);
+            let list = galleryImages;
+            if (filter !== 'All') {
+                list = galleryImages.filter(img => img.category.toLowerCase() === filter.toLowerCase());
+            }
+            if (!isExpanded) {
+                return list.slice(0, 8);
+            }
+            return list;
+        }, [filter, galleryImages, isExpanded]);
 
         const openLightbox = (index) => setActiveImageIndex(index);
         const closeLightbox = () => setActiveImageIndex(null);
@@ -1357,58 +2405,164 @@
             setActiveImageIndex((prev) => (prev - 1 + filteredImages.length) % filteredImages.length);
         };
 
+        const pinColors = [
+            { body: '#dc2626', top: '#f87171' }, // Red
+            { body: '#2563eb', top: '#60a5fa' }, // Blue
+            { body: '#d97706', top: '#fbbf24' }, // Yellow / Amber
+            { body: '#16a34a', top: '#4ade80' }, // Green
+        ];
+
+        const rotations = ['-rotate-1', 'rotate-2', '-rotate-2', 'rotate-1', '-rotate-1', 'rotate-2', '-rotate-2', 'rotate-1', 'rotate-1', '-rotate-2', 'rotate-2', '-rotate-1'];
+
         return (
-            <section id="gallery" className="py-16 sm:py-24 lg:py-32 bg-white">
+            <section id="gallery" className="py-16 sm:py-24 lg:py-32 bg-slate-100/90 relative overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <SectionHeading 
-                        badge="Visual Portfolio" 
-                        title="Our Visual Journey" 
-                        subtitle="A glimpse into student life, state-of-the-art facilities, and achievements at Shri Swaroop."
+                        badge="Official Notice & Activity Board" 
+                        title="Student Posters & Gallery Board" 
+                        subtitle="Explore pinned notices, achievement posters, and campus moments on our student bulletin board."
                     />
 
-                    {/* Touch Friendly Filter Buttons */}
-                    <div className="flex justify-start sm:justify-center items-center gap-1.5 sm:gap-2 mb-8 sm:mb-12 overflow-x-auto no-scrollbar pb-1">
-                        {['All', 'Events', 'Students', 'Campus', 'Results'].map((cat) => (
-                            <button
-                                key={cat}
-                                onClick={() => setFilter(cat)}
-                                className={`px-4 sm:px-5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all ${
-                                    filter === cat
-                                        ? 'bg-royal-600 text-white shadow-md shadow-royal-200'
-                                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200/80'
-                                }`}
-                            >
-                                {cat}
-                            </button>
-                        ))}
-                    </div>
+                    {/* Notice Board Outer Wooden Frame */}
+                    <div className="mt-8 sm:mt-12 rounded-[28px] sm:rounded-[36px] p-4 sm:p-7 md:p-9 bg-[#6b4226] border-[10px] sm:border-[16px] border-[#533118] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] relative">
+                        {/* 4 Golden/Brass Corner Reinforcements */}
+                        <div className="absolute top-2 left-2 w-7 h-7 sm:w-10 sm:h-10 border-t-4 border-l-4 border-amber-400 rounded-tl-xl pointer-events-none"></div>
+                        <div className="absolute top-2 right-2 w-7 h-7 sm:w-10 sm:h-10 border-t-4 border-r-4 border-amber-400 rounded-tr-xl pointer-events-none"></div>
+                        <div className="absolute bottom-2 left-2 w-7 h-7 sm:w-10 sm:h-10 border-b-4 border-l-4 border-amber-400 rounded-bl-xl pointer-events-none"></div>
+                        <div className="absolute bottom-2 right-2 w-7 h-7 sm:w-10 sm:h-10 border-b-4 border-r-4 border-amber-400 rounded-br-xl pointer-events-none"></div>
 
-                    {/* Responsive Grid: 2 cols on mobile, 4 on desktop */}
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
-                        {filteredImages.map((img, idx) => (
-                            <div 
-                                key={idx}
-                                onClick={() => openLightbox(idx)}
-                                className="group relative rounded-xl sm:rounded-2xl overflow-hidden bg-slate-100 shadow-sm hover:shadow-xl transition-all cursor-pointer h-48 sm:h-72"
-                            >
-                                <img 
-                                    src={img.url} 
-                                    alt={img.title} 
-                                    loading="lazy"
-                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                    onError={(e) => { e.target.src = '/images/schoolimage.png'; }}
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-navy-950/85 via-navy-950/20 to-transparent flex flex-col justify-end p-3 sm:p-5 text-white">
-                                    <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-amber-400">
-                                        {img.category}
-                                    </span>
-                                    <div className="text-xs sm:text-sm font-bold font-serif mt-0.5 line-clamp-1">{img.title}</div>
-                                </div>
+                        {/* Top Wooden Placard / Header */}
+                        <div className="text-center mb-6 sm:mb-8">
+                            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-[#452712] text-amber-200 border-2 border-amber-500/50 shadow-md font-serif font-black tracking-wider text-xs sm:text-base uppercase">
+                                <i className="fa-solid fa-thumbtack text-amber-400 text-xs sm:text-sm"></i>
+                                <span>CAMPUS NOTICE & MERIT BOARD • 2026-27</span>
+                                <i className="fa-solid fa-thumbtack text-amber-400 text-xs sm:text-sm"></i>
                             </div>
-                        ))}
+                        </div>
+
+                        {/* Inner Cork Bulletin Board Surface */}
+                        <div className="cork-texture rounded-2xl sm:rounded-[24px] p-4 sm:p-8 md:p-10 border-4 border-[#4a2a14] shadow-inner relative">
+                            {/* Paper Notice Filter Tags + Pinned See More Button */}
+                            <div className="flex justify-start sm:justify-center items-center gap-2 sm:gap-3 mb-8 sm:mb-12 overflow-x-auto no-scrollbar pb-2">
+                                {['All', 'Events', 'Students', 'Campus', 'Results'].map((cat) => (
+                                    <button
+                                        key={cat}
+                                        onClick={() => setFilter(cat)}
+                                        className={`px-4 sm:px-5 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-bold tracking-wide transition-all shadow-sm cursor-pointer whitespace-nowrap ${
+                                            filter === cat
+                                                ? 'bg-amber-400 text-slate-900 border border-amber-500 font-extrabold scale-105 shadow-md'
+                                                : 'bg-white/90 hover:bg-white text-slate-800 border border-amber-800/30 hover:scale-102'
+                                        }`}
+                                    >
+                                        📌 {cat === 'All' ? 'All Posters' : `${cat} Notices`}
+                                    </button>
+                                ))}
+
+                                {/* Quick Pinned See More Pill */}
+                                <button
+                                    onClick={() => setIsExpanded(!isExpanded)}
+                                    className="relative shrink-0 px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-bold tracking-wide transition-all shadow-sm cursor-pointer whitespace-nowrap bg-emerald-700 hover:bg-emerald-600 text-white border border-emerald-500 flex items-center gap-1.5 ml-2"
+                                >
+                                    <i className={`fa-solid ${isExpanded ? 'fa-minus' : 'fa-plus'} text-[11px]`}></i>
+                                    <span>{isExpanded ? 'Fewer Photos' : 'See More Photos'}</span>
+                                </button>
+                            </div>
+
+                            {/* Pinned Posters & Student Photos Grid */}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 pt-4">
+                                {filteredImages.map((img, idx) => {
+                                    const pin = pinColors[idx % pinColors.length];
+                                    const tilt = rotations[idx % rotations.length];
+
+                                    return (
+                                        <div 
+                                            key={idx}
+                                            onClick={() => openLightbox(idx)}
+                                            className={`group relative bg-[#fdfbf7] p-2.5 sm:p-3 pb-3.5 sm:pb-4 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer ${tilt} hover:rotate-0 hover:scale-105 hover:z-20 border border-amber-900/15`}
+                                        >
+                                            {/* Realistic 3D Push Pin at Top Center */}
+                                            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-30 pointer-events-none drop-shadow-md">
+                                                <svg width="24" height="28" viewBox="0 0 24 28" fill="none">
+                                                    {/* Pin Needle */}
+                                                    <line x1="12" y1="14" x2="12" y2="26" stroke="#52525b" strokeWidth="2.5" strokeLinecap="round" />
+                                                    {/* Shadow */}
+                                                    <ellipse cx="14" cy="26" rx="3.5" ry="1.5" fill="rgba(0,0,0,0.35)" />
+                                                    {/* Pin Head Base */}
+                                                    <ellipse cx="12" cy="14" rx="6.5" ry="3" fill={pin.body} />
+                                                    {/* Pin Neck */}
+                                                    <path d="M7 14 C7 8 9 7 9 4 L15 4 C15 7 17 8 17 14 Z" fill={pin.body} />
+                                                    {/* Pin Cap Highlight */}
+                                                    <ellipse cx="12" cy="4" rx="7" ry="3" fill={pin.top} />
+                                                    <ellipse cx="10" cy="3.5" rx="3" ry="1.2" fill="rgba(255,255,255,0.7)" />
+                                                </svg>
+                                            </div>
+
+                                            {/* Translucent Corner Tape Effects */}
+                                            <div className="absolute top-1 left-1 w-6 h-2.5 bg-amber-200/50 -rotate-45 pointer-events-none border-t border-b border-amber-300/40"></div>
+                                            <div className="absolute top-1 right-1 w-6 h-2.5 bg-amber-200/50 rotate-45 pointer-events-none border-t border-b border-amber-300/40"></div>
+
+                                            {/* Poster Image Frame */}
+                                            <div className="relative rounded-lg overflow-hidden h-44 sm:h-52 bg-slate-900 shadow-inner">
+                                                <img 
+                                                    src={img.url} 
+                                                    alt={img.title} 
+                                                    loading="lazy"
+                                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                                    onError={(e) => { e.target.src = '/images/schoolimage.png'; }}
+                                                />
+                                                {/* Category Stamp Badge */}
+                                                <div className="absolute top-2 right-2 px-2 py-0.5 rounded bg-black/75 backdrop-blur-sm text-[9px] font-mono font-bold text-amber-300 uppercase tracking-widest border border-amber-400/40">
+                                                    {img.stamp}
+                                                </div>
+                                            </div>
+
+                                            {/* Bottom Paper Caption & Push Pin Details */}
+                                            <div className="mt-2.5 px-1 flex flex-col justify-between">
+                                                <div className="text-xs sm:text-sm font-bold font-serif text-slate-900 line-clamp-1 group-hover:text-royal-700 transition-colors">
+                                                    {img.title}
+                                                </div>
+                                                <div className="mt-1 flex items-center justify-between text-[10px] text-slate-500 font-sans">
+                                                    <span className="font-semibold text-amber-800 uppercase tracking-wider">{img.category}</span>
+                                                    <span className="text-royal-600 font-bold group-hover:underline flex items-center gap-1">
+                                                        <span>View Poster</span>
+                                                        <i className="fa-solid fa-expand text-[9px]"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+
+                            {/* Pinned "See More Photos" Memo Note Button with Push Pin on Board */}
+                            <div className="mt-8 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
+                                <button
+                                    onClick={() => setIsExpanded(!isExpanded)}
+                                    className="relative group bg-[#fef08a] hover:bg-[#fde047] text-slate-900 px-7 sm:px-10 py-3.5 sm:py-4 rounded-2xl shadow-xl hover:shadow-2xl border-2 border-amber-400 hover:scale-105 transition-all cursor-pointer flex items-center gap-3 font-serif font-bold text-xs sm:text-sm select-none"
+                                >
+                                    {/* Authentic 3D Push Pin on the button */}
+                                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 pointer-events-none drop-shadow-md">
+                                        <svg width="24" height="28" viewBox="0 0 24 28" fill="none">
+                                            <line x1="12" y1="14" x2="12" y2="26" stroke="#3f3f46" strokeWidth="2.5" strokeLinecap="round" />
+                                            <ellipse cx="14" cy="26" rx="3.5" ry="1.5" fill="rgba(0,0,0,0.35)" />
+                                            <ellipse cx="12" cy="14" rx="6.5" ry="3" fill="#dc2626" />
+                                            <path d="M7 14 C7 8 9 7 9 4 L15 4 C15 7 17 8 17 14 Z" fill="#dc2626" />
+                                            <ellipse cx="12" cy="4" rx="7" ry="3" fill="#f87171" />
+                                            <ellipse cx="10" cy="3.5" rx="3" ry="1.2" fill="rgba(255,255,255,0.7)" />
+                                        </svg>
+                                    </div>
+                                    <i className={`fa-solid ${isExpanded ? 'fa-compress' : 'fa-thumbtack'} text-amber-700 text-sm`}></i>
+                                    <span>{isExpanded ? 'Show Fewer Posters' : '📌 See More Photos (Explore Archive Posters)'}</span>
+                                    <span className="px-2 py-0.5 rounded-full bg-amber-950/10 text-[11px] font-mono font-bold text-amber-900">
+                                        {isExpanded ? '12 Photos Visible' : '+4 More Pinned'}
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
+                {/* Full-Screen Lightbox Modal for Enlarge View */}
                 {activeImageIndex !== null && (
                     <div 
                         onClick={closeLightbox}
@@ -1416,41 +2570,40 @@
                     >
                         <button 
                             onClick={closeLightbox}
-                            className="absolute top-5 right-5 text-white/80 hover:text-white p-2.5 rounded-full bg-white/10 transition-all z-10"
+                            className="absolute top-5 right-5 text-white/80 hover:text-white p-2.5 rounded-full bg-white/10 transition-all z-10 cursor-pointer"
                         >
                             <Icon name="x" size={20} />
                         </button>
 
                         <button 
                             onClick={prevImage}
-                            className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 text-white/80 hover:text-white p-2 sm:p-3 rounded-full bg-white/10 transition-all z-10"
+                            className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 text-white/80 hover:text-white p-2 sm:p-3 rounded-full bg-white/10 transition-all z-10 cursor-pointer"
                         >
                             <Icon name="chevron-left" size={24} />
                         </button>
 
                         <button 
                             onClick={nextImage}
-                            className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 text-white/80 hover:text-white p-2 sm:p-3 rounded-full bg-white/10 transition-all z-10"
+                            className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 text-white/80 hover:text-white p-2 sm:p-3 rounded-full bg-white/10 transition-all z-10 cursor-pointer"
                         >
                             <Icon name="chevron-right" size={24} />
                         </button>
 
                         <div 
                             onClick={(e) => e.stopPropagation()}
-                            className="max-w-4xl max-h-[85vh] flex flex-col items-center px-4"
+                            className="relative max-w-4xl max-h-[85vh] rounded-2xl overflow-hidden shadow-2xl bg-black p-2 border-2 border-white/20"
                         >
                             <img 
-                                src={filteredImages[activeImageIndex].url} 
-                                alt={filteredImages[activeImageIndex].title} 
-                                className="max-h-[65vh] w-auto object-contain rounded-xl shadow-2xl border border-white/10"
-                                onError={(e) => { e.target.src = '/images/schoolimage.png'; }}
+                                src={filteredImages[activeImageIndex]?.url} 
+                                alt={filteredImages[activeImageIndex]?.title} 
+                                className="max-w-full max-h-[75vh] object-contain rounded-xl mx-auto" 
                             />
-                            <div className="mt-3 text-center text-white">
-                                <span className="text-xs uppercase tracking-widest text-amber-400 font-bold">
-                                    {filteredImages[activeImageIndex].category}
+                            <div className="p-3 text-center text-white">
+                                <span className="text-xs font-bold text-amber-400 uppercase tracking-widest">
+                                    {filteredImages[activeImageIndex]?.category}
                                 </span>
-                                <h4 className="text-base sm:text-lg font-serif font-bold mt-0.5">
-                                    {filteredImages[activeImageIndex].title}
+                                <h4 className="text-base sm:text-lg font-bold font-serif mt-0.5">
+                                    {filteredImages[activeImageIndex]?.title}
                                 </h4>
                             </div>
                         </div>
@@ -1797,6 +2950,7 @@
         const [scrolled, setScrolled] = useState(false);
         const [activeModal, setActiveModal] = useState(null);
         const [isParentHubOpen, setIsParentHubOpen] = useState(false);
+        const [showGateIntro, setShowGateIntro] = useState(true);
 
         useEffect(() => {
             const handleScroll = () => {
@@ -1808,10 +2962,16 @@
 
         return (
             <div className="min-h-screen flex flex-col bg-[#f8fafc]">
+                {/* Modern Architectural Slider Gate Entrance (Plays on open or can be replayed) */}
+                {showGateIntro && (
+                    <SchoolGateIntro onComplete={() => setShowGateIntro(false)} />
+                )}
+
                 {/* Top Header & Sticky Navigation */}
                 <Navbar 
                     scrolled={scrolled} 
                     onOpenParentHub={() => setIsParentHubOpen(true)}
+                    onReplayGate={() => setShowGateIntro(true)}
                 />
 
                 {/* Main Content */}
@@ -1821,12 +2981,12 @@
                     <StorySection onOpenPhilosophyModal={() => setActiveModal({ type: 'philosophy' })} />
                     <WhyChooseSection onSelectFeature={(item) => setActiveModal({ type: 'feature', data: item })} />
                     <AcademicsSection />
-                    <CampusLifeSection />
+                    <GallerySection />
                     <SportsSection />
                     <SainikWingSection />
-                    <DirectorSection onOpenDirectorModal={() => setActiveModal({ type: 'director' })} />
                     <AnnouncementsSection onSelectAnnouncement={(item) => setActiveModal({ type: 'announcement', data: item })} />
-                    <GallerySection />
+                    <DirectorSection onOpenDirectorModal={() => setActiveModal({ type: 'director' })} />
+                    <CampusLifeSection />
                     <MissionVisionSection />
                     <AdmissionsCTASection />
                     <ContactSection />
@@ -1898,12 +3058,22 @@
                         badge="Leadership Address"
                     >
                         <div className="space-y-3 sm:space-y-4 text-slate-700 text-xs sm:text-base">
-                            <p className="font-serif font-bold text-slate-900">Dear Parents and Students,</p>
-                            <p>It is with great pride and a sense of profound responsibility that I welcome you to Shri Swaroop Public School. Since our inception in 2001, our mission has remained steadfast: to provide an education that is transformative, inclusive, and deeply rooted in values.</p>
-                            <p>In today's rapidly changing world, academic knowledge alone is not enough. We must equip our children with the resilience to face challenges, the creativity to solve complex problems, and the empathy to understand diverse perspectives.</p>
+                            <p className="font-serif font-bold text-slate-900 text-base sm:text-lg">Dear Students, Parents, and Visitors,</p>
+                            <p>It gives me immense pleasure to welcome you to <strong>Swaroop Public Senior Secondary School, Bagar</strong>.</p>
+                            <p>Education is not merely about achieving academic excellence; it is about nurturing responsible, confident, compassionate, and morally strong individuals who are prepared to face the challenges of the future. At our school, we are committed to providing a safe, caring, and inspiring learning environment where every child is encouraged to discover their unique talents and reach their full potential.</p>
+                            <p>Our dedicated team of educators believes in a balanced approach to education — combining academic excellence with character building, creativity, discipline, sports, technology, and life skills. We strive to instill values such as honesty, respect, responsibility, and perseverance, ensuring that our students grow into responsible citizens and future leaders.</p>
+                            <p>In today's rapidly changing world, we continuously adopt innovative teaching methodologies and modern educational practices while preserving our rich cultural and moral values. We strongly believe that the partnership between parents, teachers, and students is the foundation of every child's success.</p>
+                            <p>I sincerely thank all our parents for their continued trust and support and encourage every student to dream big, work hard, and never stop learning. Together, let us create a future filled with knowledge, confidence, and excellence.</p>
+                            <p>I invite you to explore our website and learn more about the opportunities and vibrant learning environment that make <strong>Swaroop Public Senior Secondary School</strong> a place where young minds are inspired to excel.</p>
+                            <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 sm:p-4 mt-2">
+                                <p className="font-serif italic text-amber-900 font-semibold text-sm sm:text-base text-center">
+                                    "Together We Learn, Together We Grow, Together We Succeed."
+                                </p>
+                            </div>
                             <div className="pt-3 border-t border-slate-100">
                                 <div className="font-bold font-serif text-slate-900">Mr. Manoj Kumar Bagoria</div>
-                                <div className="text-xs text-amber-600 font-semibold uppercase tracking-wider">Director, Shri Swaroop Public School</div>
+                                <div className="text-xs text-amber-600 font-semibold uppercase tracking-wider">Director</div>
+                                <div className="text-xs text-slate-500 mt-0.5">Swaroop Public Senior Secondary School, Bagar, Rajasthan</div>
                             </div>
                         </div>
                     </Modal>
