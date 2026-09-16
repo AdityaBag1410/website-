@@ -2429,6 +2429,7 @@
                 setAdminMessage({ type: 'error', text: 'Phone number does not match registered Admin Phone (9257189373)!' });
             }
         };
+        
 
         const handleResetPassword = (e) => {
             e.preventDefault();
@@ -2779,7 +2780,7 @@
                                     <input 
                                         type="tel"
                                         required
-                                        placeholder="e.g. 9257189373"
+                                        placeholder="e.g. 9xxxxxxxx"
                                         value={enteredPhone}
                                         onChange={(e) => setEnteredPhone(e.target.value)}
                                         className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-royal-600 font-mono"
@@ -2800,7 +2801,7 @@
                                         type="submit"
                                         className="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-md transition-all cursor-pointer"
                                     >
-                                        Verify Phone (9257189373)
+                                        Verify Phone 
                                     </button>
                                 </div>
                             </form>
