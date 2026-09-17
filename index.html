@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html class="scroll-smooth" lang="en">
 
@@ -244,7 +244,7 @@
         /* Photorealistic Real Hardwood / Teak & Oak Notice Board Border */
         .real-wood-frame,
         .green-felt-frame {
-            background: 
+            background:
                 repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.02) 0px, rgba(0, 0, 0, 0.02) 2px, transparent 2px, transparent 8px),
                 linear-gradient(135deg, #a86f3d 0%, #c4874c 18%, #935b27 35%, #bf854b 55%, #844c1d 75%, #b57a42 100%);
             border: 18px solid #844d21;
@@ -682,11 +682,11 @@
                                     <div>
                                         <div className={`text-sm font-bold font-serif leading-tight transition-colors ${scrolled ? 'text-slate-900' : 'text-white'
                                             }`}>
-                                            Shri Swaroop School
+                                            SHRI SWAROOP SCHOOL
                                         </div>
                                         <div className={`text-[10px] uppercase tracking-widest font-semibold italic transition-colors ${scrolled ? 'text-amber-600' : 'text-amber-400'
                                             }`}>
-                                            Baggar · Est. 2001
+                                            The Heritage School
                                         </div>
                                     </div>
                                 </a>
@@ -706,13 +706,13 @@
                                         </a>
                                     ))}
                                     <a
-                                        href="#sainik-wing"
+                                        href="#sainik-meta"
                                         className={`ml-1 px-3 py-1.5 text-sm font-semibold rounded-lg transition-colors ${scrolled
                                             ? 'text-emerald-700 hover:text-emerald-900 hover:bg-emerald-50'
                                             : 'text-emerald-300 hover:text-white hover:bg-emerald-900/40'
                                             }`}
                                     >
-                                        Sainik Wing
+                                        Meta Sainik
                                     </a>
                                     <a
                                         href="#kids-crest"
@@ -776,14 +776,14 @@
                                     </a>
                                 ))}
                                 <a
-                                    href="#sainik-wing"
+                                    href="#sainik-meta"
                                     onClick={() => setIsMenuOpen(false)}
                                     className={`block px-3 py-2.5 text-sm font-semibold rounded-lg transition-colors ${scrolled
                                         ? 'text-emerald-700 hover:bg-emerald-50'
                                         : 'text-emerald-300 hover:bg-emerald-900/30'
                                         }`}
                                 >
-                                    Sainik Wing
+                                    Meta Sainik
                                 </a>
                                 <a
                                     href="#kids-crest"
@@ -871,7 +871,7 @@
             const quickLinks = [
                 { title: 'Admissions 2026-27', desc: 'Nursery to IX & XI enrollment guidelines', icon: 'graduation-cap', href: '#admissions', color: 'bg-amber-500/20 text-amber-400' },
                 { title: '100% Board Results', desc: 'Verified merit lists and topper archives', icon: 'award', href: '#gallery', color: 'bg-royal-500/20 text-royal-400' },
-                { title: 'Sainik Military Wing', desc: 'Discipline, physical drills, and cadet training', icon: 'shield', href: '#sainik-wing', color: 'bg-emerald-500/20 text-emerald-400' },
+                { title: 'Meta Sainik Wing', desc: 'Discipline, physical drills, and cadet training', icon: 'shield', href: '#sainik-meta', color: 'bg-emerald-500/20 text-emerald-400' },
                 { title: 'Kids Crest (Pre-Primary & 1st)', desc: 'Nursery, LKG, UKG & Class 1 joyful learning wing', icon: 'star', href: '#kids-crest', color: 'bg-pink-500/20 text-pink-400' },
                 { title: 'Director’s Message', desc: 'Vision from Shri Manoj Kumar Bagoria', icon: 'user', action: onSelectDirector, color: 'bg-purple-500/20 text-purple-400' },
                 { title: 'Academic Facilities', desc: 'Smart classes, modern science & computer labs', icon: 'book-open', href: '#academics', color: 'bg-blue-500/20 text-blue-400' },
@@ -1049,7 +1049,7 @@
                                         <option value="Class 6-8">Class 6 to 8</option>
                                         <option value="Class 9-10">Class 9 & 10</option>
                                         <option value="Class 11-12">Class 11 & 12</option>
-                                        <option value="Sainik Wing">Sainik Wing</option>
+                                        <option value="Meta Sainik Wing">Meta Sainik Wing</option>
                                     </select>
                                 </div>
                             </div>
@@ -1141,7 +1141,7 @@
                                     <div className="text-[10px] sm:text-xs text-slate-300 font-medium uppercase tracking-wider mt-1">Board Results</div>
                                 </div>
                                 <div className="p-3 sm:p-3.5 rounded-2xl bg-white/[0.07] backdrop-blur-md border border-white/10 text-center transition-all hover:bg-white/[0.1]">
-                                    <div className="text-2xl sm:text-3xl font-bold font-serif text-white tracking-tight">Sainik</div>
+                                    <div className="text-xl sm:text-2xl font-bold font-serif text-white tracking-tight">Meta Sainik</div>
                                     <div className="text-[10px] sm:text-xs text-slate-300 font-medium uppercase tracking-wider mt-1">Cadet Ethos</div>
                                 </div>
                             </div>
@@ -1232,7 +1232,7 @@
                 <section id="story" className="py-16 sm:py-24 lg:py-32 school-pattern-bg overflow-hidden">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <SectionHeading
-                            badge="Our Heritage & Legacy"
+
                             title="More Than a School. A Foundation for Life."
                             subtitle="Nurturing young minds to become global leaders of tomorrow. Shri Swaroop Public School has been a trusted beacon of knowledge for over two decades."
                         />
@@ -1337,6 +1337,7 @@
                     icon: 'users',
                     color: 'from-blue-600 to-indigo-600',
                     accent: 'text-blue-700 bg-blue-50 border-blue-200',
+                    iconColor: '#3b82f6',
                     stats: [
                         { label: 'Faculty Mentorship', val: '1:20 Ratio' },
                         { label: 'Certified Educators', val: '100% Trained' },
@@ -1353,6 +1354,7 @@
                     icon: 'book-open',
                     color: 'from-amber-600 to-orange-600',
                     accent: 'text-amber-800 bg-amber-50 border-amber-200',
+                    iconColor: '#f59e0b',
                     stats: [
                         { label: 'Digital Boards', val: 'All Classrooms' },
                         { label: 'Interactive 3D Content', val: 'RBSE Aligned' },
@@ -1369,6 +1371,7 @@
                     icon: 'trophy',
                     color: 'from-emerald-600 to-teal-700',
                     accent: 'text-emerald-800 bg-emerald-50 border-emerald-200',
+                    iconColor: '#10b981',
                     stats: [
                         { label: 'Sports Grounds', val: 'Multisport Complex' },
                         { label: 'Expert Coaches', val: 'State / National' },
@@ -1385,6 +1388,7 @@
                     icon: 'shield-check',
                     color: 'from-purple-600 to-violet-700',
                     accent: 'text-purple-800 bg-purple-50 border-purple-200',
+                    iconColor: '#8b5cf6',
                     stats: [
                         { label: 'CCTV Coverage', val: '100% High-Def' },
                         { label: 'Gate Security', val: 'Biometric & Log' },
@@ -1401,6 +1405,7 @@
                     icon: 'star',
                     color: 'from-rose-600 to-pink-600',
                     accent: 'text-rose-800 bg-rose-50 border-rose-200',
+                    iconColor: '#f43f5e',
                     stats: [
                         { label: 'Co-Curricular Clubs', val: '15+ Active' },
                         { label: 'Leadership & Debates', val: 'Weekly Forums' },
@@ -1417,6 +1422,7 @@
                     icon: 'microscope',
                     color: 'from-cyan-600 to-blue-700',
                     accent: 'text-cyan-800 bg-cyan-50 border-cyan-200',
+                    iconColor: '#06b6d4',
                     stats: [
                         { label: 'Science Labs', val: 'Physics, Chem, Bio' },
                         { label: 'Computer Lab', val: 'Modern Systems' },
@@ -1427,544 +1433,142 @@
             ];
 
             const [selectedIndex, setSelectedIndex] = useState(0);
-            const [lastPressedKey, setLastPressedKey] = useState(null);
-            const [activeScreen, setActiveScreen] = useState('pillars'); // 'pillars' | 'video'
-            const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-            const [isVideoPlaying, setIsVideoPlaying] = useState(true);
-            const [rgbIndex, setRgbIndex] = useState(0);
-
             const activeItem = whyChooseUsData[selectedIndex] || whyChooseUsData[0];
 
-            // 13 Switchable RGB Keyboard Effects (including multi-colour combinations)
-            const rgbEffects = [
-                { id: 'rainbow', name: 'Rainbow Spectrum', gradient: 'from-rose-500 via-amber-400 via-emerald-400 via-sky-400 to-purple-500', glow: 'rgba(239, 68, 68, 0.45)', border: 'rgba(244, 63, 94, 0.7)', text: '#f43f5e', badge: 'Spectrum 360' },
-                { id: 'cyber', name: 'Cyberpunk Neon', gradient: 'from-cyan-400 via-fuchsia-500 to-pink-500', glow: 'rgba(6, 182, 212, 0.55)', border: 'rgba(6, 182, 212, 0.7)', text: '#06b6d4', badge: 'Neon Wave' },
-                { id: 'sunset', name: 'Sunset Blaze', gradient: 'from-amber-500 via-orange-500 to-rose-600', glow: 'rgba(249, 115, 22, 0.55)', border: 'rgba(249, 115, 22, 0.7)', text: '#f97316', badge: 'Solar Flare' },
-                { id: 'aurora', name: 'Emerald Aurora', gradient: 'from-emerald-400 via-teal-400 to-lime-400', glow: 'rgba(16, 185, 129, 0.55)', border: 'rgba(16, 185, 129, 0.7)', text: '#10b981', badge: 'Polar Aurora' },
-                { id: 'ocean', name: 'Deep Sapphire', gradient: 'from-blue-600 via-indigo-500 to-cyan-400', glow: 'rgba(59, 130, 246, 0.55)', border: 'rgba(59, 130, 246, 0.7)', text: '#3b82f6', badge: 'Abyssal Blue' },
-                { id: 'gold', name: 'Golden Royale', gradient: 'from-yellow-400 via-amber-300 to-amber-600', glow: 'rgba(245, 158, 11, 0.55)', border: 'rgba(245, 158, 11, 0.7)', text: '#f59e0b', badge: 'Imperial Gold' },
-                { id: 'crimson', name: 'Crimson Pulse', gradient: 'from-red-600 via-rose-500 to-purple-600', glow: 'rgba(225, 29, 72, 0.55)', border: 'rgba(225, 29, 72, 0.7)', text: '#e11d48', badge: 'Ruby Pulse' },
-                { id: 'frost', name: 'Polar Frost', gradient: 'from-sky-300 via-indigo-300 to-violet-300', glow: 'rgba(125, 211, 252, 0.55)', border: 'rgba(125, 211, 252, 0.7)', text: '#38bdf8', badge: 'Glacial Chill' },
-                // 5 Additional Dual/Tri-Colour Combined Lighting Effects
-                { id: 'fire-ice', name: 'Fire & Ice Fusion', gradient: 'from-cyan-400 via-sky-500 to-rose-600', glow: 'rgba(6, 182, 212, 0.6)', border: 'rgba(225, 29, 72, 0.75)', text: '#06b6d4', badge: 'Cyan + Ruby Duo' },
-                { id: 'synthwave', name: 'Synthwave Sunset', gradient: 'from-purple-600 via-pink-500 to-amber-400', glow: 'rgba(217, 70, 239, 0.6)', border: 'rgba(245, 158, 11, 0.75)', text: '#e879f9', badge: 'Violet + Gold Duo' },
-                { id: 'toxic-matrix', name: 'Toxic Matrix', gradient: 'from-lime-400 via-emerald-500 to-yellow-300', glow: 'rgba(132, 204, 22, 0.6)', border: 'rgba(234, 179, 8, 0.75)', text: '#a3e635', badge: 'Lime + Amber Duo' },
-                { id: 'tiranga-pride', name: 'Tiranga Tricolor', gradient: 'from-amber-500 via-slate-100 to-emerald-600', glow: 'rgba(245, 158, 11, 0.55)', border: 'rgba(16, 185, 129, 0.75)', text: '#f59e0b', badge: 'Saffron + Green Trio' },
-                { id: 'cosmic-nebula', name: 'Cosmic Nebula', gradient: 'from-indigo-600 via-fuchsia-600 to-cyan-400', glow: 'rgba(99, 102, 241, 0.6)', border: 'rgba(192, 38, 211, 0.75)', text: '#818cf8', badge: 'Indigo + Cyan Duo' }
-            ];
-
-            const currentRgb = rgbEffects[rgbIndex];
-            const cycleRgb = () => setRgbIndex(prev => (prev + 1) % rgbEffects.length);
-
-            // School Campus Video Scenes for Screen 2
-            const videoScenes = [
-                { id: 1, title: 'Morning Campus Assembly & Prayer', img: '/images/schoolimage.png', duration: '03:40', tag: 'Campus Life', desc: 'Daily synchronized prayer, discipline drills, and moral values in morning sunshine.' },
-                { id: 2, title: 'Tiranga National Celebration & Drills', img: '/images/tringaevent.jpeg', duration: '02:15', tag: 'Patriotic Day', desc: 'Cadet guard of honor, marching parade, and tricolor flag salutation.' },
-                { id: 3, title: 'Senior Cadets Scouting Expedition', img: '/images/scoutchild.jpeg', duration: '04:10', tag: 'Sainik Wing', desc: 'Field survival routines, leadership formations, and military defense grooming.' },
-                { id: 4, title: 'Annual Cultural Stage & Prize Gala', img: '/images/event.jpeg', duration: '05:30', tag: 'Annual Fest', desc: 'Vibrant stage theatricals, Rajasthani heritage music, and top scholar felicitation.' },
-                { id: 5, title: 'Athletics & Physical Training Drills', img: '/images/physicalactivity.jpeg', duration: '03:00', tag: 'Sports Arena', desc: 'High-intensity sprint training, physical stamina exercises, and obstacle courses.' },
-            ];
-            const activeVideo = videoScenes[currentVideoIndex];
-
-            const goPrev = () => {
-                if (activeScreen === 'video') {
-                    setCurrentVideoIndex(prev => (prev - 1 + videoScenes.length) % videoScenes.length);
-                } else {
-                    setSelectedIndex(prev => (prev - 1 + whyChooseUsData.length) % whyChooseUsData.length);
-                }
-                setLastPressedKey('prev');
-                setTimeout(() => setLastPressedKey(null), 300);
-            };
-
-            const goNext = () => {
-                if (activeScreen === 'video') {
-                    setCurrentVideoIndex(prev => (prev + 1) % videoScenes.length);
-                } else {
-                    setSelectedIndex(prev => (prev + 1) % whyChooseUsData.length);
-                }
-                setLastPressedKey('next');
-                setTimeout(() => setLastPressedKey(null), 300);
-            };
-
-            const handleEnter = () => {
-                setLastPressedKey('enter');
-                setTimeout(() => setLastPressedKey(null), 300);
-                if (activeScreen === 'video') {
-                    setIsVideoPlaying(prev => !prev);
-                } else if (onSelectFeature) {
-                    onSelectFeature(activeItem);
-                }
-            };
-
-            // Physical Keyboard Navigation Listener
-            useEffect(() => {
-                const handleKeyDown = (e) => {
-                    if (['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) return;
-
-                    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-                        e.preventDefault();
-                        goPrev();
-                    } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-                        e.preventDefault();
-                        goNext();
-                    } else if (e.key === 'Enter') {
-                        const sectionEl = document.getElementById('features');
-                        if (sectionEl) {
-                            const rect = sectionEl.getBoundingClientRect();
-                            if (rect.top < window.innerHeight && rect.bottom > 0) {
-                                e.preventDefault();
-                                handleEnter();
-                            }
-                        }
-                    }
-                };
-
-                window.addEventListener('keydown', handleKeyDown);
-                return () => window.removeEventListener('keydown', handleKeyDown);
-            }, [selectedIndex, activeItem, activeScreen, currentVideoIndex]);
-
             return (
-                <section id="features" className="py-16 sm:py-24 lg:py-32 bg-blue-950 text-white relative overflow-hidden">
-                    {/* Background ambient lighting matching active RGB effect */}
-                    <div
-                        className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[750px] h-[450px] blur-[150px] rounded-full pointer-events-none transition-all duration-700 opacity-20"
-                        style={{ backgroundColor: currentRgb.text }}
-                    ></div>
+                <section id="features" className="py-16 sm:py-24 lg:py-32 bg-gradient-to-b from-slate-50 via-white to-slate-50 relative overflow-hidden">
+                    {/* Subtle decorative background */}
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-royal-600 via-amber-500 to-royal-600"></div>
+                    <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none"></div>
 
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                         <SectionHeading
-                            badge="The Shri Swaroop Advantage"
                             title="Why Discerning Families Choose Us"
-                            subtitle="Explore our institutional pillars on the interactive dual-screen workstation display and black RGB keyboard below."
-                            light={true}
+                            subtitle="Discover the six institutional pillars that define our commitment to excellence."
                         />
 
-                        {/* Desktop Workstation Setup: Matte Silver Computer Screen + Black RGB Keyboard */}
-                        <div className="max-w-5xl mx-auto mt-4 sm:mt-8 w-full overflow-hidden">
-                            {/* Monitor Frame in Premium Matte Silver Finish */}
-                            <div className="bg-gradient-to-b from-[#e8ecf2] via-[#dde3ed] to-[#cbd3df] rounded-[24px] sm:rounded-[36px] p-2.5 sm:p-4 md:p-5 border-4 sm:border-8 border-[#b5c0d0] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.65)] relative">
-                                {/* Top Center HD Webcam & LED */}
-                                <div className="absolute top-2 sm:top-2.5 left-1/2 -translate-x-1/2 flex items-center gap-2">
-                                    <div className="w-2.5 h-2.5 rounded-full bg-[#9aa7bc] border border-[#7a889e] flex items-center justify-center">
-                                        <div className="w-1 h-1 rounded-full bg-blue-500/80"></div>
-                                    </div>
-                                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                        {/* Mobile: Horizontal scrollable pill tabs */}
+                        <div className="mt-8 sm:mt-12 flex lg:hidden gap-2 overflow-x-auto no-scrollbar pb-3 px-1">
+                            {whyChooseUsData.map((item, idx) => {
+                                const isActive = idx === selectedIndex;
+                                return (
+                                    <button
+                                        key={item.id}
+                                        onClick={() => setSelectedIndex(idx)}
+                                        className={`shrink-0 px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer border whitespace-nowrap ${isActive
+                                            ? 'bg-slate-900 text-white border-slate-900 shadow-lg scale-105'
+                                            : 'bg-white text-slate-700 border-slate-200 hover:border-slate-400 hover:bg-slate-50'
+                                            }`}
+                                    >
+                                        <span className="flex items-center gap-1.5">
+                                            <Icon name={item.icon} size={13} />
+                                            <span>{item.title}</span>
+                                        </span>
+                                    </button>
+                                );
+                            })}
+                        </div>
+
+                        {/* Desktop: Side-by-side layout */}
+                        <div className="mt-4 lg:mt-12 flex flex-col lg:flex-row gap-5 lg:gap-8">
+                            {/* Left: Pillar Navigation Cards (hidden on mobile since we have pills) */}
+                            <div className="hidden lg:flex lg:w-72 xl:w-80 shrink-0 flex-col gap-2">
+                                <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-slate-500 px-3 py-1.5">
+                                    <span>Institutional Pillars</span>
+                                    <span className="text-royal-600">6 Features</span>
                                 </div>
-
-                                {/* Computer Display Screen with BEIGE Background */}
-                                <div className="bg-[#f6f2e8] rounded-2xl sm:rounded-[24px] overflow-hidden border border-[#d6cfbe] shadow-inner flex flex-col text-slate-900">
-                                    {/* OS Window Header / Dual-Screen Browser Bar (Metallic Warm Beige) */}
-                                    <div className="bg-[#ebe5d8] border-b border-[#ded7c8] px-3 sm:px-4 py-2 flex items-center justify-between flex-wrap gap-2">
-                                        {/* Mac Style Window Control Buttons */}
-                                        <div className="flex items-center gap-1.5">
-                                            <span className="w-3 h-3 rounded-full bg-red-500 inline-block shadow-sm"></span>
-                                            <span className="w-3 h-3 rounded-full bg-amber-400 inline-block shadow-sm"></span>
-                                            <span className="w-3 h-3 rounded-full bg-emerald-500 inline-block shadow-sm"></span>
-                                        </div>
-
-                                        {/* Dual-Screen Navigation Switcher Buttons on PC Header */}
-                                        <div className="flex items-center gap-1 bg-[#ded7c8]/80 p-1 rounded-xl border border-[#d6cfbe]">
-                                            <button
-                                                onClick={() => setActiveScreen('pillars')}
-                                                className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${activeScreen === 'pillars'
-                                                    ? 'bg-white text-slate-950 shadow-xs'
-                                                    : 'text-slate-600 hover:text-slate-950 hover:bg-white/60'
-                                                    }`}
-                                            >
-                                                <i className="fa-solid fa-desktop text-[11px] text-royal-600"></i>
-                                                <span>Screen 1: Pillars</span>
-                                            </button>
-
-                                            <button
-                                                onClick={() => setActiveScreen('video')}
-                                                className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${activeScreen === 'video'
-                                                    ? 'bg-royal-600 text-white shadow-xs'
-                                                    : 'text-slate-700 hover:text-slate-950 hover:bg-white/60'
-                                                    }`}
-                                            >
-                                                <i className="fa-solid fa-circle-play text-[11px] text-amber-300"></i>
-                                                <span>Screen 2: Video Tour</span>
-                                            </button>
-                                        </div>
-
-                                        {/* Active Counter Badge / Status */}
-                                        <div className="flex items-center gap-1.5 text-[11px] text-slate-600 font-semibold font-mono">
-                                            {activeScreen === 'pillars' ? (
-                                                <>
-                                                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-                                                    <span>Pillar {selectedIndex + 1} of 6</span>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-                                                    <span className="text-red-700 font-bold uppercase">Video Broadcast</span>
-                                                </>
-                                            )}
-                                        </div>
-                                    </div>
-
-                                    {/* SCREEN 1: Institutional Pillars on Beige Screen Canvas */}
-                                    {activeScreen === 'pillars' && (
-                                        <div className="p-3 sm:p-7 md:p-9 flex flex-col lg:flex-row gap-4 lg:gap-8 items-stretch bg-gradient-to-br from-[#faf6ee] via-[#f7f3ea] to-[#f2ecdd] max-h-[500px] lg:max-h-none overflow-y-auto">
-                                            {/* Left Column: Advantage Menu Tabs */}
-                                            <div className="lg:w-72 shrink-0 flex lg:flex-col gap-2 overflow-x-auto no-scrollbar pb-2 lg:pb-0">
-                                                <div className="hidden lg:flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-slate-500 px-3 py-1">
-                                                    <span>Institutional Pillars</span>
-                                                    <span className="text-amber-700">6 Features</span>
-                                                </div>
-                                                {whyChooseUsData.map((item, idx) => {
-                                                    const isActive = idx === selectedIndex;
-                                                    return (
-                                                        <button
-                                                            key={item.id}
-                                                            onClick={() => setSelectedIndex(idx)}
-                                                            className={`px-4 py-2.5 sm:py-3 rounded-xl text-left transition-all duration-200 whitespace-nowrap lg:whitespace-normal flex items-center justify-between border cursor-pointer ${isActive
-                                                                ? 'bg-slate-900 text-white shadow-md border-slate-900 font-bold'
-                                                                : 'bg-white/90 hover:bg-white text-slate-700 border-[#ded7c8] hover:border-slate-400 font-medium'
-                                                                }`}
-                                                        >
-                                                            <span className="text-xs sm:text-sm truncate">{item.title}</span>
-                                                            {isActive ? (
-                                                                <span className="text-amber-400 text-xs font-bold ml-2">●</span>
-                                                            ) : (
-                                                                <span className="text-slate-400 text-[11px] ml-2 font-mono">0{idx + 1}</span>
-                                                            )}
-                                                        </button>
-                                                    );
-                                                })}
-                                            </div>
-
-                                            {/* Right Column: Active Message Display on Beige Screen */}
-                                            <div className="flex-1 bg-white/95 rounded-2xl p-5 sm:p-8 border border-[#e2dccd] shadow-sm flex flex-col justify-between relative overflow-hidden">
-                                                <div>
-                                                    {/* Category Badge & Screen Switcher Button */}
-                                                    <div className="flex items-center justify-between gap-2 mb-3 flex-wrap">
-                                                        <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider border ${activeItem.accent}`}>
-                                                            <span className="w-1.5 h-1.5 rounded-full bg-current"></span>
-                                                            <span>{activeItem.badge}</span>
-                                                        </div>
-
-                                                        {/* Button to Switch to Second Screen */}
-                                                        <button
-                                                            onClick={() => setActiveScreen('video')}
-                                                            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-royal-50 hover:bg-royal-100 border border-royal-200 text-royal-700 font-bold text-xs transition-all cursor-pointer hover:scale-105"
-                                                        >
-                                                            <i className="fa-solid fa-play text-[10px] text-royal-600"></i>
-                                                            <span>Switch to Screen 2 (Watch Video)</span>
-                                                        </button>
-                                                    </div>
-
-                                                    {/* Screen Headline */}
-                                                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold font-serif text-slate-900 tracking-tight leading-snug">
-                                                        {activeItem.headline}
-                                                    </h3>
-
-                                                    {/* Message Body */}
-                                                    <p className="mt-3 sm:mt-4 text-slate-700 text-xs sm:text-sm md:text-base leading-relaxed">
-                                                        {activeItem.longDesc}
-                                                    </p>
-
-                                                    {/* Key Metrics / Highlights Grid inside Beige Screen */}
-                                                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 mt-5 sm:mt-6">
-                                                        {activeItem.stats.map((stat, sIdx) => (
-                                                            <div key={sIdx} className="bg-[#fcfaf5] border border-[#e8e2d4] rounded-xl p-3 text-center shadow-2xs">
-                                                                <div className="text-sm sm:text-base font-black text-royal-700 font-serif">
-                                                                    {stat.val}
-                                                                </div>
-                                                                <div className="text-[10px] sm:text-[11px] uppercase tracking-wider text-slate-500 font-semibold mt-0.5">
-                                                                    {stat.label}
-                                                                </div>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                </div>
-
-                                                {/* Bottom Action Footer on PC Screen */}
-                                                <div className="mt-6 pt-4 border-t border-[#ede7da] flex flex-col sm:flex-row items-center justify-between gap-3">
-                                                    <div className="text-xs text-slate-600 flex items-center gap-2 font-medium">
-                                                        <i className="fa-solid fa-graduation-cap text-amber-600"></i>
-                                                        <span>Shri Swaroop Excellence Guarantee</span>
-                                                    </div>
-
-                                                    <button
-                                                        onClick={() => onSelectFeature(activeItem)}
-                                                        className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-royal-600 hover:bg-royal-700 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer hover:scale-102"
-                                                    >
-                                                        <span>Read Comprehensive Overview</span>
-                                                        <Icon name="arrow-right" size={14} />
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    {/* SCREEN 2: School Video Player with Clear Back Button */}
-                                    {activeScreen === 'video' && (
-                                        <div className="p-4 sm:p-7 md:p-8 flex flex-col gap-5 bg-gradient-to-br from-[#faf6ee] via-[#f7f3ea] to-[#f2ecdd]">
-                                            {/* Back Button Bar */}
-                                            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-[#ded7c8]">
-                                                <button
-                                                    onClick={() => setActiveScreen('pillars')}
-                                                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-950 hover:bg-slate-900 text-amber-300 font-bold text-xs uppercase tracking-wider shadow-md transition-all cursor-pointer hover:scale-105 border border-slate-700"
-                                                >
-                                                    <i className="fa-solid fa-arrow-left"></i>
-                                                    <span>⬅ Back to Screen 1 (Pillars Overview)</span>
-                                                </button>
-
-                                                <div className="flex items-center gap-2 text-xs font-mono text-slate-700">
-                                                    <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse"></span>
-                                                    <span className="font-bold uppercase tracking-wider text-slate-900">
-                                                        Campus Broadcast • Scene {currentVideoIndex + 1} of {videoScenes.length}
-                                                    </span>
-                                                </div>
-                                            </div>
-
-                                            {/* Main Video Cinema Screen */}
-                                            <div className="relative rounded-2xl overflow-hidden bg-black shadow-2xl border-2 border-slate-800 aspect-video max-h-[380px] sm:max-h-[440px] flex items-center justify-center group">
-                                                {/* Video Frame Image */}
-                                                <img
-                                                    src={activeVideo.img}
-                                                    alt={activeVideo.title}
-                                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-95"
-                                                    onError={(e) => { e.target.src = '/images/schoolimage.png'; }}
-                                                />
-
-                                                {/* Live Scanlines Overlay */}
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 pointer-events-none"></div>
-
-                                                {/* Top Video HUD Badges */}
-                                                <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none text-white text-xs">
-                                                    <div className="flex items-center gap-2 bg-black/70 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
-                                                        <span className="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
-                                                        <span className="font-bold uppercase tracking-widest text-[10px] text-amber-400">{activeVideo.tag}</span>
-                                                    </div>
-                                                    <div className="bg-black/70 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/20 font-mono text-[11px] text-slate-200">
-                                                        {activeVideo.duration} • 1080p HD
-                                                    </div>
-                                                </div>
-
-                                                {/* Center Big Play / Pause Interactive Trigger */}
-                                                <button
-                                                    onClick={() => setIsVideoPlaying(!isVideoPlaying)}
-                                                    className="absolute z-20 w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-royal-600/90 hover:bg-royal-500 text-white flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110 border-2 border-white/40 cursor-pointer"
-                                                    title={isVideoPlaying ? 'Pause Video' : 'Play Video'}
-                                                >
-                                                    <i className={`fa-solid ${isVideoPlaying ? 'fa-pause' : 'fa-play'} text-xl sm:text-2xl ${isVideoPlaying ? '' : 'ml-1'}`}></i>
-                                                </button>
-
-                                                {/* Bottom Cinema Controls Overlay */}
-                                                <div className="absolute bottom-0 inset-x-0 p-3 sm:p-5 bg-gradient-to-t from-black via-black/80 to-transparent flex flex-col gap-2 text-white">
-                                                    <div className="flex items-center justify-between">
-                                                        <div>
-                                                            <h4 className="text-sm sm:text-lg font-serif font-bold text-white leading-tight">
-                                                                {activeVideo.title}
-                                                            </h4>
-                                                            <p className="text-[11px] sm:text-xs text-slate-300 line-clamp-1 mt-0.5 font-light">
-                                                                {activeVideo.desc}
-                                                            </p>
-                                                        </div>
-
-                                                        <a
-                                                            href="images/schl video.mp4"
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all shadow-md hover:scale-105"
-                                                        >
-                                                            <i className="fa-brands fa-youtube"></i>
-                                                            <span>YouTube Shorts</span>
-                                                        </a>
-                                                    </div>
-
-                                                    {/* Scrub Timeline Bar */}
-                                                    <div className="w-full bg-white/20 rounded-full h-1.5 overflow-hidden mt-1 cursor-pointer">
-                                                        <div
-                                                            className="bg-amber-400 h-full rounded-full transition-all duration-500"
-                                                            style={{ width: isVideoPlaying ? `${((currentVideoIndex + 1) / videoScenes.length) * 100}%` : '45%' }}
-                                                        ></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            {/* Scene Selector Thumbnails Bar */}
-                                            <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto no-scrollbar pb-1">
-                                                {videoScenes.map((scene, vIdx) => (
-                                                    <button
-                                                        key={scene.id}
-                                                        onClick={() => {
-                                                            setCurrentVideoIndex(vIdx);
-                                                            setIsVideoPlaying(true);
-                                                        }}
-                                                        className={`shrink-0 px-3 sm:px-4 py-2 rounded-xl text-left transition-all cursor-pointer border flex items-center gap-2.5 ${vIdx === currentVideoIndex
-                                                            ? 'bg-slate-900 text-white border-slate-900 shadow-md font-bold scale-[1.02]'
-                                                            : 'bg-white hover:bg-slate-50 text-slate-700 border-[#ded7c8]'
-                                                            }`}
-                                                    >
-                                                        <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-mono font-bold ${vIdx === currentVideoIndex ? 'bg-amber-400 text-slate-950' : 'bg-slate-200 text-slate-700'
-                                                            }`}>
-                                                            {vIdx + 1}
-                                                        </span>
-                                                        <div className="min-w-0">
-                                                            <div className="text-xs font-bold truncate max-w-[150px] sm:max-w-[190px]">{scene.title}</div>
-                                                            <div className="text-[10px] text-slate-400">{scene.duration}</div>
-                                                        </div>
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-
-                            {/* Metallic Computer Monitor Stand in Matte Silver */}
-                            <div className="flex flex-col items-center">
-                                {/* Stand Neck */}
-                                <div className="w-16 sm:w-20 h-7 sm:h-9 bg-gradient-to-b from-[#b8c2d1] via-[#cbd3df] to-[#9aa7bc] shadow-md flex items-center justify-center border-x border-[#9aa7bc]">
-                                    <div className="w-8 h-2 rounded-full bg-slate-400/50"></div>
-                                </div>
-                                {/* Stand Base Plate */}
-                                <div className="w-48 sm:w-64 h-3 sm:h-3.5 rounded-full bg-gradient-to-r from-[#9aa7bc] via-[#dde3ed] to-[#9aa7bc] border border-[#8f9cae] shadow-lg"></div>
-                            </div>
-
-                            {/* Working Physical Black Desktop Mechanical Keyboard with 13 RGB Effects */}
-                            <div className="mt-5 sm:mt-7 max-w-2xl mx-auto w-full">
-                                {/* Keyboard Outer Shell in Sleek Matte Black with Dynamic RGB Underglow */}
-                                <div
-                                    className="bg-[#090a0f] border-2 border-slate-800 rounded-2xl sm:rounded-3xl p-3 sm:p-5 flex flex-col gap-2.5 transition-all duration-500"
-                                    style={{
-                                        boxShadow: `0 20px 45px -10px ${currentRgb.glow}, 0 0 20px 1px ${currentRgb.border}`
-                                    }}
-                                >
-                                    {/* Top Helper Bar with Interactive RGB Cycle Button */}
-                                    <div className="flex items-center justify-between px-2 text-[10px] sm:text-xs text-slate-400 font-mono flex-wrap gap-2">
-                                        <div className="flex items-center gap-2">
-                                            <span
-                                                className="w-2.5 h-2.5 rounded-full animate-ping"
-                                                style={{ backgroundColor: currentRgb.text }}
-                                            ></span>
-                                            <span className="text-slate-100 font-bold uppercase tracking-wider">
-                                                BLACK MECH KEYBOARD • 13 RGB MODES
-                                            </span>
-                                        </div>
-
-                                        {/* Dedicated Hardware Button to Change RGB Effects (13 Types) */}
+                                {whyChooseUsData.map((item, idx) => {
+                                    const isActive = idx === selectedIndex;
+                                    return (
                                         <button
-                                            onClick={cycleRgb}
-                                            className="px-3 py-1.5 rounded-xl bg-[#141620] hover:bg-[#1f2333] border border-slate-700 text-xs font-bold font-mono transition-all cursor-pointer flex items-center gap-2 shadow-md hover:scale-105 active:scale-95"
-                                            title="Click to cycle through 13 RGB lighting effects"
+                                            key={item.id}
+                                            onClick={() => setSelectedIndex(idx)}
+                                            className={`px-4 py-3 rounded-xl text-left transition-all duration-200 flex items-center justify-between border cursor-pointer group ${isActive
+                                                ? 'bg-slate-900 text-white shadow-lg border-slate-800'
+                                                : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200 hover:border-slate-400 hover:shadow-sm'
+                                                }`}
                                         >
-                                            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shrink-0"></span>
-                                            <span className="text-slate-300">RGB MODE:</span>
-                                            <span style={{ color: currentRgb.text }} className="font-extrabold">{currentRgb.name}</span>
-                                            <span className="px-1.5 py-0.5 rounded bg-black/80 text-[10px] text-amber-300 font-mono">
-                                                {rgbIndex + 1}/13
+                                            <span className="flex items-center gap-2.5">
+                                                <span className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm transition-colors ${isActive ? 'bg-white/15' : 'bg-slate-100 group-hover:bg-slate-200'}`}>
+                                                    <Icon name={item.icon} size={16} />
+                                                </span>
+                                                <span className={`text-sm font-semibold ${isActive ? 'font-bold' : ''}`}>{item.title}</span>
                                             </span>
+                                            {isActive ? (
+                                                <span className="w-2 h-2 rounded-full bg-amber-400"></span>
+                                            ) : (
+                                                <span className="text-slate-400 text-[11px] font-mono">0{idx + 1}</span>
+                                            )}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+
+                            {/* Right: Active Detail Panel */}
+                            <div className="flex-1 min-w-0">
+                                <div className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-10 border border-slate-200 shadow-lg hover:shadow-xl transition-shadow duration-300 relative overflow-hidden">
+                                    {/* Decorative accent bar at top */}
+                                    <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${activeItem.color}`}></div>
+
+                                    {/* Badge */}
+                                    <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider border ${activeItem.accent}`}>
+                                        <span className="w-1.5 h-1.5 rounded-full bg-current"></span>
+                                        <span>{activeItem.badge}</span>
+                                    </div>
+
+                                    {/* Headline */}
+                                    <h3 className="mt-4 text-xl sm:text-2xl md:text-3xl font-bold font-serif text-slate-900 tracking-tight leading-snug">
+                                        {activeItem.headline}
+                                    </h3>
+
+                                    {/* Description */}
+                                    <p className="mt-3 sm:mt-4 text-slate-600 text-sm sm:text-base leading-relaxed">
+                                        {activeItem.longDesc}
+                                    </p>
+
+                                    {/* Stats Grid */}
+                                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 mt-6 sm:mt-8">
+                                        {activeItem.stats.map((stat, sIdx) => (
+                                            <div key={sIdx} className="bg-slate-50 border border-slate-100 rounded-xl p-3.5 text-center hover:bg-slate-100 transition-colors">
+                                                <div className="text-sm sm:text-base font-extrabold text-slate-900 font-serif">
+                                                    {stat.val}
+                                                </div>
+                                                <div className="text-[10px] sm:text-[11px] uppercase tracking-wider text-slate-500 font-semibold mt-0.5">
+                                                    {stat.label}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    {/* Footer */}
+                                    <div className="mt-6 sm:mt-8 pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+                                        <div className="text-xs text-slate-500 flex items-center gap-2 font-medium">
+                                            <i className="fa-solid fa-graduation-cap text-amber-600"></i>
+                                            <span>Shri Swaroop Excellence Guarantee</span>
+                                        </div>
+
+                                        <button
+                                            onClick={() => onSelectFeature(activeItem)}
+                                            className="w-full sm:w-auto px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+                                        >
+                                            <span>Read Full Overview</span>
+                                            <Icon name="arrow-right" size={14} />
                                         </button>
                                     </div>
+                                </div>
 
-                                    {/* Animated RGB Glow Accent Line */}
-                                    <div className={`h-1 w-full rounded-full bg-gradient-to-r ${currentRgb.gradient} opacity-90 shadow-sm`}></div>
-
-                                    {/* Simulated Keyboard Key Rows with Sleek Black Keycaps */}
-                                    <div className="bg-[#06070a] rounded-xl sm:rounded-2xl p-2.5 sm:p-4 border border-slate-800/90 flex flex-col gap-1.5 sm:gap-2 select-none shadow-inner">
-                                        {/* Top Row: Functional keys with subtle RGB glow */}
-                                        <div className="grid grid-cols-12 gap-1 sm:gap-1.5 text-[9px] text-slate-500 font-mono">
-                                            {['Esc', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'Del'].map((k, i) => (
-                                                <div key={i} className="bg-[#12141c] hover:bg-[#1a1d29] rounded py-1 text-center border border-slate-800 text-[8px] sm:text-[9px] text-slate-400 transition-colors">
-                                                    {k}
-                                                </div>
-                                            ))}
-                                        </div>
-
-                                        {/* Alphanumeric Row Preview in Black Keycaps */}
-                                        <div className="grid grid-cols-10 gap-1 sm:gap-1.5 text-slate-400 text-[10px] hidden sm:grid">
-                                            {['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'].map((k, i) => (
-                                                <div key={i} className="bg-[#12141c] hover:bg-[#1a1d29] rounded py-1.5 text-center border border-slate-800/80 font-mono transition-colors">
-                                                    {k}
-                                                </div>
-                                            ))}
-                                        </div>
-
-                                        {/* Main Interactive Control Row: Space, Enter, and Arrow Keys */}
-                                        <div className="flex items-center justify-between gap-2 sm:gap-3 pt-1">
-                                            {/* Left Side: Spacebar & Function Keys */}
-                                            <div className="flex-1 flex items-center gap-1.5 sm:gap-2">
-                                                <div className="bg-[#12141c] rounded-lg px-2.5 py-2 text-[10px] font-mono text-slate-400 border border-slate-800">
-                                                    Ctrl
-                                                </div>
-                                                <div className="bg-[#12141c] rounded-lg px-2.5 py-2 text-[10px] font-mono text-slate-400 border border-slate-800">
-                                                    Alt
-                                                </div>
-                                                {/* Spacebar */}
-                                                <button
-                                                    onClick={goNext}
-                                                    className="flex-1 bg-[#12141c] hover:bg-[#1c202c] active:bg-[#252a3a] rounded-lg py-2 text-center text-slate-300 text-[10px] font-mono border border-slate-800 transition-all cursor-pointer shadow-sm"
-                                                >
-                                                    Spacebar ({activeScreen === 'video' ? 'Next Video Scene' : 'Next Pillar'})
-                                                </button>
-                                            </div>
-
-                                            {/* Working Prominent ENTER Button with Dynamic RGB Accent */}
-                                            <button
-                                                onClick={handleEnter}
-                                                className={`px-3.5 sm:px-5 py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer shadow-md border ${lastPressedKey === 'enter'
-                                                    ? 'scale-95 ring-2 ring-white text-slate-950 bg-amber-400'
-                                                    : 'bg-[#181b26] hover:bg-[#222736] text-white border-slate-700'
-                                                    }`}
-                                                style={{ borderColor: lastPressedKey === 'enter' ? undefined : currentRgb.border }}
-                                                title="Press Enter to Open Message or Toggle Video"
-                                            >
-                                                <i className="fa-solid fa-arrow-turn-down text-[11px] rotate-90"></i>
-                                                <span>Enter Key</span>
-                                            </button>
-
-                                            {/* Working ARROW KEYS Cluster in Black Keycaps */}
-                                            <div className="flex items-center gap-1 sm:gap-1.5">
-                                                {/* Left Arrow Button */}
-                                                <button
-                                                    onClick={goPrev}
-                                                    className={`w-9 sm:w-11 h-8 sm:h-9 rounded-lg flex items-center justify-center text-xs font-bold transition-all cursor-pointer border shadow-sm ${lastPressedKey === 'prev'
-                                                        ? 'scale-95 ring-2 ring-white text-slate-950 bg-amber-400'
-                                                        : 'bg-[#12141c] hover:bg-[#1e2230] text-slate-200 border-slate-800 active:scale-95'
-                                                        }`}
-                                                    title="Previous (Left Arrow)"
-                                                >
-                                                    <i className="fa-solid fa-arrow-left"></i>
-                                                </button>
-
-                                                {/* Up / Down Arrow Column */}
-                                                <div className="flex flex-col gap-1">
-                                                    {/* Up Arrow Button */}
-                                                    <button
-                                                        onClick={goPrev}
-                                                        className="w-8 sm:w-10 h-3.5 sm:h-4 rounded bg-[#12141c] hover:bg-[#1e2230] text-slate-200 flex items-center justify-center text-[9px] border border-slate-800 transition-all cursor-pointer active:scale-95"
-                                                        title="Previous (Up Arrow)"
-                                                    >
-                                                        <i className="fa-solid fa-arrow-up text-[8px]"></i>
-                                                    </button>
-                                                    {/* Down Arrow Button */}
-                                                    <button
-                                                        onClick={goNext}
-                                                        className="w-8 sm:w-10 h-3.5 sm:h-4 rounded bg-[#12141c] hover:bg-[#1e2230] text-slate-200 flex items-center justify-center text-[9px] border border-slate-800 transition-all cursor-pointer active:scale-95"
-                                                        title="Next (Down Arrow)"
-                                                    >
-                                                        <i className="fa-solid fa-arrow-down text-[8px]"></i>
-                                                    </button>
-                                                </div>
-
-                                                {/* Right Arrow Button */}
-                                                <button
-                                                    onClick={goNext}
-                                                    className={`w-9 sm:w-11 h-8 sm:h-9 rounded-lg flex items-center justify-center text-xs font-bold transition-all cursor-pointer border shadow-sm ${lastPressedKey === 'next'
-                                                        ? 'scale-95 ring-2 ring-white text-slate-950 bg-amber-400'
-                                                        : 'bg-[#12141c] hover:bg-[#1e2230] text-slate-200 border-slate-800 active:scale-95'
-                                                        }`}
-                                                    title="Next (Right Arrow)"
-                                                >
-                                                    <i className="fa-solid fa-arrow-right"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                {/* Mobile: Quick Navigation Dots */}
+                                <div className="flex lg:hidden justify-center gap-2 mt-4">
+                                    {whyChooseUsData.map((_, idx) => (
+                                        <button
+                                            key={idx}
+                                            onClick={() => setSelectedIndex(idx)}
+                                            className={`w-2.5 h-2.5 rounded-full transition-all cursor-pointer ${idx === selectedIndex
+                                                ? 'bg-slate-900 scale-125'
+                                                : 'bg-slate-300 hover:bg-slate-400'
+                                                }`}
+                                        />
+                                    ))}
                                 </div>
                             </div>
                         </div>
@@ -1987,7 +1591,6 @@
                 <section id="academics" className="py-16 sm:py-24 lg:py-32 school-pattern-bg">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <SectionHeading
-                            badge="Academic Philosophy"
                             title="Learning That Goes Beyond the Classroom"
                             subtitle="Empowering students with theoretical mastery, analytical reasoning, and practical application."
                         />
@@ -2037,7 +1640,7 @@
                 <section id="campus-life" className="py-10 sm:py-14 school-pattern-bg border-t border-slate-200">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <SectionHeading
-                            badge="Co-Curricular Realm"
+
                             title="Life at Shri Swaroop"
                             subtitle="A dynamic campus experience where passion, talent, and camaraderie blossom."
                         />
@@ -2071,10 +1674,7 @@
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center">
                             <div className="lg:col-span-6 space-y-4 sm:space-y-6">
-                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-xs font-bold uppercase tracking-widest">
-                                    <Icon name="activity" size={14} />
-                                    <span>Athletics & Games</span>
-                                </div>
+
                                 <h2 className="text-2xl sm:text-5xl font-bold font-serif text-slate-900 tracking-tight leading-tight">
                                     Strength. Discipline. Teamwork.
                                 </h2>
@@ -2122,7 +1722,7 @@
 
         const SainikWingSection = () => {
             return (
-                <section id="sainik-wing" className="py-16 sm:py-24 lg:py-32 bg-navy-950 text-white relative overflow-hidden">
+                <section id="sainik-meta" className="py-16 sm:py-24 lg:py-32 bg-navy-950 text-white relative overflow-hidden">
                     <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fbbf24_1px,transparent_1px)] [background-size:24px_24px]"></div>
                     <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="bg-gradient-to-br from-navy-900 to-navy-950 rounded-2xl sm:rounded-3xl p-6 sm:p-12 lg:p-16 border border-amber-500/30 shadow-2xl">
@@ -2138,7 +1738,7 @@
                                     </h2>
 
                                     <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-light">
-                                        Shri Swaroop Public School is distinctly recognized for merging modern academic brilliance with military-inspired discipline. Through structured drills, punctuality, and pride in our nation, students develop unflinching focus and leadership capabilities.
+                                        Shri Swaroop Public School is distinctly recognized for merging modern academic brilliance with military-inspired discipline through our Meta Sainik program. Through structured drills, punctuality, and pride in our nation, students develop unflinching focus and leadership capabilities.
                                     </p>
 
                                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-4 pt-2">
@@ -2173,18 +1773,18 @@
                                             className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold text-xs sm:text-sm hover:scale-105 transition-all shadow-lg"
                                         >
                                             <Icon name="shield" size={17} />
-                                            <span>Explore Sainik Portal</span>
+                                            <span>Explore Meta Sainik Portal</span>
                                             <Icon name="external-link" size={14} />
                                         </a>
 
                                         <a
-                                            href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hello!%20I%20am%20interested%20in%20learning%20more%20about%20the%20military%20discipline%20and%20Sainik%20wing.`}
+                                            href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hello!%20I%20am%20interested%20in%20learning%20more%20about%20the%20military%20discipline%20and%20Meta%20Sainik%20wing.`}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3.5 sm:py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm border border-white/10 transition-colors"
                                         >
                                             <Icon name="help-circle" size={16} />
-                                            <span>Inquire About Wing Training</span>
+                                            <span>Inquire About Meta Sainik Training</span>
                                         </a>
                                     </div>
                                 </div>
@@ -2221,7 +1821,6 @@
 
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                         <SectionHeading
-                            badge="Interactive Leadership Keynote"
                             title="From the Director's Desk"
                             subtitle="Explore Director Mr. Manoj Kumar Bagoria's founding vision on the campus smart board."
                         />
@@ -2265,10 +1864,7 @@
                                     <div className="p-5 sm:p-8 lg:p-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center bg-white">
                                         <div className="lg:col-span-7 flex flex-col justify-between space-y-4 sm:space-y-6 order-2 lg:order-1">
                                             <div>
-                                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200 text-xs font-bold uppercase tracking-widest mb-3">
-                                                    <i className="fa-solid fa-quote-left text-xs text-amber-500"></i>
-                                                    <span>Keynote Address • Smart Board</span>
-                                                </div>
+
 
                                                 <h2 className="text-2xl sm:text-4xl font-bold font-serif text-slate-900 tracking-tight leading-tight">
                                                     From the Director's Desk
@@ -2296,7 +1892,7 @@
                                                     </div>
                                                     <div className="col-span-2 sm:col-span-1 bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-center">
                                                         <div className="text-xs sm:text-sm font-bold text-slate-900 font-serif">Holistic Ethos</div>
-                                                        <div className="text-[10px] text-slate-500">Values & Sainik Discipline</div>
+                                                        <div className="text-[10px] text-slate-500">Values & Meta Sainik Discipline</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -2321,7 +1917,7 @@
                                             <div className="w-full max-w-[310px] sm:max-w-[340px] bg-slate-900 border-2 border-slate-800 rounded-2xl p-3 shadow-2xl flex flex-col items-center group">
                                                 <div className="w-full bg-slate-950 rounded-xl overflow-hidden flex items-center justify-center p-1 border border-slate-800">
                                                     <img
-                                                        src="/images/directorimage.jpeg"
+                                                        src="/images/directorimage02.jpeg"
                                                         alt="Mr. Manoj Kumar Bagoria - Director & Founder"
                                                         className="w-full h-auto max-h-[360px] sm:max-h-[420px] object-contain rounded-lg shadow-lg filter brightness-105 contrast-105 transition-transform duration-500 group-hover:scale-[1.02]"
                                                         onError={(e) => { e.target.src = '/images/schoolimage.png'; }}
@@ -2412,7 +2008,6 @@
                 <section id="announcements" className="py-16 sm:py-24 lg:py-32 school-pattern-bg border-t border-slate-200">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <SectionHeading
-                            badge="Campus Bulletins"
                             title="Latest News & Announcements"
                             subtitle="Stay informed with official circulars, student milestones, and upcoming campus events."
                         />
@@ -2459,30 +2054,38 @@
             const [activeImageIndex, setActiveImageIndex] = useState(null);
             const [isExpanded, setIsExpanded] = useState(true);
 
-            // Default Gallery Photo Archives
+
+            // Helper to resolve images on any deployment (relative path or absolute)
+            const resolveImg = (path) => {
+                if (!path) return 'images/schoolimage.png';
+                if (path.startsWith('http') || path.startsWith('data:')) return path;
+                return path.startsWith('/') ? path.slice(1) : path;
+            };
+
+            // Default Gallery Photo Archives with verified distinct images
             const defaultImages = useMemo(() => [
-                { url: '/images/poster.jpeg', category: 'Results', title: 'Outstanding Board Results', stamp: 'MERIT LIST 2025' },
-                { url: '/images/scoutchild.jpeg', category: 'Students', title: 'Scouts & Cadets Drill', stamp: 'LEADERSHIP CORPS' },
-                { url: '/images/tringaevent.jpeg', category: 'Events', title: 'Tiranga National Celebration', stamp: 'PATRIOTIC DAY' },
-                { url: '/images/poster2.jpeg', category: 'Results', title: 'Merit Achievers Recognition', stamp: 'TOP SCHOLARS' },
-                { url: '/images/schoolposter.jpeg', category: 'Results', title: 'School Achievements Showcase', stamp: 'EXCELLENCE AWARDS' },
-                { url: '/images/physicalactivity.jpeg', category: 'Students', title: 'Athletics & Physical Training', stamp: 'SPORTS DRILLS' },
-                { url: '/images/event.jpeg', category: 'Events', title: 'Cultural & Academic Function', stamp: 'ANNUAL FEST' },
-                { url: '/images/schoolimage.png', category: 'Campus', title: 'Shri Swaroop School ', stamp: 'CAMPUS VISTA' },
-                { url: '/images/01poster.jpeg', category: 'Results', title: 'Board Merit Showcase ', stamp: 'MERIT POSTER' },
-                { url: '/images/02poster.jpeg', category: 'Results', title: 'Board Merit Showcase ', stamp: 'MERIT POSTER' },
-                { url: '/images/03poster.jpeg', category: 'Results', title: 'Board Merit Showcase ', stamp: 'MERIT POSTER' },
-                { url: '/images/04poster.jpeg', category: 'Results', title: 'Board Merit Showcase ', stamp: 'MERIT POSTER' },
-                { url: '/images/campus01.jpeg', category: 'Campus', title: 'Shri Swaroop Campus Vista', stamp: 'CAMPUS VISTA' },
-                { url: '/images/campus02.jpeg', category: 'Campus', title: 'Shri Swaroop Main Building', stamp: 'CAMPUS VISTA' },
-                { url: '/images/01sainik.jpeg', category: 'Campus', title: 'School Sainik Military Wing', stamp: 'SAINIK CORPS' },
-                { url: '/images/navy01.jpeg', category: 'Campus', title: 'Sainik Cadet Parade', stamp: 'SAINIK CORPS' },
+                { url: 'images/poster.jpeg', category: 'Results', title: 'Outstanding Board Results', stamp: 'MERIT LIST 2025' },
+                { url: 'images/scoutchild.jpeg', category: 'Students', title: 'Scouts & Cadets Drill', stamp: 'LEADERSHIP CORPS' },
+                { url: 'images/tringaevent.jpeg', category: 'Events', title: 'Tiranga National Celebration', stamp: 'PATRIOTIC DAY' },
+                { url: 'images/poster2.jpeg', category: 'Results', title: 'Merit Achievers Recognition', stamp: 'TOP SCHOLARS' },
+                { url: 'images/schoolposter.jpeg', category: 'Results', title: 'School Achievements Showcase', stamp: 'EXCELLENCE AWARDS' },
+                { url: 'images/physicalactivity.jpeg', category: 'Students', title: 'Athletics & Physical Training', stamp: 'SPORTS DRILLS' },
+                { url: 'images/event.jpeg', category: 'Events', title: 'Cultural & Academic Function', stamp: 'ANNUAL FEST' },
+                { url: 'images/schoolimage.png', category: 'Campus', title: 'Shri Swaroop School Vista', stamp: 'CAMPUS VISTA' },
+                { url: 'images/01poster.jpeg', category: 'Results', title: 'Board Merit Showcase 1', stamp: 'MERIT POSTER' },
+                { url: 'images/02poster.jpeg', category: 'Results', title: 'Board Merit Showcase 2', stamp: 'MERIT POSTER' },
+                { url: 'images/03poster.jpeg', category: 'Results', title: 'Board Merit Showcase 3', stamp: 'MERIT POSTER' },
+                { url: 'images/04poster.jpeg', category: 'Results', title: 'Board Merit Showcase 4', stamp: 'MERIT POSTER' },
+                { url: 'images/campus01.jpeg', category: 'Campus', title: 'Shri Swaroop Campus Vista', stamp: 'CAMPUS VISTA' },
+                { url: 'images/campus02.jpeg', category: 'Campus', title: 'Shri Swaroop Main Building', stamp: 'CAMPUS VISTA' },
+                { url: 'images/01sainik.jpeg', category: 'Campus', title: 'School Meta Sainik Wing', stamp: 'SAINIK CORPS' },
+                { url: 'images/navy01.jpeg', category: 'Campus', title: 'Sainik Cadet Parade', stamp: 'SAINIK CORPS' },
             ], []);
 
-            // Persistent Photo List in LocalStorage
+            // Persistent Photo List in LocalStorage - v3 key ensures fresh clean load on deployed site
             const [galleryImagesList, setGalleryImagesList] = useState(() => {
                 try {
-                    const saved = localStorage.getItem('ssps_notice_board_photos_v2');
+                    const saved = localStorage.getItem('ssps_notice_board_photos_v3');
                     return saved ? JSON.parse(saved) : defaultImages;
                 } catch (e) {
                     return defaultImages;
@@ -2513,7 +2116,7 @@
             const updateGalleryList = (newList) => {
                 setGalleryImagesList(newList);
                 try {
-                    localStorage.setItem('ssps_notice_board_photos_v2', JSON.stringify(newList));
+                    localStorage.setItem('ssps_notice_board_photos_v3', JSON.stringify(newList));
                 } catch (e) {
                     setAdminMessage({ type: 'error', text: 'Storage full! Try removing some photos before adding new ones.' });
                 }
@@ -2660,7 +2263,6 @@
                 <section id="gallery" className="py-16 sm:py-24 lg:py-32 school-pattern-bg relative overflow-hidden">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <SectionHeading
-                            badge="Official Notice & Activity Board"
                             title="Student Posters & Gallery Board"
                             subtitle="Explore pinned notices, achievement posters, and campus moments on our student bulletin board."
                         />
@@ -2748,20 +2350,20 @@
                                                 className={`group relative ${noteBg} p-2.5 sm:p-3 rounded-lg shadow-[0_10px_22px_rgba(0,0,0,0.35)] border border-slate-200/90 ${tilt} hover:rotate-0 hover:scale-[1.03] transition-all duration-300 cursor-pointer`}
                                             >
                                                 {/* Realistic 3D Thumbtack Push Pin */}
-                                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-30 pointer-events-none" style={{filter: 'drop-shadow(1px 2px 3px rgba(0,0,0,0.5))'}}>
+                                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-30 pointer-events-none" style={{ filter: 'drop-shadow(1px 2px 3px rgba(0,0,0,0.5))' }}>
                                                     <svg width="22" height="26" viewBox="0 0 22 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         {/* Pin needle */}
-                                                        <line x1="11" y1="12" x2="11" y2="24" stroke="#71717a" strokeWidth="2" strokeLinecap="round"/>
+                                                        <line x1="11" y1="12" x2="11" y2="24" stroke="#71717a" strokeWidth="2" strokeLinecap="round" />
                                                         {/* Needle shadow */}
-                                                        <ellipse cx="12.5" cy="24.5" rx="3" ry="1" fill="rgba(0,0,0,0.25)"/>
+                                                        <ellipse cx="12.5" cy="24.5" rx="3" ry="1" fill="rgba(0,0,0,0.25)" />
                                                         {/* Pin body lower dome */}
-                                                        <ellipse cx="11" cy="11.5" rx="6" ry="2.8" fill={pinColors[idx % pinColors.length].body}/>
+                                                        <ellipse cx="11" cy="11.5" rx="6" ry="2.8" fill={pinColors[idx % pinColors.length].body} />
                                                         {/* Pin body taper */}
-                                                        <path d={`M6 11.5 C6 6 8.5 5 8.5 3 L13.5 3 C13.5 5 16 6 16 11.5 Z`} fill={pinColors[idx % pinColors.length].body}/>
+                                                        <path d={`M6 11.5 C6 6 8.5 5 8.5 3 L13.5 3 C13.5 5 16 6 16 11.5 Z`} fill={pinColors[idx % pinColors.length].body} />
                                                         {/* Pin head top dome */}
-                                                        <ellipse cx="11" cy="3" rx="6.5" ry="2.8" fill={pinColors[idx % pinColors.length].top}/>
+                                                        <ellipse cx="11" cy="3" rx="6.5" ry="2.8" fill={pinColors[idx % pinColors.length].top} />
                                                         {/* Specular highlight */}
-                                                        <ellipse cx="9.5" cy="2.5" rx="3" ry="1.2" fill="rgba(255,255,255,0.65)"/>
+                                                        <ellipse cx="9.5" cy="2.5" rx="3" ry="1.2" fill="rgba(255,255,255,0.65)" />
                                                     </svg>
                                                 </div>
 
@@ -2776,13 +2378,26 @@
                                                     </button>
                                                 )}
 
-                                                <div className="relative overflow-hidden rounded border border-slate-200/80 bg-slate-900 shadow-inner h-32 sm:h-40">
+                                                <div className="relative overflow-hidden rounded border border-slate-200/80 bg-slate-900 shadow-inner h-40 sm:h-48 md:h-56 lg:h-52">
                                                     <img
-                                                        src={img.url}
+                                                        src={resolveImg(img.url)}
                                                         alt={img.title}
                                                         loading="lazy"
                                                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                                        onError={(e) => { e.target.src = '/images/schoolimage.png'; }}
+                                                        onError={(e) => {
+                                                            const retried = e.target.getAttribute('data-retried');
+                                                            const currentSrc = e.target.getAttribute('src') || '';
+                                                            if (!retried && currentSrc.startsWith('/')) {
+                                                                e.target.setAttribute('data-retried', '1');
+                                                                e.target.src = currentSrc.slice(1);
+                                                            } else if (retried !== '2' && !currentSrc.startsWith('/') && !currentSrc.startsWith('data:')) {
+                                                                e.target.setAttribute('data-retried', '2');
+                                                                e.target.src = '/' + currentSrc;
+                                                            } else {
+                                                                e.target.setAttribute('data-retried', 'done');
+                                                                e.target.src = 'images/schoolimage.png';
+                                                            }
+                                                        }}
                                                     />
                                                     <div className="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded bg-black/70 text-[8px] sm:text-[9px] font-mono font-bold text-amber-300 uppercase tracking-widest border border-amber-400/40">
                                                         {img.stamp}
@@ -2881,7 +2496,7 @@
                                                 className="text-xs font-bold text-royal-600 hover:underline cursor-pointer flex items-center gap-1"
                                             >
                                                 <i className="fa-solid fa-phone text-[10px]"></i>
-                                                <span>Reset via Phone (9257189373)</span>
+                                                <span>Reset via Registered Phone</span>
                                             </button>
                                             <button
                                                 type="button"
@@ -2907,13 +2522,13 @@
 
                             {/* 2. FORGOT PASSWORD (PHONE) TAB */}
                             {adminTab === 'forgot' && (
-                                <form onSubmit={handleVerifyPhone} className="space-y-4">
+                                <form onSubmit={handleVerifyPhone} className="space-y-4" autoComplete="off">
                                     <div className="p-3 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 space-y-1">
                                         <div className="font-bold flex items-center gap-1.5">
                                             <i className="fa-solid fa-shield-halved text-amber-600"></i>
                                             <span>Security Verification via Phone</span>
                                         </div>
-                                        <p>Enter the registered Admin Recovery Phone Number (9257189373) to authorize password reset.</p>
+                                        <p>Enter the 10-digit registered Admin Recovery Phone Number to authorize password reset.</p>
                                     </div>
                                     <div>
                                         <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
@@ -2922,7 +2537,12 @@
                                         <input
                                             type="tel"
                                             required
-                                            placeholder="e.g. 9257189373"
+                                            placeholder="Enter 10-digit phone number"
+                                            autoComplete="new-password"
+                                            name={"ssps_admin_recovery_" + Date.now()}
+                                            id="ssps-admin-phone-recovery"
+                                            data-lpignore="true"
+                                            data-form-type="other"
                                             value={enteredPhone}
                                             onChange={(e) => setEnteredPhone(e.target.value)}
                                             className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-royal-600 font-mono"
@@ -3168,9 +2788,17 @@
                                 className="relative max-w-4xl max-h-[85vh] rounded-2xl overflow-hidden shadow-2xl bg-black p-2 border-2 border-white/20"
                             >
                                 <img
-                                    src={filteredImages[activeImageIndex]?.url}
+                                    src={resolveImg(filteredImages[activeImageIndex]?.url)}
                                     alt={filteredImages[activeImageIndex]?.title}
                                     className="max-w-full max-h-[75vh] object-contain rounded-xl mx-auto"
+                                    onError={(e) => {
+                                        const currentSrc = e.target.getAttribute('src') || '';
+                                        if (currentSrc.startsWith('/')) {
+                                            e.target.src = currentSrc.slice(1);
+                                        } else if (!currentSrc.startsWith('/')) {
+                                            e.target.src = '/' + currentSrc;
+                                        }
+                                    }}
                                 />
                                 <div className="p-3 text-center text-white">
                                     <span className="text-xs font-bold text-amber-400 uppercase tracking-widest">
@@ -3440,10 +3068,8 @@
                                             <p className="italic font-serif text-amber-950 text-xs sm:text-sm font-semibold leading-relaxed">
                                                 "{activeClass.quote}"
                                             </p>
-                                            <div className="pt-2 border-t border-amber-200/60 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 text-[11px] font-bold text-amber-900">
+                                            <div className="pt-2 border-t border-amber-200/60 flex items-center justify-center text-[11px] font-bold text-amber-900">
                                                 <span>Session 2026-27 Seats Open</span>
-                                                <span className="hidden sm:inline">•</span>
-                                                <span>Helpline: <a href="tel:7742181699" className="text-royal-800 underline">7742181699</a></span>
                                             </div>
                                         </div>
                                     </div>
@@ -3471,7 +3097,7 @@
                 <section id="values" className="py-10 sm:py-14 bg-slate-50 border-t border-slate-200">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <SectionHeading
-                            badge="Foundational Guiding Stars"
+
                             title="Mission, Vision & Core Values"
                             subtitle="The timeless principles guiding every lesson, decision, and student interaction."
                         />
@@ -3574,7 +3200,7 @@
                 <section id="contact" className="py-16 sm:py-24 lg:py-32 school-pattern-bg">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <SectionHeading
-                            badge="Get In Touch"
+
                             title="Let's Connect"
                             subtitle="Have queries regarding admissions, visits, or school programs? Reach out directly or visit our campus."
                         />
