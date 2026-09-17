@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html class="scroll-smooth" lang="en">
 
@@ -211,7 +211,7 @@
             animation: coffeeBoardGlow 4s ease-in-out infinite;
         }
 
-        /* Kids Crest label */
+        /* Kiddies Crest label */
         .kids-word-pink {
             color: #ec4899;
         }
@@ -325,7 +325,7 @@
             animation: gentleBounce 2.5s ease-in-out infinite;
         }
 
-        /* Kids Crest Section pastel toggle cards */
+        /* Kiddies Crest Section pastel toggle cards */
         .kids-toggle-card {
             transition: all 0.3s ease;
         }
@@ -721,7 +721,7 @@
                                             : 'text-pink-300 hover:text-white hover:bg-pink-900/30'
                                             }`}
                                     >
-                                        Kids Crest
+                                        Kiddies Crest
                                     </a>
                                 </div>
 
@@ -793,7 +793,7 @@
                                         : 'text-pink-300 hover:bg-pink-900/20'
                                         }`}
                                 >
-                                    Kids Crest
+                                    Kiddies Crest
                                 </a>
                                 <div className={`pt-3 border-t grid grid-cols-2 gap-2 ${scrolled ? 'border-slate-200' : 'border-white/10'
                                     }`}>
@@ -822,39 +822,65 @@
         };
 
         // Bottom Dock for Quick Parent Actions (Mobile Fixed)
-        const MobileBottomParentDock = ({ onOpenParentHub }) => {
+        const MobileBottomParentDock = ({ onOpenParentHub, isParentHubOpen }) => {
+            const [activeTab, setActiveTab] = useState('home');
+
+            // Sync with parent hub open state
+            useEffect(() => {
+                if (isParentHubOpen) {
+                    setActiveTab('hub');
+                }
+            }, [isParentHubOpen]);
+
             return (
                 <aside aria-label="Mobile Parent Navigation Dock" className="lg:hidden fixed bottom-0 left-0 w-full z-40 dock-glass border-t border-white/10 px-3 py-2 shadow-2xl">
                     <div className="max-w-md mx-auto grid grid-cols-4 items-center gap-1.5 text-center">
                         <a
                             href="#hero"
-                            className="flex flex-col items-center justify-center py-1 rounded-xl text-slate-300 hover:text-white transition-colors"
+                            onClick={() => setActiveTab('home')}
+                            className={`flex flex-col items-center justify-center py-1.5 px-1 rounded-xl transition-all duration-300 ${
+                                activeTab === 'home'
+                                    ? 'text-amber-400 bg-amber-400/15 scale-105 shadow-[0_0_12px_rgba(251,191,36,0.3)] ring-1 ring-amber-400/30 font-bold'
+                                    : 'text-slate-300 hover:text-white hover:bg-white/5 active:scale-95'
+                            }`}
                         >
-                            <Icon name="home" size={18} />
-                            <span className="text-[10px] font-medium mt-1">Home</span>
+                            <Icon name="home" size={19} />
+                            <span className="text-[10px] tracking-wide mt-1">Home</span>
                         </a>
 
                         <button
-                            onClick={onOpenParentHub}
-                            className="flex flex-col items-center justify-center py-1 rounded-xl text-amber-300 hover:text-amber-200 transition-colors"
+                            onClick={() => {
+                                setActiveTab('hub');
+                                onOpenParentHub();
+                            }}
+                            className={`flex flex-col items-center justify-center py-1.5 px-1 rounded-xl transition-all duration-300 cursor-pointer ${
+                                activeTab === 'hub'
+                                    ? 'text-amber-400 bg-amber-400/15 scale-105 shadow-[0_0_12px_rgba(251,191,36,0.3)] ring-1 ring-amber-400/30 font-bold'
+                                    : 'text-slate-300 hover:text-amber-300 hover:bg-white/5 active:scale-95'
+                            }`}
                         >
-                            <Icon name="layout-grid" size={18} />
-                            <span className="text-[10px] font-bold mt-1">Parent Hub</span>
+                            <Icon name="layout-grid" size={19} />
+                            <span className="text-[10px] tracking-wide mt-1">Parent Hub</span>
                         </button>
 
                         <a
                             href={`tel:${WHATSAPP_NUMBER}`}
-                            className="flex flex-col items-center justify-center py-1 rounded-xl text-royal-300 hover:text-white transition-colors"
+                            onClick={() => setActiveTab('call')}
+                            className={`flex flex-col items-center justify-center py-1.5 px-1 rounded-xl transition-all duration-300 ${
+                                activeTab === 'call'
+                                    ? 'text-royal-400 bg-royal-500/15 scale-105 ring-1 ring-royal-400/30 font-bold'
+                                    : 'text-slate-300 hover:text-white hover:bg-white/5 active:scale-95'
+                            }`}
                         >
-                            <Icon name="phone" size={18} />
-                            <span className="text-[10px] font-bold mt-1">Call Desk</span>
+                            <Icon name="phone" size={19} />
+                            <span className="text-[10px] tracking-wide mt-1">Call Desk</span>
                         </a>
 
                         <a
                             href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hello!%20Admission%20query%20for%20Shri%20Swaroop%20Public%20School%20Baggar.`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex flex-col items-center justify-center py-1 rounded-xl bg-emerald-600 text-white shadow hover:bg-emerald-500 transition-colors"
+                            className="flex flex-col items-center justify-center py-1.5 px-1 rounded-xl bg-emerald-600 text-white shadow-lg hover:bg-emerald-500 active:scale-95 transition-all duration-300"
                         >
                             <i className="fa-brands fa-whatsapp text-lg leading-none"></i>
                             <span className="text-[10px] font-bold mt-1">Chat</span>
@@ -872,7 +898,7 @@
                 { title: 'Admissions 2026-27', desc: 'Nursery to IX & XI enrollment guidelines', icon: 'graduation-cap', href: '#admissions', color: 'bg-amber-500/20 text-amber-400' },
                 { title: '100% Board Results', desc: 'Verified merit lists and topper archives', icon: 'award', href: '#gallery', color: 'bg-royal-500/20 text-royal-400' },
                 { title: 'Meta Sainik Wing', desc: 'Discipline, physical drills, and cadet training', icon: 'shield', href: '#sainik-meta', color: 'bg-emerald-500/20 text-emerald-400' },
-                { title: 'Kids Crest (Pre-Primary & 1st)', desc: 'Nursery, LKG, UKG & Class 1 joyful learning wing', icon: 'star', href: '#kids-crest', color: 'bg-pink-500/20 text-pink-400' },
+                { title: 'Kiddies Crest (Pre-Primary & 1st)', desc: 'Nursery, LKG, UKG & Class 1 joyful learning wing', icon: 'star', href: '#kids-crest', color: 'bg-pink-500/20 text-pink-400' },
                 { title: 'Director’s Message', desc: 'Vision from Shri Manoj Kumar Bagoria', icon: 'user', action: onSelectDirector, color: 'bg-purple-500/20 text-purple-400' },
                 { title: 'Academic Facilities', desc: 'Smart classes, modern science & computer labs', icon: 'book-open', href: '#academics', color: 'bg-blue-500/20 text-blue-400' },
                 { title: 'Sports & Coaching', desc: 'Cricket, football grounds, and fitness training', icon: 'trophy', href: '#activities', color: 'bg-orange-500/20 text-orange-400' },
@@ -1133,7 +1159,7 @@
                                         href="#kids-crest"
                                         className="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-r-full text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-400 hover:via-teal-400 hover:to-cyan-400 border border-white/15 border-l-0 transition-all animate-gradient-x"
                                     >
-                                        <span>Kids Crest</span>
+                                        <span>Kiddies Crest</span>
                                         <Icon name="star" size={14} />
                                     </a>
                                 </div>
@@ -1901,13 +1927,20 @@
                                             <div className="w-full max-w-[310px] sm:max-w-[340px] bg-slate-900 border-2 border-slate-800 rounded-2xl p-3 shadow-2xl flex flex-col items-center group">
                                                 <div className="w-full bg-slate-950 rounded-xl overflow-hidden flex items-center justify-center p-1 border border-slate-800">
                                                     <img
-                                                        src="./images/directorimage02.jpeg"
+                                                        src="images/directorimage02.jpeg"
                                                         alt="Mr. Manoj Kumar Bagoria - Director & Founder"
                                                         className="w-full h-auto max-h-[360px] sm:max-h-[420px] object-contain rounded-lg shadow-lg filter brightness-105 contrast-105 transition-transform duration-500 group-hover:scale-[1.02]"
                                                         onError={(e) => {
-                                                            if (!e.target.dataset.failed) {
-                                                                e.target.dataset.failed = '1';
-                                                                e.target.src = './images/schoolimage.png';
+                                                            const step = parseInt(e.target.dataset.fallbackStep || '0', 10);
+                                                            if (step === 0) {
+                                                                e.target.dataset.fallbackStep = '1';
+                                                                e.target.src = './images/directorimage02.jpeg';
+                                                            } else if (step === 1) {
+                                                                e.target.dataset.fallbackStep = '2';
+                                                                e.target.src = '/images/directorimage02.jpeg';
+                                                            } else if (step === 2) {
+                                                                e.target.dataset.fallbackStep = '3';
+                                                                e.target.src = 'images/schoolimage.png';
                                                             }
                                                         }}
                                                     />
@@ -2084,10 +2117,9 @@
             // Admin Security & Modal States
             const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
             const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
-            const [adminTab, setAdminTab] = useState('login'); // 'login' | 'forgot' | 'gmail' | 'reset' | 'add'
+            const [adminTab, setAdminTab] = useState('login'); // 'login' | 'forgot' | 'reset' | 'add'
             const [enteredPassword, setEnteredPassword] = useState('');
             const [enteredPhone, setEnteredPhone] = useState('');
-            const [enteredGmail, setEnteredGmail] = useState('');
             const [newPassword, setNewPassword] = useState('');
             const [adminMessage, setAdminMessage] = useState({ type: '', text: '' });
 
@@ -2167,17 +2199,6 @@
                 }
             };
 
-            const handleVerifyGmail = (e) => {
-                e.preventDefault();
-                const cleanGmail = enteredGmail.trim().toLowerCase();
-                if (cleanGmail === 'kumarbagoria@gmail.com') {
-                    setAdminTab('reset');
-                    setAdminMessage({ type: 'success', text: 'Gmail verified! Enter your new admin password.' });
-                } else {
-                    setAdminMessage({ type: 'error', text: 'Gmail address does not match the registered Admin Gmail account!' });
-                }
-            };
-
             const handleResetPassword = (e) => {
                 e.preventDefault();
                 if (!newPassword || newPassword.length < 3) {
@@ -2189,7 +2210,6 @@
                 setAdminTab('login');
                 setNewPassword('');
                 setEnteredPhone('');
-                setEnteredGmail('');
             };
 
             const handleAddPhoto = (e) => {
@@ -2440,9 +2460,8 @@
                             title={
                                 adminTab === 'login' ? 'Admin Notice Board Access' :
                                     adminTab === 'forgot' ? 'Admin Password Recovery (Phone)' :
-                                        adminTab === 'gmail' ? 'Admin Password Recovery (Gmail)' :
-                                            adminTab === 'reset' ? 'Reset Admin Password' :
-                                                'Add New Poster to Board'
+                                        adminTab === 'reset' ? 'Reset Admin Password' :
+                                            'Add New Poster to Board'
                             }
                             badge="ADMIN MANAGEMENT PORTAL"
                         >
@@ -2475,30 +2494,17 @@
                                         />
                                     </div>
                                     <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-                                        <div className="flex flex-col gap-1">
-                                            <button
-                                                type="button"
-                                                onClick={() => {
-                                                    setAdminTab('forgot');
-                                                    setAdminMessage({ type: '', text: '' });
-                                                }}
-                                                className="text-xs font-bold text-royal-600 hover:underline cursor-pointer flex items-center gap-1"
-                                            >
-                                                <i className="fa-solid fa-phone text-[10px]"></i>
-                                                <span>Reset via Registered Phone</span>
-                                            </button>
-                                            <button
-                                                type="button"
-                                                onClick={() => {
-                                                    setAdminTab('gmail');
-                                                    setAdminMessage({ type: '', text: '' });
-                                                }}
-                                                className="text-xs font-bold text-amber-700 hover:underline cursor-pointer flex items-center gap-1"
-                                            >
-                                                <i className="fa-solid fa-envelope text-[10px]"></i>
-                                                <span>Reset via Gmail (kumarbagoria@gmail.com)</span>
-                                            </button>
-                                        </div>
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                setAdminTab('forgot');
+                                                setAdminMessage({ type: '', text: '' });
+                                            }}
+                                            className="text-xs font-bold text-royal-600 hover:underline cursor-pointer flex items-center gap-1"
+                                        >
+                                            <i className="fa-solid fa-phone text-[10px]"></i>
+                                            <span>Reset via Registered Phone</span>
+                                        </button>
                                         <button
                                             type="submit"
                                             className="px-6 py-2.5 rounded-xl bg-royal-600 hover:bg-royal-700 text-white font-bold text-xs uppercase tracking-wider shadow-md transition-all cursor-pointer w-full sm:w-auto"
@@ -2553,50 +2559,6 @@
                                             className="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-md transition-all cursor-pointer"
                                         >
                                             Verify Phone
-                                        </button>
-                                    </div>
-                                </form>
-                            )}
-
-                            {/* 2B. FORGOT PASSWORD (GMAIL) TAB */}
-                            {adminTab === 'gmail' && (
-                                <form onSubmit={handleVerifyGmail} className="space-y-4">
-                                    <div className="p-3 bg-blue-50 rounded-xl border border-blue-200 text-xs text-blue-900 space-y-1">
-                                        <div className="font-bold flex items-center gap-1.5">
-                                            <i className="fa-solid fa-envelope text-blue-600"></i>
-                                            <span>Security Verification via Gmail</span>
-                                        </div>
-                                        <p>Enter the registered Admin Gmail ID (kumarbagoria@gmail.com) to authorize password reset.</p>
-                                    </div>
-                                    <div>
-                                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-                                            Admin Registered Gmail *
-                                        </label>
-                                        <input
-                                            type="email"
-                                            required
-                                            placeholder="e.g. kumarbagoria@gmail.com"
-                                            value={enteredGmail}
-                                            onChange={(e) => setEnteredGmail(e.target.value)}
-                                            className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-royal-600"
-                                        />
-                                    </div>
-                                    <div className="flex items-center justify-between pt-2">
-                                        <button
-                                            type="button"
-                                            onClick={() => {
-                                                setAdminTab('login');
-                                                setAdminMessage({ type: '', text: '' });
-                                            }}
-                                            className="text-xs font-bold text-slate-500 hover:text-slate-800"
-                                        >
-                                            Back to Login
-                                        </button>
-                                        <button
-                                            type="submit"
-                                            className="px-6 py-2.5 rounded-xl bg-royal-600 hover:bg-royal-500 text-white font-bold text-xs uppercase tracking-wider shadow-md transition-all cursor-pointer"
-                                        >
-                                            Verify Gmail
                                         </button>
                                     </div>
                                 </form>
@@ -2804,7 +2766,7 @@
             );
         };
 
-        // Dedicated Kids Crest Section (Nursery to 1st Standard) with School Structure & Interactive Toggles
+        // Dedicated Kiddies Crest Section (Nursery to 1st Standard) with School Structure & Interactive Toggles
         const KidsCrestSection = () => {
             const [activeTab, setActiveTab] = useState('nursery');
 
@@ -2882,7 +2844,7 @@
                             </div>
 
                             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif text-slate-900 tracking-tight leading-tight mb-3">
-                                Kids Crest Campus
+                                Kiddies Crest Campus
                             </h2>
 
                             <p className="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
@@ -3017,7 +2979,7 @@
                                             <span>Call: 7742181699</span>
                                         </a>
                                         <a
-                                            href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hello!%20I%20am%20interested%20in%20admissions%20for%20${encodeURIComponent(activeClass.name)}%20at%20Kids%20Crest%20Shri%20Swaroop%20School.`}
+                                            href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hello!%20I%20am%20interested%20in%20admissions%20for%20${encodeURIComponent(activeClass.name)}%20at%20Kiddies%20Crest%20Shri%20Swaroop%20School.`}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="shrink-0 inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-md hover:scale-105 transition-all"
@@ -3454,6 +3416,7 @@
                     {/* Mobile Bottom Dock for instant Parent Navigation */}
                     <MobileBottomParentDock
                         onOpenParentHub={() => setIsParentHubOpen(true)}
+                        isParentHubOpen={isParentHubOpen}
                     />
 
                     {/* Parent Quick Links Hub Bottom Sheet */}
