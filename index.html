@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html class="scroll-smooth" lang="en">
 
@@ -1092,19 +1092,10 @@
 
                     <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left flex flex-col lg:flex-row items-center justify-between gap-8 sm:gap-12">
                         <div className="max-w-3xl space-y-4 sm:space-y-6">
-                            {/* Institution Badge */}
-                            <div className="inline-flex items-center gap-2 sm:gap-3 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-xl">
-                                <div className="p-1 rounded-full bg-amber-400 text-navy-950">
-                                    <Icon name="award" size={12} />
-                                </div>
-                                <span className="text-[11px] sm:text-sm font-semibold tracking-wider uppercase text-amber-300">
-                                    Shri Swaroop Public Senior Secondary School
-                                </span>
-                            </div>
 
                             {/* Main Headline with clean aesthetic typography */}
-                            <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold font-serif text-white tracking-tight leading-[1.12]">
-                                Where <span className="text-amber-300">Discipline</span> Meets <span className="text-amber-100">Dreams</span>.
+                            <h1 className="text-2xl sm:text-4xl md:text-6xl font-bold font-serif text-white tracking-tight leading-[1.12]">
+                                Where <span className="text-blue-400">Discipline</span> Meets <span className="text-amber-100">Dreams</span>.
                             </h1>
 
                             <p className="text-sm sm:text-xl text-slate-200 font-light max-w-2xl leading-relaxed">
@@ -1112,10 +1103,10 @@
                             </p>
 
                             {/* Action CTA Buttons */}
-                            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2 sm:pt-4">
+                            <div className="flex flex-col flex-wrap sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2 sm:pt-4">
                                 <a
                                     href="#admissions"
-                                    className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl text-sm sm:text-base font-bold text-slate-950 bg-amber-400 hover:bg-amber-300 shadow-xl shadow-black/30 hover:-translate-y-0.5 transition-all"
+                                    className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl text-sm sm:text-base font-bold text-black bg-white hover:bg-slate-100 shadow-xl shadow-black/30 hover:-translate-y-0.5 transition-all"
                                 >
                                     <Icon name="graduation-cap" size={18} />
                                     <span>Admissions / Enquire Now</span>
@@ -1128,6 +1119,24 @@
                                     <span>Explore Our School</span>
                                     <Icon name="arrow-down" size={16} />
                                 </a>
+
+                                <div className="flex items-center shadow-lg hover:shadow-xl transition-shadow rounded-full">
+                                    <a
+                                        href="#sainik-meta"
+                                        className="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-l-full text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-rose-500 via-fuchsia-500 to-indigo-500 hover:from-rose-400 hover:via-fuchsia-400 hover:to-indigo-400 border border-white/15 border-r-0 transition-all animate-gradient-x"
+                                    >
+                                        <span>Meta Sainik</span>
+                                        <Icon name="shield" size={14} />
+                                    </a>
+
+                                    <a
+                                        href="#kids-crest"
+                                        className="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-r-full text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-400 hover:via-teal-400 hover:to-cyan-400 border border-white/15 border-l-0 transition-all animate-gradient-x"
+                                    >
+                                        <span>Kids Crest</span>
+                                        <Icon name="star" size={14} />
+                                    </a>
+                                </div>
                             </div>
 
                             {/* Clean Aesthetic Simple Indicators */}
@@ -1273,32 +1282,7 @@
                                     </p>
                                 </div>
 
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                                    {[
-                                        { title: "Innovative Learning", desc: "Interactive smart classrooms with audio-visual depth." },
-                                        { title: "Character Building", desc: "Instilling integrity, empathy, and social responsibility." },
-                                        { title: "Global Perspective", desc: "Fostering critical thinking for an evolving world." },
-                                        { title: "Inclusive Education", desc: "Dedicated guidance for every child’s individual pace." }
-                                    ].map((pillar, i) => (
-                                        <div key={i} className="p-3.5 sm:p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-royal-200 transition-colors">
-                                            <div className="flex items-center gap-2 text-royal-600 font-bold text-xs sm:text-sm mb-1">
-                                                <Icon name="check-circle" size={16} />
-                                                <span>{pillar.title}</span>
-                                            </div>
-                                            <p className="text-xs text-slate-500 leading-relaxed">{pillar.desc}</p>
-                                        </div>
-                                    ))}
-                                </div>
 
-                                <div>
-                                    <button
-                                        onClick={onOpenPhilosophyModal}
-                                        className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-royal-600 hover:text-royal-800 transition-colors group"
-                                    >
-                                        <span>Read Our Full Educational Philosophy</span>
-                                        <Icon name="arrow-right" size={15} className="group-hover:translate-x-1 transition-transform" />
-                                    </button>
-                                </div>
                             </div>
                         </div>
 
@@ -1917,10 +1901,18 @@
                                             <div className="w-full max-w-[310px] sm:max-w-[340px] bg-slate-900 border-2 border-slate-800 rounded-2xl p-3 shadow-2xl flex flex-col items-center group">
                                                 <div className="w-full bg-slate-950 rounded-xl overflow-hidden flex items-center justify-center p-1 border border-slate-800">
                                                     <img
-                                                        src="/images/directorimage02.jpeg"
+                                                        src="images/directorimage02.jpeg"
                                                         alt="Mr. Manoj Kumar Bagoria - Director & Founder"
                                                         className="w-full h-auto max-h-[360px] sm:max-h-[420px] object-contain rounded-lg shadow-lg filter brightness-105 contrast-105 transition-transform duration-500 group-hover:scale-[1.02]"
-                                                        onError={(e) => { e.target.src = '/images/schoolimage.png'; }}
+                                                        onError={(e) => {
+                                                            const retried = e.target.getAttribute('data-retried');
+                                                            if (!retried) {
+                                                                e.target.setAttribute('data-retried', '1');
+                                                                e.target.src = '/images/directorimage02.jpeg';
+                                                            } else {
+                                                                e.target.src = 'images/schoolimage.png';
+                                                            }
+                                                        }}
                                                     />
                                                 </div>
 
@@ -3445,9 +3437,9 @@
                         <HeroSection />
                         <MovingTicker />
                         <StorySection onOpenPhilosophyModal={() => setActiveModal({ type: 'philosophy' })} />
-                        <WhyChooseSection onSelectFeature={(item) => setActiveModal({ type: 'feature', data: item })} />
-                        <AcademicsSection />
                         <GallerySection />
+                        <AcademicsSection />
+                        <WhyChooseSection onSelectFeature={(item) => setActiveModal({ type: 'feature', data: item })} />
                         <SportsSection />
                         <SainikWingSection />
                         <AnnouncementsSection onSelectAnnouncement={(item) => setActiveModal({ type: 'announcement', data: item })} />
